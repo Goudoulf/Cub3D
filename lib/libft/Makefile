@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: cassie <cassie@student.42lyon.fr>          +#+  +:+       +#+         #
+#    By: dvo <dvo@student.42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/10 14:23:58 by cassie            #+#    #+#              #
-#    Updated: 2024/03/03 09:45:57 by cassie           ###   ########.fr        #
+#    Updated: 2024/05/21 14:45:29 by dvo              ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ SRCS_FILE = ./ft_isalpha.c ./ft_isdigit.c ./ft_isalnum.c ./ft_isascii.c \
 		./ft_atoi.c ./ft_calloc.c ./ft_strdup.c ./ft_substr.c \
 		./ft_strjoin.c ./ft_strtrim.c ./ft_split.c ./ft_itoa.c \
 		./ft_strmapi.c ./ft_striteri.c ./ft_putchar_fd.c ./ft_putstr_fd.c \
-		./ft_putendl_fd.c ./ft_putnbr_fd.c
+		./ft_putendl_fd.c ./ft_putnbr_fd.c ./get_next_line.c ./get_next_line_utils.c
 
 INC = includes
 DIR_SRC := src/
@@ -38,7 +38,7 @@ all:			$(NAME)
 $(NAME): $(OBJS)
 	ar rcs $(NAME) $(OBJS)
 
-${DIR_OBJ}%.o : %.c ${INC}/libft.h Makefile
+${DIR_OBJ}%.o : %.c ${INC}/libft.h ${INC}/get_next_line.h Makefile
 	mkdir -p $(shell dirname $@)
 	${CC} ${CFLAGS} -c $< -o $@
 

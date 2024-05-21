@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cassie <cassie@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: dvo <dvo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 12:41:08 by cassie            #+#    #+#             */
-/*   Updated: 2024/05/21 13:24:09 by cassie           ###   ########.fr       */
+/*   Updated: 2024/05/21 13:50:03 by dvo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	init_all(t_cube *cube)
 	cube->mlx = mlx_init();
 	if (cube->mlx == NULL)
 		malloc_error();
-	cube->win = mlx_new_window(cube->mlx, 800, 600, "fract-ol");
+	cube->win = mlx_new_window(cube->mlx, 800, 600, "Cub3D");
 	if (cube->win == NULL)
 	{
 		mlx_destroy_display(cube->mlx);

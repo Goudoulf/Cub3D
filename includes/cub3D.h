@@ -6,7 +6,7 @@
 /*   By: dvo <dvo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 10:15:38 by cassie            #+#    #+#             */
-/*   Updated: 2024/05/21 13:36:47 by dvo              ###   ########.fr       */
+/*   Updated: 2024/05/21 14:48:49 by dvo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define CUB3D_H
 
 # include "../lib/libft/includes/libft.h"
-# include "../lib/gnl/get_next_line.h"
+# include "../lib/libft/includes/get_next_line.h"
 # include "../lib/ft_printf/includes/ft_printf.h"
 # include "../mlx_linux/mlx.h"
 # include "../mlx_linux/mlx_int.h"
@@ -22,17 +22,23 @@
 typedef struct s_data
 {
 	void	*img_ptr;
-	char	*buffer;
+	char    *buffer;
 	int		bpp;
 	int		line_len;
 	int		endian;
 }				t_data;
 
+typedef struct  s_map
+{
+    char **buffer;
+}               t_map;
+
 typedef struct  s_cube
 {
-	void *mlx;
-	void *win;
-	t_data img;
+	void    *mlx;
+	void    *win;
+	t_data  img;
+    t_map   *map;
 	unsigned int width;
 	unsigned int height;
 }		t_cube;
@@ -41,5 +47,7 @@ int	mouse_control(int button, int x, int y, t_cube *cube);
 int	key_control(int keycode, t_cube *cube);
 int	close_window(t_cube *cube);
 void	init_all(t_cube *cube);
+int	init_function(t_cube *cube, char *av);
+int	ft_read(t_cube *cube, char *av);
 
 #endif
