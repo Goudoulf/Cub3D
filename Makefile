@@ -12,7 +12,7 @@
 
 NAME = cub3D
 
-SRCS_FILE = main.c init.c event.c init_parcing.c ft_read_file.c
+SRCS_FILE = main.c init.c event.c init_parcing.c ft_read_file.c ft_init_final_map.c test.c
 
 INC = includes
 
