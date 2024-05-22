@@ -6,7 +6,7 @@
 /*   By: dvo <dvo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 10:15:38 by cassie            #+#    #+#             */
-/*   Updated: 2024/05/22 14:24:54 by dvo              ###   ########.fr       */
+/*   Updated: 2024/05/22 15:07:05 by dvo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include "../lib/ft_printf/includes/ft_printf.h"
 # include "../mlx_linux/mlx.h"
 # include "../mlx_linux/mlx_int.h"
+#include <math.h>
 
 typedef struct s_data
 {
@@ -64,10 +65,10 @@ typedef struct  s_update_pos
 {
 	unsigned int    init_player_y;
 	unsigned int    init_player_x;
-	float           vectorX;
-	float           vectorY;
-	float           planeX;
-	float           planeY;
+	double           vectorX;
+	double           vectorY;
+	double           planeX;
+	double           planeY;
 }               t_update_pos;
 
 typedef struct  s_cube
@@ -91,5 +92,6 @@ int resize_image(t_cube *cube, t_data_img *old_bg, int new_width, int new_height
 int	attribute_init_map(char **str, int i, int max, t_map *map);
 int	check_parcing(char **str, t_map *map);
 void    ft_free_strarr(char **str);
+void ft_test(t_cube *cube);
 
 #endif

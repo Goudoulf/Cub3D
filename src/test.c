@@ -6,38 +6,11 @@
 /*   By: dvo <dvo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 18:42:56 by dvo               #+#    #+#             */
-/*   Updated: 2024/05/22 13:31:50 by dvo              ###   ########.fr       */
+/*   Updated: 2024/05/22 15:28:38 by dvo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
-
-
-// void    ft_test(t_cube *cube)
-// {
-//     t_data_img *wall;
-
-//     wall = ft_calloc(1, sizeof(t_data_img));
-//     wall->ptr = mlx_xpm_file_to_image(cube->mlx, \
-// 	"texture_image/wall_side.xpm", &(wall->width), &(wall->height));
-// 	if (wall == (void *)0)
-// 		return ;
-//     resize_image(cube, wall, 400, 300);
-// 	mlx_put_image_to_window(cube->mlx, cube->win, wall->ptr, 200, 300);
-// }
-
-#include <cmath>
-#include <string>
-#include <vector>
-#include <iostream>
-
-#include "quickcg.h"
-using namespace QuickCG;
-
-/*
-g++ *.cpp -lSDL -O3 -W -Wall -ansi -pedantic
-g++ *.cpp -lSDL
-*/
 
 //place the example code below here:
 
@@ -45,6 +18,15 @@ g++ *.cpp -lSDL
 #define screenHeight 480
 #define mapWidth 24
 #define mapHeight 24
+
+typedef struct {
+    unsigned char r;
+    unsigned char g;
+    unsigned char b;
+} ColorRGB;
+
+#define RGB_Red    (ColorRGB){255, 0, 0}
+#define RGB_Yellow (ColorRGB){255, 255, 0}
 
 int worldMap[mapWidth][mapHeight]=
 {
@@ -81,15 +63,25 @@ posY = cube->map->player->init_player_y;
 dirX, dirY = vectorX, vectorY;
 */
 
+void draw_vertical_line(void *mlx, void *win, int x, int start, int end, ColorRGB color) {
+    int y;
+
+    for (y = start; y <= end; y++) {
+        mlx_pixel_put(mlx, win, x, y, (color.r << 16) | (color.g << 8) | color.b);
+    }
+}
+
 void ft_test(t_cube *cube)
 {
 	cube->pos.vectorX = -1;
 	cube->pos.vectorY = 0;
-	cube->planeX = 0;
-	cube->planeY = 0.66;
+	cube->pos.planeX = 0;
+	cube->pos.planeY = 0.66;
+	int w = 600;
+	int h = 800;
 
-	size_t	time = 0; //time of current frame
-	size_t	oldTime = 0; //time of previous frame
+	// size_t	time = 0; //time of current frame
+	// size_t	oldTime = 0; //time of previous frame
 
   while(1)
   {
@@ -97,29 +89,18 @@ void ft_test(t_cube *cube)
     {
       //calculate ray position and direction
       double cameraX = 2 * x / (double)w - 1; //x-coordinate in camera space
-      double rayDirX = dirX + planeX * cameraX;
-      double rayDirY = dirY + planeY * cameraX;
+      double rayDirX = cube->pos.vectorX + cube->pos.planeX * cameraX;
+      double rayDirY = cube->pos.vectorY + cube->pos.planeY * cameraX;
       //which box of the map we're in
-      int mapX = int(posX);
-      int mapY = int(posY);
+      int mapX = cube->map->player->init_player_x;
+      int mapY = cube->map->player->init_player_y;
 
       //length of ray from current position to next x or y-side
       double sideDistX;
       double sideDistY;
 
-      //length of ray from one x or y-side to next x or y-side
-      //these are derived as:
-      //deltaDistX = sqrt(1 + (rayDirY * rayDirY) / (rayDirX * rayDirX))
-      //deltaDistY = sqrt(1 + (rayDirX * rayDirX) / (rayDirY * rayDirY))
-      //which can be simplified to abs(|rayDir| / rayDirX) and abs(|rayDir| / rayDirY)
-      //where |rayDir| is the length of the vector (rayDirX, rayDirY). Its length,
-      //unlike (dirX, dirY) is not 1, however this does not matter, only the
-      //ratio between deltaDistX and deltaDistY matters, due to the way the DDA
-      //stepping further below works. So the values can be computed as below.
-      // Division through zero is prevented, even though technically that's not
-      // needed in C++ with IEEE 754 floating point values.
-      double deltaDistX = (rayDirX == 0) ? 1e30 : std::abs(1 / rayDirX);
-      double deltaDistY = (rayDirY == 0) ? 1e30 : std::abs(1 / rayDirY);
+		double deltaDistX = (rayDirX == 0) ? 1e30 : fabs(1 / rayDirX);
+		double deltaDistY = (rayDirY == 0) ? 1e30 : fabs(1 / rayDirY);
 
       double perpWallDist;
 
@@ -133,22 +114,22 @@ void ft_test(t_cube *cube)
       if(rayDirX < 0)
       {
         stepX = -1;
-        sideDistX = (posX - mapX) * deltaDistX;
+        sideDistX = (cube->map->player->init_player_x - mapX) * deltaDistX;
       }
       else
       {
         stepX = 1;
-        sideDistX = (mapX + 1.0 - posX) * deltaDistX;
+        sideDistX = (mapX + 1.0 - cube->map->player->init_player_x) * deltaDistX;
       }
       if(rayDirY < 0)
       {
         stepY = -1;
-        sideDistY = (posY - mapY) * deltaDistY;
+        sideDistY = (cube->map->player->init_player_y - mapY) * deltaDistY;
       }
       else
       {
         stepY = 1;
-        sideDistY = (mapY + 1.0 - posY) * deltaDistY;
+        sideDistY = (mapY + 1.0 - cube->map->player->init_player_y) * deltaDistY;
       }
       //perform DDA
       while(hit == 0)
@@ -167,7 +148,7 @@ void ft_test(t_cube *cube)
           side = 1;
         }
         //Check if ray has hit a wall
-        if(worldMap[mapX][mapY] > 0) hit = 1;
+        if(cube->map->map[mapX][mapY] > 0) hit = 1;
       }
       //Calculate distance projected on camera direction. This is the shortest distance from the point where the wall is
       //hit to the camera plane. Euclidean to center camera point would give fisheye effect!
@@ -187,68 +168,65 @@ void ft_test(t_cube *cube)
       int drawEnd = lineHeight / 2 + h / 2;
       if(drawEnd >= h) drawEnd = h - 1;
 
-      //choose wall color
-      ColorRGB color;
-      switch(worldMap[mapX][mapY])
-      {
-        case 1:  color = RGB_Red;    break; //red
-        case 2:  color = RGB_Green;  break; //green
-        case 3:  color = RGB_Blue;   break; //blue
-        case 4:  color = RGB_White;  break; //white
-        default: color = RGB_Yellow; break; //yellow
-      }
+    	ColorRGB color;
+		switch(cube->map->map[mapX][mapY])
+		{
+    		case 1:  color = RGB_Red;    break; // red
+    		default: color = RGB_Yellow; break; // yellow
+		}
 
       //give x and y sides different brightness
-      if(side == 1) {color = color / 2;}
+    //   if(side == 1) {color = color / 2;}
 
       //draw the pixels of the stripe as a vertical line
-      verLine(x, drawStart, drawEnd, color);
+	draw_vertical_line(cube->mlx, cube->win, x, drawStart, drawEnd, color);
+      //verLine(x, drawStart, drawEnd, color);
     }
-    //timing for input and FPS counter
-    oldTime = time;
-    time = getTicks();
-    double frameTime = (time - oldTime) / 1000.0; //frameTime is the time this frame has taken, in seconds
-    print(1.0 / frameTime); //FPS counter
-    redraw();
-    cls();
+    // //timing for input and FPS counter
+    // oldTime = time;
+    // time = getTicks();
+    // double frameTime = (time - oldTime) / 1000.0; //frameTime is the time this frame has taken, in seconds
+    // print(1.0 / frameTime); //FPS counter
+    // redraw();
+    // cls();
 
-    //speed modifiers
-    double moveSpeed = frameTime * 5.0; //the constant value is in squares/second
-    double rotSpeed = frameTime * 3.0; //the constant value is in radians/second
-    readKeys();
-    //move forward if no wall in front of you
-    if(keyDown(SDLK_UP))
-    {
-      if(worldMap[int(posX + dirX * moveSpeed)][int(posY)] == false) posX += dirX * moveSpeed;
-      if(worldMap[int(posX)][int(posY + dirY * moveSpeed)] == false) posY += dirY * moveSpeed;
-    }
-    //move backwards if no wall behind you
-    if(keyDown(SDLK_DOWN))
-    {
-      if(worldMap[int(posX - dirX * moveSpeed)][int(posY)] == false) posX -= dirX * moveSpeed;
-      if(worldMap[int(posX)][int(posY - dirY * moveSpeed)] == false) posY -= dirY * moveSpeed;
-    }
-    //rotate to the right
-    if(keyDown(SDLK_RIGHT))
-    {
-      //both camera direction and camera plane must be rotated
-      double oldDirX = dirX;
-      dirX = dirX * cos(-rotSpeed) - dirY * sin(-rotSpeed);
-      dirY = oldDirX * sin(-rotSpeed) + dirY * cos(-rotSpeed);
-      double oldPlaneX = planeX;
-      planeX = planeX * cos(-rotSpeed) - planeY * sin(-rotSpeed);
-      planeY = oldPlaneX * sin(-rotSpeed) + planeY * cos(-rotSpeed);
-    }
-    //rotate to the left
-    if(keyDown(SDLK_LEFT))
-    {
-      //both camera direction and camera plane must be rotated
-      double oldDirX = dirX;
-      dirX = dirX * cos(rotSpeed) - dirY * sin(rotSpeed);
-      dirY = oldDirX * sin(rotSpeed) + dirY * cos(rotSpeed);
-      double oldPlaneX = planeX;
-      planeX = planeX * cos(rotSpeed) - planeY * sin(rotSpeed);
-      planeY = oldPlaneX * sin(rotSpeed) + planeY * cos(rotSpeed);
-    }
+    // //speed modifiers
+    // double moveSpeed = frameTime * 5.0; //the constant value is in squares/second
+    // double rotSpeed = frameTime * 3.0; //the constant value is in radians/second
+    // readKeys();
+    // //move forward if no wall in front of you
+    // if(keyDown(SDLK_UP))
+    // {
+    //   if(cube->map->map[int(posX + dirX * moveSpeed)][int(posY)] == false) posX += dirX * moveSpeed;
+    //   if(cube->map->map[int(posX)][int(posY + dirY * moveSpeed)] == false) posY += dirY * moveSpeed;
+    // }
+    // //move backwards if no wall behind you
+    // if(keyDown(SDLK_DOWN))
+    // {
+    //   if(cube->map->map[int(posX - dirX * moveSpeed)][int(posY)] == false) posX -= dirX * moveSpeed;
+    //   if(cube->map->map[int(posX)][int(posY - dirY * moveSpeed)] == false) posY -= dirY * moveSpeed;
+    // }
+    // //rotate to the right
+    // if(keyDown(SDLK_RIGHT))
+    // {
+    //   //both camera direction and camera plane must be rotated
+    //   double oldDirX = dirX;
+    //   dirX = dirX * cos(-rotSpeed) - dirY * sin(-rotSpeed);
+    //   dirY = oldDirX * sin(-rotSpeed) + dirY * cos(-rotSpeed);
+    //   double oldPlaneX = planeX;
+    //   planeX = planeX * cos(-rotSpeed) - planeY * sin(-rotSpeed);
+    //   planeY = oldPlaneX * sin(-rotSpeed) + planeY * cos(-rotSpeed);
+    // }
+    // //rotate to the left
+    // if(keyDown(SDLK_LEFT))
+    // {
+    //   //both camera direction and camera plane must be rotated
+    //   double oldDirX = dirX;
+    //   dirX = dirX * cos(rotSpeed) - dirY * sin(rotSpeed);
+    //   dirY = oldDirX * sin(rotSpeed) + dirY * cos(rotSpeed);
+    //   double oldPlaneX = planeX;
+    //   planeX = planeX * cos(rotSpeed) - planeY * sin(rotSpeed);
+    //   planeY = oldPlaneX * sin(rotSpeed) + planeY * cos(rotSpeed);
+    // }
   }
 }
