@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dvo <dvo@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: cassie <cassie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 12:41:08 by cassie            #+#    #+#             */
-/*   Updated: 2024/05/21 13:50:03 by dvo              ###   ########.fr       */
+/*   Updated: 2024/05/22 15:54:32 by cassie           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,10 @@ static void	data_init(t_cube *cube)
 {
 	cube->width = 800;
 	cube->height = 600;
+	cube->posX = 22, cube->posY = 12;  //x and y start position
+	cube->dirX = -1, cube->dirY = 0; //initial direction vector
+	cube->planeX = 0;
+	cube->planeY = 0.66; //the 2d raycaster version of camera plane
 }
 void	init_all(t_cube *cube)
 {

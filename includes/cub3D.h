@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dvo <dvo@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: cassie <cassie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 10:15:38 by cassie            #+#    #+#             */
-/*   Updated: 2024/05/22 14:24:54 by dvo              ###   ########.fr       */
+/*   Updated: 2024/05/22 15:54:15 by cassie           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,12 @@ typedef struct  s_cube
 	t_map   *map;
 	t_data  img;
 	t_update_pos    pos;
+	double posX;
+	double posY;
+	double dirX;
+	double dirY;
+	double planeX;
+	double planeY; //the 2d raycaster version of camera plane
 	unsigned int width;
 	unsigned int height;
 }		t_cube;
@@ -91,5 +97,6 @@ int resize_image(t_cube *cube, t_data_img *old_bg, int new_width, int new_height
 int	attribute_init_map(char **str, int i, int max, t_map *map);
 int	check_parcing(char **str, t_map *map);
 void    ft_free_strarr(char **str);
+int raycast(t_cube *cube);
 
 #endif
