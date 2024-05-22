@@ -6,7 +6,7 @@
 /*   By: dvo <dvo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 13:29:37 by dvo               #+#    #+#             */
-/*   Updated: 2024/05/22 14:27:30 by dvo              ###   ########.fr       */
+/*   Updated: 2024/05/22 18:02:24 by dvo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,9 @@ int	create_new_map(char **str, int i, t_map *map)
 	max--;
 	while (check_start_map(str[max]) == 1)
 		max --;
+	printf("%i\n", max - i + 1);
 	map->map = ft_calloc(max - i + 2, sizeof(char *));
+	map->final_map = ft_calloc(max - i + 1, sizeof(int *));
 	if (attribute_init_map(str, i, max, map) == -1)
 	{
 		ft_free_strarr(map->map);
@@ -138,6 +140,8 @@ int	init_function(t_cube *cube, char *av)
 	if (ft_read(cube, av) == -1)
 		return (-1);
 	if (attribute_text_wall(cube->map) == -1)
+		return (-1);
+	if (convert_tab_char_to_int(cube) == -1)
 		return (-1);
 	return (0);
 }

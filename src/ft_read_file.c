@@ -6,11 +6,27 @@
 /*   By: dvo <dvo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 19:03:05 by dvo               #+#    #+#             */
-/*   Updated: 2024/05/22 13:39:24 by dvo              ###   ########.fr       */
+/*   Updated: 2024/05/22 16:36:16 by dvo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
+
+static void	ft_transform_nl_to_end(char *str)
+{
+	size_t i;
+
+	i = 0;
+	while (str[i] != '\0')
+	{
+		if (str[i] == '\n')
+		{
+			str[i] = '\0';
+			break ;
+		}
+		i++;
+	}
+}
 
 int	ft_read(t_cube *cube, char *av)
 {
@@ -29,6 +45,7 @@ int	ft_read(t_cube *cube, char *av)
 		cube->map->buffer[i] = get_next_line(fd);
 		if (!cube->map->buffer[i] || i == 2000)
 			break ;
+		ft_transform_nl_to_end(cube->map->buffer[i]);
 		i++;
 	}
 	if (i == 2000)
