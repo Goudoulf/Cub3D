@@ -6,11 +6,12 @@
 /*   By: cassie <cassie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 12:54:00 by cassie            #+#    #+#             */
-/*   Updated: 2024/05/21 13:31:42 by cassie           ###   ########.fr       */
+/*   Updated: 2024/05/22 15:47:42 by cassie           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
+#include <math.h>
 
 int	close_window(t_cube *cube)
 {
@@ -25,6 +26,35 @@ int	key_control(int keycode, t_cube *cube)
 {
 	if (keycode == XK_Escape)
 		close_window(cube);
+	if (keycode == XK_w)
+	{
+		cube->posX += cube->dirX * 1.02;
+		cube->posY += cube->dirY * 1.02;
+	}
+	if (keycode == XK_s)
+	{
+		cube->posX -= cube->dirX * 1.02;
+		cube->posY -= cube->dirY * 1.02;
+	}
+	if (keycode == XK_d)
+	{
+		double oldDirX = cube->dirX;
+		cube->dirX = cube->dirX * cos(-0.02) - cube->dirY * sin(-0.02);
+		cube->dirY = oldDirX * sin(-0.02) + cube->dirY * cos(-0.02);
+		double oldPlaneX = cube->planeX;
+		cube->planeX = cube->planeX * cos(-0.02) - cube->planeY * sin(-0.02);
+		cube->planeY = oldPlaneX * sin(-0.02) + cube->planeY * cos(-0.02);
+	}
+	if (keycode == XK_a)
+	{
+		double oldDirX = cube->dirX;
+		cube->dirX = cube->dirX * cos(0.02) - cube->dirY * sin(0.02);
+		cube->dirY = oldDirX * sin(0.02) + cube->dirY * cos(0.02);
+		double oldPlaneX = cube->planeX;
+		cube->planeX = cube->planeX * cos(0.02) - cube->planeY * sin(0.02);
+		cube->planeY = oldPlaneX * sin(0.02) + cube->planeY * cos(0.02);
+	}
+	raycast(cube);
 	return (0);
 }
 
