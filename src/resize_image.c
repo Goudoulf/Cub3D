@@ -6,13 +6,13 @@
 /*   By: dvo <dvo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/30 19:31:40 by dvo               #+#    #+#             */
-/*   Updated: 2024/05/21 19:04:25 by dvo              ###   ########.fr       */
+/*   Updated: 2024/05/22 10:26:35 by dvo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
-static void	nxt_ft_size(t_img *n_bg, t_img *o_bg)
+static void	nxt_ft_size(t_data_img *n_bg, t_data_img *o_bg)
 {
 	int	y;
 	int	x;
@@ -41,22 +41,22 @@ static void	nxt_ft_size(t_img *n_bg, t_img *o_bg)
 	}
 }
 
-int	resize_image(t_cube *cube, t_img *old_bg, int new_width, int new_height)
+int	resize_image(t_cube *cube, t_data_img *old_bg, int new_width, int new_height)
 {
-	t_img	*new_bg;
+	t_data_img	*new_bg;
 	void	*new_img;
 
-new_bg->data
-	new_bg = malloc(sizeof(t_img));
+
+	new_bg = malloc(sizeof(t_data_img));
 	new_bg->width = new_width;
 	new_bg->height = new_height;
 	old_bg->data = mlx_get_data_addr(old_bg->ptr, &(old_bg->bpp), \
-	&(old_bg->size_line), &(old_bg->endian));
-	new_img = mlx_new_image(base->mlx, new_width, new_height);
+	&(old_bg->lline), &(old_bg->endian));
+	new_img = mlx_new_image(cube->mlx, new_width, new_height);
 	new_bg->data = mlx_get_data_addr(new_img, &(new_bg->bpp), \
 	&(new_bg->lline), &(new_bg->endian));
 	nxt_ft_size(new_bg, old_bg);
-	mlx_destroy_image(base->mlx, old_bg->ptr);
+	mlx_destroy_image(cube->mlx, old_bg->ptr);
 	old_bg->ptr = new_img;
 	old_bg->width = new_width;
 	old_bg->height = new_height;

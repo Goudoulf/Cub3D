@@ -6,106 +6,57 @@
 /*   By: dvo <dvo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 16:43:23 by dvo               #+#    #+#             */
-/*   Updated: 2024/05/21 17:05:21 by dvo              ###   ########.fr       */
+/*   Updated: 2024/05/22 14:30:08 by dvo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
-int	check_start_map(char *str);
+void create_final_map(t_map *map);
 
-int	create_new_map(char **str, int i, t_map *map)
+int	attribute_init_map(char **str, int i, int max, t_map *map)
 {
-	int max;
-	
-	max = i;
-	while (str[max])
-		max++;
-	max--;
-	while (check_start_map(str[max]) == 1)
-		max --;
-	map->final_map = ft_calloc(max - i + 1, sizeof(char *));
-	// attribute_final_map();
-    return (0);
-}
+	int index_f;
 
-int	check_start_map(char *str)
-{
-	int	i;
-
-	i = 0;
-	while (str[i] == ' ')
+	map->player = ft_calloc(1, sizeof(t_position_value));
+	index_f = 0;
+	while (i <= max)
+	{
+		map->map[index_f] = ft_strdup(str[i]);
 		i++;
-	if (str[i] == '\0' || str[i] == 'N' || str[i] == 'E' || \
-	str[i] == 'S' || str[i] == 'W')
-		return (1);
+		index_f++;
+	}
+	if (check_parcing(map->map, map) == -1)
+	{
+		free(map->player);
+		return (-1);
+	}
+	create_final_map(map);
 	return (0);
 }
-int	ft_texture(int direc, char *str, t_map *map)
+
+void create_final_map(t_map *map)
 {
-	int	i;
+	int	x;
+	int	y;
 
-	i = 0;
-	while (str[i] != ' ')
-		i++;
-	while (str[i] == ' ')
-		i++;
-	if (direc == 1)
-	{
-		if (map->north)
-			return (-1);
-		map->north = ft_strdup(str + i);
-		if (!map->north)
-			return (-1);
-	}
-	if (direc == 2)
-	{
-		if (map->south)
-			return (-1);
-		map->south = ft_strdup(str + i);
-		if (!map->south)
-			return (-1);
-	}
-	if (direc == 3)
-	{
-		if (map->west)
-			return (-1);
-		map->west = ft_strdup(str + i);
-		if (!map->west)
-			return (-1);
-	}
-	if (direc == 4)
-	{
-		if (map->east)
-			return (-1);
-		map->east = ft_strdup(str + i);
-		if (!map->east)
-			return (-1);
-	}
-    return (0);
-}
+	x = 0;
+	y = 0;
 
-int	attribute_text_wall(t_map *map)
-{
-	int	i;
-
-	i = 0;
-	while (check_start_map(map->buffer[i]) == 1)
+	while (map->map[y])
 	{
-		if (ft_strncmp(map->buffer[i], "NO ", 3) == 0)
-			ft_texture(1, map->buffer[i], map);
-		if (ft_strncmp(map->buffer[i], "SO ", 3) == 0)
-			ft_texture(2, map->buffer[i], map);
-		if (ft_strncmp(map->buffer[i], "WE ", 3) == 0)
-			ft_texture(3, map->buffer[i], map);
-		if (ft_strncmp(map->buffer[i], "EA ", 3) == 0)
-			ft_texture(4, map->buffer[i], map);
-        if (ft_strncmp(map->buffer[i], "F ", 2) == 0)
-			ft_texture(5, map->buffer[i], map);
-        if (ft_strncmp(map->buffer[i], "C ", 2) == 0)
-			ft_texture(6, map->buffer[i], map);
-		i++;
+		while (map->map[y][x] && map->map[y][x] != '\n')
+		{
+			if (map->map[y][x] == 'N' || map->map[y][x] == 'S' || \
+			map->map[y][x] == 'W' || map->map[y][x] == 'E')
+			{
+				map->player->init_player_x = x;
+				map->player->init_player_y = y;
+				map->player->init_camera = map->map[y][x];
+			}
+			x++;
+		}
+		x = 0;
+		y++;
 	}
-	create_new_map(map->buffer, i, map);
-    return (0);
 }
