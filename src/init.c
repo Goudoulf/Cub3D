@@ -6,7 +6,7 @@
 /*   By: cassie <cassie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 12:41:08 by cassie            #+#    #+#             */
-/*   Updated: 2024/05/22 18:43:25 by cassie           ###   ########.fr       */
+/*   Updated: 2024/05/23 13:10:06 by cassie           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,24 @@ static void	data_init(t_cube *cube)
 	cube->dirX = -1, cube->dirY = 0; //initial direction vector
 	cube->planeX = 0;
 	cube->planeY = 0.66; //the 2d raycaster version of camera plane
+	cube->ray.hit = 0;
+	cube->ray.mapX = 0;
+	cube->ray.mapY = 0;
+	cube->ray.side = 0;
+	cube->ray.color = 0;
+	cube->ray.stepX = 0;
+	cube->ray.stepY = 0;
+	cube->ray.cameraX = 0;
+	cube->ray.drawEnd = 0;
+	cube->ray.rayDirX = 0;
+	cube->ray.rayDirY = 0;
+	cube->ray.drawStart = 0;
+	cube->ray.sideDistX = 0;
+	cube->ray.sideDistY = 0;
+	cube->ray.deltaDistX = 0;
+	cube->ray.deltaDistY = 0;
+	cube->ray.lineHeight = 0;
+	cube->ray.perpWallDist = 0;
 }
 void	init_all(t_cube *cube)
 {

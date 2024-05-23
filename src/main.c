@@ -6,7 +6,7 @@
 /*   By: cassie <cassie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 09:57:20 by cassie            #+#    #+#             */
-/*   Updated: 2024/05/23 11:25:56 by cassie           ###   ########.fr       */
+/*   Updated: 2024/05/23 13:28:10 by cassie           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	main(int argc, char **argv)
 		y++;
 	}
 	init_all(&cube);
-	raycast(&cube);
+	render(&cube);
 	mlx_loop(cube.mlx);
 	return (0);
 }

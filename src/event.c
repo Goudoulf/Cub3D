@@ -6,7 +6,7 @@
 /*   By: cassie <cassie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 12:54:00 by cassie            #+#    #+#             */
-/*   Updated: 2024/05/23 11:54:40 by cassie           ###   ########.fr       */
+/*   Updated: 2024/05/23 13:28:47 by cassie           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ int	key_control(int keycode, t_cube *cube)
 		cube->planeX = cube->planeX * cos(0.02) - cube->planeY * sin(0.02);
 		cube->planeY = oldPlaneX * sin(0.02) + cube->planeY * cos(0.02);
 	}
-	raycast(cube);
+	render(cube);
 	return (0);
 }
 

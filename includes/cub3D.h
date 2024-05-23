@@ -6,7 +6,7 @@
 /*   By: cassie <cassie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 10:15:38 by cassie            #+#    #+#             */
-/*   Updated: 2024/05/23 10:20:47 by cassie           ###   ########.fr       */
+/*   Updated: 2024/05/23 13:38:18 by cassie           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,17 +28,6 @@ typedef struct s_data
 	int		line_len;
 	int		endian;
 }				t_data;
-
-typedef struct s_data_img
-{
-	int				bpp;
-	int				lline;
-	int				endian;
-	char			*data;
-	int				width;
-	int				height;
-	void			*ptr;
-}					t_data_img;
 
 typedef struct s_position_value
 {
@@ -63,15 +52,29 @@ typedef struct  s_map
 	t_position_value    *player;
 }               t_map;
 
-typedef struct  s_update_pos
+typedef struct s_raycast
 {
-	unsigned int    init_player_y;
-	unsigned int    init_player_x;
-	double           vectorX;
-	double           vectorY;
-	double           planeX;
-	double           planeY;
-}               t_update_pos;
+
+      double cameraX; 
+      double rayDirX; 
+      double rayDirY;
+      int mapX;
+      int mapY;
+      double sideDistX;
+      double sideDistY;
+      double deltaDistX;
+      double deltaDistY;
+      double perpWallDist;
+      int stepX;
+      int stepY;
+      int hit;
+      int side;
+      int lineHeight;
+      int drawStart;
+      int drawEnd;
+      int color;
+
+} t_raycast;
 
 typedef struct  s_cube
 {
@@ -79,7 +82,7 @@ typedef struct  s_cube
 	void    *win;
 	t_map   *map;
 	t_data  img;
-	t_update_pos    pos;
+	t_raycast ray;
 	double posX;
 	double posY;
 	double dirX;
@@ -96,11 +99,12 @@ int	close_window(t_cube *cube);
 void	init_all(t_cube *cube);
 int	init_function(t_cube *cube, char *av);
 int	ft_read(t_cube *cube, char *av);
-int resize_image(t_cube *cube, t_data_img *old_bg, int new_width, int new_height);
 int	attribute_init_map(char **str, int i, int max, t_map *map);
 int	check_parcing(char **str, t_map *map);
 void    ft_free_strarr(char **str);
 int raycast(t_cube *cube);
+int render(t_cube *cube);
 int convert_tab_char_to_int(t_cube *cube);
+void	my_mlx_pixel_put(t_data *img, int x, int y, int color);
 
 #endif
