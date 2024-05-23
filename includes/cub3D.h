@@ -6,7 +6,7 @@
 /*   By: cassie <cassie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 10:15:38 by cassie            #+#    #+#             */
-/*   Updated: 2024/05/23 16:45:49 by cassie           ###   ########.fr       */
+/*   Updated: 2024/05/23 19:31:51 by cassie           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,12 @@ typedef struct s_vec
 	double x;
 	double y;
 } t_vec;
+
+typedef struct s_pos
+{
+	int x;
+	int y;
+} t_pos;
 
 typedef struct s_data
 {
@@ -62,17 +68,23 @@ typedef struct s_raycast
 {
 
       double cameraX; 
-      double rayDirX; 
-      double rayDirY;
-      int mapX;
-      int mapY;
-      double sideDistX;
-      double sideDistY;
-      double deltaDistX;
-      double deltaDistY;
+//      double rayDirX; 
+  //    double rayDirY;
+	t_vec rayDir;
+//      int mapX;
+//      int mapY;
+	t_pos map;
+	t_vec sideDist;
+	t_vec deltaDist;
+//      double sideDistX;
+ //     double sideDistY;
+   //   double deltaDistX;
+     // double deltaDistY;
       double perpWallDist;
-      int stepX;
-      int stepY;
+	t_vec step;
+	t_vec add;
+//      int stepX;
+//      int stepY;
       int hit;
       int side;
       int lineHeight;
@@ -89,8 +101,9 @@ typedef struct  s_cube
 	t_map   *map;
 	t_data  img;
 	t_raycast ray;
-	double posX;
-	double posY;
+	t_vec	pos;
+//	double posX;
+//	double posY;
 	double dirX;
 	double dirY;
 	double planeX;

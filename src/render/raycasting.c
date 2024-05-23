@@ -6,7 +6,7 @@
 /*   By: cassie <cassie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 09:38:02 by cassie            #+#    #+#             */
-/*   Updated: 2024/05/23 17:01:56 by cassie           ###   ########.fr       */
+/*   Updated: 2024/05/23 20:48:20 by cassie           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,50 +76,54 @@ void  ray_dda(t_cube *cube)
 {
   while(cube->ray.hit == 0)
   {
-    if(cube->ray.sideDistX < cube->ray.sideDistY)
+    if(cube->ray.sideDist.x < cube->ray.sideDist.y)
     {
-      cube->ray.sideDistX += cube->ray.deltaDistX;
-      cube->ray.mapX += cube->ray.stepX;
+      cube->ray.sideDist.x += cube->ray.deltaDist.x;
+      cube->ray.map.x += cube->ray.step.x;
       cube->ray.side = 0;
     }
     else
   {
-      cube->ray.sideDistY += cube->ray.deltaDistY;
-      cube->ray.mapY += cube->ray.stepY;
+      cube->ray.sideDist.y += cube->ray.deltaDist.y;
+      cube->ray.map.y += cube->ray.step.y;
       cube->ray.side = 1;
     }
-    if(cube->map->final_map[cube->ray.mapY][cube->ray.mapX] > 0) cube->ray.hit = 1;
+    printf("mapx=%d\n", cube->ray.map.x);
+    printf("mapy=%d\n", cube->ray.map.y);
+    if(cube->map->final_map[cube->ray.map.y][cube->ray.map.x] > 0) cube->ray.hit = 1;
   }
-  if(cube->ray.side == 0) cube->ray.perpWallDist = (cube->ray.sideDistX - cube->ray.deltaDistX);
-  else          cube->ray.perpWallDist = (cube->ray.sideDistY - cube->ray.deltaDistY);
+  if(cube->ray.side == 0) cube->ray.perpWallDist = (cube->ray.sideDist.x - cube->ray.deltaDist.x);
+  else          cube->ray.perpWallDist = (cube->ray.sideDist.y - cube->ray.deltaDist.y);
 }
 
 void ray_hit(t_cube *cube)
 {
+  cube->ray.deltaDist.x = fabs(1 / cube->ray.rayDir.x);
+  cube->ray.deltaDist.y = fabs(1 / cube->ray.rayDir.y);
   cube->ray.hit = 0;
-  if(cube->ray.rayDirX < 0)
+  if(cube->ray.rayDir.x < 0)
   {
-    cube->ray.stepX = -1;
-    cube->ray.sideDistX = (cube->posX - cube->ray.mapX) * cube->ray.deltaDistX;
+    cube->ray.step.x = -1;
+    cube->ray.sideDist.x = (cube->pos.x - cube->ray.map.x) * cube->ray.deltaDist.x;
   }
   else
   {
-    cube->ray.stepX = 1;
-    cube->ray.sideDistX = (cube->ray.mapX + 1.0 - cube->posX) * cube->ray.deltaDistX;
+    cube->ray.step.x = 1;
+    cube->ray.sideDist.x = (cube->ray.map.x + 1.0 - cube->pos.x) * cube->ray.deltaDist.x;
   }
-  if(cube->ray.rayDirY < 0)
+  if(cube->ray.rayDir.y < 0)
   {
-    cube->ray.stepY = -1;
-    cube->ray.sideDistY = (cube->posY - cube->ray.mapY) * cube->ray.deltaDistY;
+    cube->ray.step.y = -1;
+    cube->ray.sideDist.y = (cube->pos.y - cube->ray.map.y) * cube->ray.deltaDist.y;
   }
   else
   {
-    cube->ray.stepY = 1;
-    cube->ray.sideDistY = (cube->ray.mapY + 1.0 - cube->posY) * cube->ray.deltaDistY;
+    cube->ray.step.y = 1;
+    cube->ray.sideDist.y = (cube->ray.map.y + 1.0 - cube->pos.y) * cube->ray.deltaDist.y;
   }
 }
 
-void ray_position(t_cube *cube, int x, int w)
+/*void ray_position(t_cube *cube, int x, int w)
 {
   cube->ray.cameraX = 2 * x / (double)w - 1;
   cube->ray.rayDirX = cube->dirX + cube->planeX * cube->ray.cameraX;
@@ -128,13 +132,32 @@ void ray_position(t_cube *cube, int x, int w)
   cube->ray.mapY = (int)cube->posY;
 
 
-  cube->ray.deltaDistX = fabs(1 / cube->ray.rayDirX);
-  cube->ray.deltaDistY = fabs(1 / cube->ray.rayDirY);
-}
+}*/
 
 void ray_init(t_cube *cube, uint16_t nb_ray)
 {
+  double tutu = 90 * M_PI * 0.5 / 180.0;
+  double angle = - M_PI / 2;
+  const t_vec	end = (t_vec){
+    cos(angle + tutu),
+    sin(angle + tutu),
+  };
+  cube->ray.rayDir = (t_vec){
+    cos(angle - tutu),
+    sin(angle - tutu),
+  };
+  cube->ray.add = (t_vec){
+    (end.x - cube->ray.rayDir.x) / nb_ray,
+    (end.y - cube->ray.rayDir.y) / nb_ray,
+  };
+  cube->ray.map = (t_pos){
+      (int)cube->pos.x,
+      (int)cube->pos.y,
+  };
 
+  printf("map=%d\n", cube->map->final_map[0][0]);
+  printf("mapx=%d\n", cube->ray.map.x);
+  printf("mapy=%d\n", cube->ray.map.y);
 }
 
 int raycast(t_cube *cube)
@@ -150,10 +173,15 @@ int raycast(t_cube *cube)
     ray_init(cube, 800);
     while(++x < w)
     {
-      ray_position(cube, x, w);
+//      ray_position(cube, x, w);
       ray_hit(cube);
       ray_dda(cube);
       ray_draw(cube, x, h);
+      cube->ray.rayDir = (t_vec)
+      {
+	cube->ray.rayDir.x + cube->ray.add.x,
+	cube->ray.rayDir.y + cube->ray.add.y,
+      };
     }	
   return (0);
 }

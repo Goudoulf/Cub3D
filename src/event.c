@@ -6,7 +6,7 @@
 /*   By: cassie <cassie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 12:54:00 by cassie            #+#    #+#             */
-/*   Updated: 2024/05/23 15:11:05 by cassie           ###   ########.fr       */
+/*   Updated: 2024/05/23 19:29:21 by cassie           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,12 +37,12 @@ int	key_control(int keycode, t_cube *cube)
 	}
 	if (keycode == XK_s)
 	{
-		if (cube->posX - cube->dirX * 0.8 <= cube->map->max_Y - 1 && cube->posX - cube->dirX * 0.8 >= 1)
-			cube->posX -= cube->dirX * 0.8;
-		if (cube->posY - cube->dirY * 0.8 <= cube->map->max_X - 1 && cube->posY - cube->dirY * 0.8 >= 1)
-			cube->posY -= cube->dirY * 0.8;
-		printf("posX=%f\n", cube->posX);
-		printf("posY=%f\n", cube->posY);
+		if (cube->pos.x - cube->dirX * 0.8 <= cube->map->max_Y - 1 && cube->pos.x - cube->dirX * 0.8 >= 1)
+			cube->pos.x -= cube->dirX * 0.8;
+		if (cube->pos.y - cube->dirY * 0.8 <= cube->map->max_X - 1 && cube->pos.y - cube->dirY * 0.8 >= 1)
+			cube->pos.y -= cube->dirY * 0.8;
+		printf("posX=%f\n", cube->pos.x);
+		printf("posY=%f\n", cube->pos.y);
 	}
 	if (keycode == XK_d)
 	{
