@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cassie <cassie@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: dvo <dvo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 10:15:38 by cassie            #+#    #+#             */
-/*   Updated: 2024/05/23 14:12:34 by cassie           ###   ########.fr       */
+/*   Updated: 2024/05/23 16:27:36 by dvo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,13 +29,6 @@ typedef struct s_data
 	int		endian;
 }				t_data;
 
-typedef struct s_position_value
-{
-	int     init_player_y;
-	int     init_player_x;
-	char    init_camera;
-}               t_position_value;
-
 typedef struct  s_map
 {
 	char	**buffer;
@@ -49,7 +42,6 @@ typedef struct  s_map
 	int		**final_map;
 	int		max_X;
 	int		max_Y;
-	t_position_value    *player;
 }               t_map;
 
 typedef struct s_raycast
@@ -83,29 +75,33 @@ typedef struct  s_cube
 	t_map   *map;
 	t_data  img;
 	t_raycast ray;
+	int		win_y;
+	int		win_x;
 	double posX;
 	double posY;
 	double dirX;
 	double dirY;
 	double planeX;
+	char	init_view;
 	double planeY; //the 2d raycaster version of camera plane
 	unsigned int width;
 	unsigned int height;
 }		t_cube;
 
 int     mouse_control(int button, int x, int y, t_cube *cube);
+int		mouse_camera(int x, int y, t_cube *cube);
 int	key_control(int keycode, t_cube *cube);
 int	close_window(t_cube *cube);
 void	init_all(t_cube *cube);
 int	init_function(t_cube *cube, char *av);
 int	ft_read(t_cube *cube, char *av);
-int	attribute_init_map(char **str, int i, int max, t_map *map);
-int	check_parcing(char **str, t_map *map);
+int	attribute_init_map(int i, int max, t_map *map, t_cube *cube);
+int	check_parcing(t_map *map, t_cube *cube);
 void    ft_free_strarr(char **str);
 int raycast(t_cube *cube);
 int render(t_cube *cube);
 int convert_tab_char_to_int(t_cube *cube);
 void	my_mlx_pixel_put(t_data *img, int x, int y, int color);
-void	check_hit_wall(t_cube *cube, int i);
+void	check_hit_wall(t_cube *cube, double ms, int i);
 
 #endif

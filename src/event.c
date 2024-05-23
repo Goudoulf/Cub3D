@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   event.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cassie <cassie@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: dvo <dvo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 12:54:00 by cassie            #+#    #+#             */
-/*   Updated: 2024/05/23 14:12:51 by cassie           ###   ########.fr       */
+/*   Updated: 2024/05/23 16:38:01 by dvo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,24 +25,18 @@ int	close_window(t_cube *cube)
 
 int	key_control(int keycode, t_cube *cube)
 {
+	double	ms;
+
+	ms = 0.3;
 	if (keycode == XK_Escape)
 		close_window(cube);
 	if (keycode == XK_w)
 	{
-		check_hit_wall(cube, 0);
-		// printf("max_Y=%i\n", cube->map->max_Y);
-		// printf("max_X=%i\n", cube->map->max_X);
-		// printf("posX=%f\n", cube->posX);
-		// printf("posY=%f\n", cube->posY);
+		check_hit_wall(cube, ms, 1);
 	}
 	if (keycode == XK_s)
 	{
-		if (cube->posX - cube->dirX * 0.8 <= cube->map->max_Y - 1 && cube->posX - cube->dirX * 0.8 >= 1)
-			cube->posX -= cube->dirX * 0.8;
-		if (cube->posY - cube->dirY * 0.8 <= cube->map->max_X - 1 && cube->posY - cube->dirY * 0.8 >= 1)
-			cube->posY -= cube->dirY * 0.8;
-		printf("posX=%f\n", cube->posX);
-		printf("posY=%f\n", cube->posY);
+		check_hit_wall(cube, ms, -1);
 	}
 	if (keycode == XK_d)
 	{
@@ -72,5 +66,25 @@ int	mouse_control(int button, int x, int y, t_cube *cube)
 	(void) x;
 	(void)y;
 	(void) cube;
+	return (0);
+}
+
+int	mouse_camera(int x, int y, t_cube *cube)
+{
+	(void)y;
+	double	new_x;
+
+	new_x = -1 * ((cube->win_x / 2) - x) / (cube->win_x / 20);
+
+	if (!new_x)
+		return (0);
+	double oldDirX = cube->dirX;
+	cube->dirX = cube->dirX * cos(new_x * -0.02) - cube->dirY * sin(new_x * -0.02);
+	cube->dirY = oldDirX * sin(new_x * -0.02) + cube->dirY * cos(new_x * -0.02);
+	double oldPlaneX = cube->planeX;
+	cube->planeX = cube->planeX * cos(new_x * -0.02) - cube->planeY * sin(new_x * -0.02);
+	cube->planeY = oldPlaneX * sin(new_x * -0.02) + cube->planeY * cos(new_x * -0.02);
+	mlx_mouse_move(cube->mlx ,cube->win, 400, 300);
+	render(cube);
 	return (0);
 }

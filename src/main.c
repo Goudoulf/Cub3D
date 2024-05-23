@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cassie <cassie@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: dvo <dvo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 09:57:20 by cassie            #+#    #+#             */
-/*   Updated: 2024/05/23 13:28:10 by cassie           ###   ########.fr       */
+/*   Updated: 2024/05/23 16:27:29 by dvo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@ int	main(int argc, char **argv)
 		y++;
 	}
 	init_all(&cube);
+	mlx_mouse_move(cube.mlx ,cube.win, cube.win_x, cube.win_y);
+	mlx_mouse_hide(cube.mlx ,cube.win);
 	render(&cube);
 	mlx_loop(cube.mlx);
 	return (0);

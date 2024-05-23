@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_parcing.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cassie <cassie@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: dvo <dvo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 13:29:37 by dvo               #+#    #+#             */
-/*   Updated: 2024/05/23 11:47:36 by cassie           ###   ########.fr       */
+/*   Updated: 2024/05/23 16:26:17 by dvo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,10 @@
 
 int	check_start_map(char *str);
 
-int	create_new_map(char **str, int i, t_map *map)
+int	create_new_map(char **str, int i, t_map *map, t_cube *cube)
 {
-	int max;
-	
+	int	max;
+
 	max = i;
 	while (str[max])
 		max++;
@@ -29,12 +29,12 @@ int	create_new_map(char **str, int i, t_map *map)
 	printf("%i\n", max - i + 1);
 	map->map = ft_calloc(max - i + 2, sizeof(char *));
 	map->final_map = ft_calloc(max - i + 1, sizeof(int *));
-	if (attribute_init_map(str, i, max, map) == -1)
+	if (attribute_init_map(i, max, map, cube) == -1)
 	{
 		ft_free_strarr(map->map);
 		return (-1);
 	}
-    return (0);
+	return (0);
 }
 
 int	check_start_map(char *str)
@@ -49,6 +49,7 @@ int	check_start_map(char *str)
 		return (1);
 	return (0);
 }
+
 int	ft_texture(int direc, char *str, t_map *map)
 {
 	int	i;
@@ -106,10 +107,10 @@ int	ft_texture(int direc, char *str, t_map *map)
 		if (!map->ceiling)
 			return (-1);
 	}
-    return (0);
+	return (0);
 }
 
-int	attribute_text_wall(t_map *map)
+int	attribute_text_wall(t_map *map, t_cube *cube)
 {
 	int	i;
 
@@ -124,26 +125,27 @@ int	attribute_text_wall(t_map *map)
 			ft_texture(3, map->buffer[i], map);
 		if (ft_strncmp(map->buffer[i], "EA ", 3) == 0)
 			ft_texture(4, map->buffer[i], map);
-        if (ft_strncmp(map->buffer[i], "F ", 2) == 0)
+		if (ft_strncmp(map->buffer[i], "F ", 2) == 0)
 			ft_texture(5, map->buffer[i], map);
-        if (ft_strncmp(map->buffer[i], "C ", 2) == 0)
+		if (ft_strncmp(map->buffer[i], "C ", 2) == 0)
 			ft_texture(6, map->buffer[i], map);
 		i++;
 	}
-	if (create_new_map(map->buffer, i, map) == -1)
+	if (create_new_map(map->buffer, i, map, cube) == -1)
 		return (-1);
-    return (0);
+	return (0);
 }
 
 int	init_function(t_cube *cube, char *av)
 {
+	cube->posX = 0;
+	cube->posY = 0;
 	cube->map = ft_calloc(1, sizeof(t_map));
 	if (ft_read(cube, av) == -1)
 		return (-1);
-	if (attribute_text_wall(cube->map) == -1)
+	if (attribute_text_wall(cube->map, cube) == -1)
 		return (-1);
 	if (convert_tab_char_to_int(cube) == -1)
 		return (-1);
 	return (0);
 }
-

@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   convert_char_to_int.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cassie <cassie@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: dvo <dvo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 16:41:03 by dvo               #+#    #+#             */
-/*   Updated: 2024/05/23 10:42:22 by cassie           ###   ########.fr       */
+/*   Updated: 2024/05/23 16:21:12 by dvo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
-size_t  max_len_table(char **str)
+size_t	max_len_table(char **str)
 {
 	size_t	len;
 	size_t	x;
@@ -21,7 +21,6 @@ size_t  max_len_table(char **str)
 	len = 0;
 	x = 0;
 	y = 0;
-
 	while (str[y])
 	{
 		while (str[y][x] != '\0')
@@ -34,9 +33,9 @@ size_t  max_len_table(char **str)
 	return (len);
 }
 
-int convert_tab_char_to_int(t_cube *cube)
+int	convert_tab_char_to_int(t_cube *cube)
 {
-	size_t max;
+	size_t	max;
 	size_t	x;
 	size_t	y;
 

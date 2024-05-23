@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cassie <cassie@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: dvo <dvo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 09:38:02 by cassie            #+#    #+#             */
-/*   Updated: 2024/05/23 14:00:20 by cassie           ###   ########.fr       */
+/*   Updated: 2024/05/23 16:29:11 by dvo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,8 +140,8 @@ int raycast(t_cube *cube)
   int h;
   int x;
 
-  w = 800;
-  h = 600;
+  w = cube->win_x;
+  h = cube->win_y;
   x = -1;
 
     while(++x < w)

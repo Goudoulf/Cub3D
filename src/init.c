@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cassie <cassie@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: dvo <dvo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 12:41:08 by cassie            #+#    #+#             */
-/*   Updated: 2024/05/23 13:51:20 by cassie           ###   ########.fr       */
+/*   Updated: 2024/05/23 16:31:53 by dvo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,14 +21,14 @@ static void	event_init(t_cube *cube)
 {
 	mlx_hook(cube->win, KeyPress, KeyPressMask, key_control, cube);
 	mlx_hook(cube->win, ButtonPress, ButtonPressMask, mouse_control, cube);
+	mlx_hook(cube->win, 6, PointerMotionMask, mouse_camera, cube);
 	mlx_hook(cube->win, DestroyNotify, StructureNotifyMask, close_window, cube);
 }
 
 static void	data_init(t_cube *cube)
 {
-	cube->width = 800;
-	cube->height = 600;
-	cube->posX = cube->map->player->init_player_x, cube->posY = cube->map->player->init_player_y;  //x and y start position
+	cube->width = cube->win_x;
+	cube->height = cube->win_y;
 	cube->dirX = -1, cube->dirY = 0; //initial direction vector
 	cube->planeX = 0;
 	cube->planeY = 0.66; //the 2d raycaster version of camera plane
@@ -53,17 +53,19 @@ static void	data_init(t_cube *cube)
 }
 void	init_all(t_cube *cube)
 {
+	cube->win_x = 800;
+	cube->win_y = 600;
 	cube->mlx = mlx_init();
 	if (cube->mlx == NULL)
 		malloc_error();
-	cube->win = mlx_new_window(cube->mlx, 800, 600, "Cub3D");
+	cube->win = mlx_new_window(cube->mlx, cube->win_x, cube->win_y, "Cub3D");
 	if (cube->win == NULL)
 	{
 		mlx_destroy_display(cube->mlx);
 		free(cube->mlx);
 		malloc_error();
 	}
-	cube->img.img_ptr = mlx_new_image(cube->mlx, 800, 600);
+	cube->img.img_ptr = mlx_new_image(cube->mlx, cube->win_x, cube->win_y);
 	if (cube->img.img_ptr == NULL)
 	{
 		mlx_destroy_window(cube->mlx, cube->win);
