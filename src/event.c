@@ -6,7 +6,7 @@
 /*   By: dvo <dvo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 12:54:00 by cassie            #+#    #+#             */
-/*   Updated: 2024/05/23 11:09:02 by dvo              ###   ########.fr       */
+/*   Updated: 2024/05/23 13:34:13 by dvo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,51 @@ int	close_window(t_cube *cube)
 	exit(EXIT_SUCCESS);
 }
 
-int	check_hit_wall(double new_posX, double new_posY, t_cube *cube)
+void	limit_move_wall(t_cube *cube)
 {
-	if ()
-	return (0);
+	int	x;
+	int	y;
+
+	x = (int) (cube->posX + cube->dirX);
+	y = (int) (cube->posY + cube->dirY * 1.002);
+	if (cube->map->final_map[y][x] == 0)
+	{
+		cube->posY += cube->dirY * 1.002;
+		if (cube->dirX >= 0)
+			cube->posX = x + 1 - 0.00001;
+		else
+			cube->posX= x + 0.00001;
+		return ;
+	}
+}
+
+void	check_hit_wall(t_cube *cube, int i)
+{
+	int	x;
+	int	y;
+	(void)i;
+
+	x = (int) (cube->posX + cube->dirX * 1.002);
+	y = (int) (cube->posY + cube->dirY * 1.002);
+	printf("\n\nMAP at %i, %i is: %i\n", y, x, cube->map->final_map[y][x]);
+	if (cube->map->final_map[y][x] == 0)
+	{
+		printf("NO WALL\n");
+		cube->posX += cube->dirX * 1.002;
+		cube->posY += cube->dirY * 1.002;
+		return ;
+	}
+	y = (int) (cube->posY + cube->dirY);
+	if (cube->map->final_map[y][x] == 0)
+	{
+		cube->posX += cube->dirX * 1.002;
+		if (cube->dirY >= 0)
+			cube->posY = y + 1 - 0.00001;
+		else
+			cube->posY= y + 0.00001;
+		return ;
+	}
+	limit_move_wall(cube);
 }
 
 int	key_control(int keycode, t_cube *cube)
@@ -35,26 +76,20 @@ int	key_control(int keycode, t_cube *cube)
 		close_window(cube);
 	if (keycode == XK_w)
 	{
-		// if (!check_hit_wall(cube->posX + cube->dirX * 1.02, cube->posY + cube->dirY * 1.02, cube))
-		// {
-		// 	cube->posX += cube->dirX * 1.02;
-		// 	cube->posY += cube->dirY * 1.02;
-		// }
-		if (cube->posX + cube->dirX * 1.02 < cube->map->max_X && cube->posX + cube->dirX * 1.02 > 0)
-			cube->posX += cube->dirX * 1.02;
-		if (cube->posY + cube->dirY * 1.02 < cube->map->max_Y && cube->posY + cube->dirY * 1.02 > 0)
-			cube->posY += cube->dirY * 1.02;
-		printf("posX=%f vs maxX=%i\n", cube->posX, cube->map->max_X);
-		printf("posY=%f vs maxY=%i\n", cube->posY, cube->map->max_Y);
+		check_hit_wall(cube, 0);
+		// printf("max_Y=%i\n", cube->map->max_Y);
+		// printf("max_X=%i\n", cube->map->max_X);
+		// printf("posX=%f\n", cube->posX);
+		// printf("posY=%f\n", cube->posY);
 	}
 	if (keycode == XK_s)
 	{
-		if (cube->posX - cube->dirX * 1.02 < cube->map->max_Y && cube->posX - cube->dirX * 1.02 > 0)
-			cube->posX -= cube->dirX * 1.02;
-		if (cube->posY - cube->dirY * 1.02 < cube->map->max_X && cube->posY - cube->dirY * 1.02 > 0)
-			cube->posY -= cube->dirY * 1.02;
-		printf("posX=%f vs maxX=%i\n", cube->posX, cube->map->max_X);
-		printf("posY=%f vs maxY=%i\n", cube->posY, cube->map->max_Y);
+		if (cube->posX - cube->dirX * 1.002 <= cube->map->max_Y - 1 && cube->posX - cube->dirX * 1.002 >= 1)
+			cube->posX -= cube->dirX * 1.002;
+		if (cube->posY - cube->dirY * 1.002 <= cube->map->max_X - 1 && cube->posY - cube->dirY * 1.002 >= 1)
+			cube->posY -= cube->dirY * 1.002;
+		printf("posX=%f\n", cube->posX);
+		printf("posY=%f\n", cube->posY);
 	}
 	if (keycode == XK_d)
 	{
