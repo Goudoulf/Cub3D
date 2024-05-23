@@ -1,7 +1,7 @@
-NO ./path_to_the_north_texture
-SO ./path_to_the_south_texture
-WE ./path_to_the_west_texture
-EA ./path_to_the_east_texture
+NO ./textures/pics/wood.png
+SO ./textures/pics/mossy.png
+WE ./textures/pics/redbrick.png
+EA ./textures/pics/greystone.png
 F 1101000
 C 111100
 111111111111111111111111
