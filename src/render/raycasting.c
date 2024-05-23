@@ -6,12 +6,13 @@
 /*   By: cassie <cassie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 09:38:02 by cassie            #+#    #+#             */
-/*   Updated: 2024/05/23 16:43:21 by cassie           ###   ########.fr       */
+/*   Updated: 2024/05/23 17:01:56 by cassie           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 #include <math.h>
+#include <stdint.h>
 #define screenWidth 800
 #define screenHeight 600
 #define mapWidth 24
@@ -131,6 +132,11 @@ void ray_position(t_cube *cube, int x, int w)
   cube->ray.deltaDistY = fabs(1 / cube->ray.rayDirY);
 }
 
+void ray_init(t_cube *cube, uint16_t nb_ray)
+{
+
+}
+
 int raycast(t_cube *cube)
 {
   int w; 
@@ -141,7 +147,7 @@ int raycast(t_cube *cube)
   h = 600;
   x = -1;
 
-    
+    ray_init(cube, 800);
     while(++x < w)
     {
       ray_position(cube, x, w);

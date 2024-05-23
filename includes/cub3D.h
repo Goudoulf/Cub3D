@@ -6,7 +6,7 @@
 /*   By: cassie <cassie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 10:15:38 by cassie            #+#    #+#             */
-/*   Updated: 2024/05/23 14:54:05 by cassie           ###   ########.fr       */
+/*   Updated: 2024/05/23 16:45:49 by cassie           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,12 @@
 # include "../mlx_linux/mlx.h"
 # include "../mlx_linux/mlx_int.h"
 #include <math.h>
+
+typedef struct s_vec
+{
+	double x;
+	double y;
+} t_vec;
 
 typedef struct s_data
 {
