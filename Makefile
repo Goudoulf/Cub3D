@@ -12,8 +12,10 @@
 
 NAME = cub3D
 
-SRCS_FILE = main.c init.c event.c init_parcing.c ft_read_file.c ft_init_final_map.c  \
-			check_parcing.c ft_free.c ./render/raycasting.c ./render/render.c convert_char_to_int.c
+SRCS_FILE = main.c init.c event.c ./parcing/init_parcing.c \
+			./parcing/ft_read_file.c ./parcing/ft_init_final_map.c \
+			./parcing/check_parcing.c ft_free.c ./parcing/convert_char_to_int.c \
+			./render/raycasting.c ./render/render.c
 
 INC = includes
 
