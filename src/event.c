@@ -6,7 +6,7 @@
 /*   By: cassie <cassie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 12:54:00 by cassie            #+#    #+#             */
-/*   Updated: 2024/05/23 14:12:51 by cassie           ###   ########.fr       */
+/*   Updated: 2024/05/23 15:11:05 by cassie           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ int	mouse_control(int button, int x, int y, t_cube *cube)
 {
 	(void) button;
 	(void) x;
-	(void)y;
+	(void) y;
 	(void) cube;
 	return (0);
 }
