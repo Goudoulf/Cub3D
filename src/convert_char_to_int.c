@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   convert_char_to_int.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dvo <dvo@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: cassie <cassie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 16:41:03 by dvo               #+#    #+#             */
-/*   Updated: 2024/05/22 18:01:53 by dvo              ###   ########.fr       */
+/*   Updated: 2024/05/23 10:42:22 by cassie           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,8 @@ int convert_tab_char_to_int(t_cube *cube)
 	x = 0;
 	y = 0;
 	max = max_len_table(cube->map->map);
-	printf("%zu : max\n", max);
+	cube->map->max_X = max;
+	printf("%zu : max_X\n", max);
 	while (cube->map->map[y])
 	{
 		cube->map->final_map[y] = ft_calloc(max, sizeof(int));

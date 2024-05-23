@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_parcing.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dvo <dvo@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: cassie <cassie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 13:41:39 by dvo               #+#    #+#             */
-/*   Updated: 2024/05/22 16:37:39 by dvo              ###   ########.fr       */
+/*   Updated: 2024/05/23 10:31:29 by cassie           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,8 @@ int	check_nbr_valid(char **str, t_map *map)
 					ft_printf(2, "too much initial position\n");
 						return (-1);
 				}
-				map->player->init_player_x = x;
-				map->player->init_player_y = y;
+				map->player->init_player_x = y;
+				map->player->init_player_y = x;
 				map->player->init_camera = map->map[y][x];
 				map->map[y][x] = '0';
 			}

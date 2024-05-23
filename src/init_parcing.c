@@ -6,7 +6,7 @@
 /*   By: cassie <cassie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 13:29:37 by dvo               #+#    #+#             */
-/*   Updated: 2024/05/22 18:59:03 by cassie           ###   ########.fr       */
+/*   Updated: 2024/05/23 10:41:21 by cassie           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@ int	create_new_map(char **str, int i, t_map *map)
 	max = i;
 	while (str[max])
 		max++;
-	map->max = max;
 	max--;
+	map->max_Y = max - i;
 	while (check_start_map(str[max]) == 1)
 		max --;
 	printf("%i\n", max - i + 1);

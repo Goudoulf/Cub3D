@@ -6,12 +6,13 @@
 /*   By: cassie <cassie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 12:54:00 by cassie            #+#    #+#             */
-/*   Updated: 2024/05/22 19:10:21 by cassie           ###   ########.fr       */
+/*   Updated: 2024/05/23 10:32:42 by cassie           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 #include <math.h>
+#include <stdio.h>
 
 int	close_window(t_cube *cube)
 {
@@ -28,17 +29,21 @@ int	key_control(int keycode, t_cube *cube)
 		close_window(cube);
 	if (keycode == XK_w)
 	{
-		if (cube->posX + cube->dirX * 1.02 < cube->map->max && cube->posX + cube->dirX * 1.02 > 0)
+		if (cube->posX + cube->dirX * 1.02 < cube->map->max_Y && cube->posX + cube->dirX * 1.02 > 0)
 			cube->posX += cube->dirX * 1.02;
-		if (cube->posY + cube->dirY * 1.02 < cube->map->max && cube->posY + cube->dirY * 1.02 > 0)
+		if (cube->posY + cube->dirY * 1.02 < cube->map->max_X && cube->posY + cube->dirY * 1.02 > 0)
 			cube->posY += cube->dirY * 1.02;
+		printf("posX=%f\n", cube->posX);
+		printf("posY=%f\n", cube->posY);
 	}
 	if (keycode == XK_s)
 	{
-		if (cube->posX - cube->dirX * 1.02 < cube->map->max && cube->posX - cube->dirX * 1.02 > 0)
+		if (cube->posX - cube->dirX * 1.02 < cube->map->max_Y && cube->posX - cube->dirX * 1.02 > 0)
 			cube->posX -= cube->dirX * 1.02;
-		if (cube->posY - cube->dirY * 1.02 < cube->map->max && cube->posY - cube->dirY * 1.02 > 0)
+		if (cube->posY - cube->dirY * 1.02 < cube->map->max_X && cube->posY - cube->dirY * 1.02 > 0)
 			cube->posY -= cube->dirY * 1.02;
+		printf("posX=%f\n", cube->posX);
+		printf("posY=%f\n", cube->posY);
 	}
 	if (keycode == XK_d)
 	{

@@ -6,7 +6,7 @@
 /*   By: cassie <cassie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 09:38:02 by cassie            #+#    #+#             */
-/*   Updated: 2024/05/22 18:49:26 by cassie           ###   ########.fr       */
+/*   Updated: 2024/05/23 10:37:02 by cassie           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,7 +125,7 @@ int raycast1(t_cube *cube)
         }
         //Check if ray has hit a wall
         //printf("|%d, %d|\n", mapX, mapY);
-        if(cube->map->final_map[mapY][mapX] > 0) hit = 1;
+        if(cube->map->final_map[mapX][mapY] > 0) hit = 1;
       }
       if(side == 0) perpWallDist = (sideDistX - deltaDistX);
       else          perpWallDist = (sideDistY - deltaDistY);

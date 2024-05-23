@@ -6,7 +6,7 @@
 /*   By: cassie <cassie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 10:15:38 by cassie            #+#    #+#             */
-/*   Updated: 2024/05/22 18:57:35 by cassie           ###   ########.fr       */
+/*   Updated: 2024/05/23 10:20:47 by cassie           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,8 @@ typedef struct  s_map
 	char	*ceiling;
 	char	**map;
 	int		**final_map;
-	int		max;
+	int		max_X;
+	int		max_Y;
 	t_position_value    *player;
 }               t_map;
 
