@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cassie <cassie@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: dvo <dvo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 09:38:02 by cassie            #+#    #+#             */
-/*   Updated: 2024/05/23 10:37:02 by cassie           ###   ########.fr       */
+/*   Updated: 2024/05/23 12:25:25 by dvo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 #include <math.h>
 #define screenWidth 800
 #define screenHeight 600
-#define mapWidth 14
-#define mapHeight 33
 
 // int worldMap[mapWidth][mapHeight]=
 // {
@@ -125,7 +123,7 @@ int raycast1(t_cube *cube)
         }
         //Check if ray has hit a wall
         //printf("|%d, %d|\n", mapX, mapY);
-        if(cube->map->final_map[mapX][mapY] > 0) hit = 1;
+        if(cube->map->final_map[mapY][mapX] > 0) hit = 1;
       }
       if(side == 0) perpWallDist = (sideDistX - deltaDistX);
       else          perpWallDist = (sideDistY - deltaDistY);
@@ -159,15 +157,15 @@ int raycast(t_cube *cube)
   int h = 600;
   int x = 0;
   int y = 0;
-  while (x < w)
+  while (y < h)
   {
-    y = 0;
-    while (y < h)
+    while (x < w)
     {
       my_mlx_pixel_put(&cube->img, x, y, 0x000000);
-      y++;
+      x++;
     }
-    x++;
+    x = 0;
+    y++;
   }
   mlx_put_image_to_window(cube->mlx, cube->win, cube->img.img_ptr, 0, 0);
   raycast1(cube);

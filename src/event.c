@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   event.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cassie <cassie@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: dvo <dvo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 12:54:00 by cassie            #+#    #+#             */
-/*   Updated: 2024/05/23 10:32:42 by cassie           ###   ########.fr       */
+/*   Updated: 2024/05/23 11:09:02 by dvo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,18 +23,29 @@ int	close_window(t_cube *cube)
 	exit(EXIT_SUCCESS);
 }
 
+int	check_hit_wall(double new_posX, double new_posY, t_cube *cube)
+{
+	if ()
+	return (0);
+}
+
 int	key_control(int keycode, t_cube *cube)
 {
 	if (keycode == XK_Escape)
 		close_window(cube);
 	if (keycode == XK_w)
 	{
-		if (cube->posX + cube->dirX * 1.02 < cube->map->max_Y && cube->posX + cube->dirX * 1.02 > 0)
+		// if (!check_hit_wall(cube->posX + cube->dirX * 1.02, cube->posY + cube->dirY * 1.02, cube))
+		// {
+		// 	cube->posX += cube->dirX * 1.02;
+		// 	cube->posY += cube->dirY * 1.02;
+		// }
+		if (cube->posX + cube->dirX * 1.02 < cube->map->max_X && cube->posX + cube->dirX * 1.02 > 0)
 			cube->posX += cube->dirX * 1.02;
-		if (cube->posY + cube->dirY * 1.02 < cube->map->max_X && cube->posY + cube->dirY * 1.02 > 0)
+		if (cube->posY + cube->dirY * 1.02 < cube->map->max_Y && cube->posY + cube->dirY * 1.02 > 0)
 			cube->posY += cube->dirY * 1.02;
-		printf("posX=%f\n", cube->posX);
-		printf("posY=%f\n", cube->posY);
+		printf("posX=%f vs maxX=%i\n", cube->posX, cube->map->max_X);
+		printf("posY=%f vs maxY=%i\n", cube->posY, cube->map->max_Y);
 	}
 	if (keycode == XK_s)
 	{
@@ -42,8 +53,8 @@ int	key_control(int keycode, t_cube *cube)
 			cube->posX -= cube->dirX * 1.02;
 		if (cube->posY - cube->dirY * 1.02 < cube->map->max_X && cube->posY - cube->dirY * 1.02 > 0)
 			cube->posY -= cube->dirY * 1.02;
-		printf("posX=%f\n", cube->posX);
-		printf("posY=%f\n", cube->posY);
+		printf("posX=%f vs maxX=%i\n", cube->posX, cube->map->max_X);
+		printf("posY=%f vs maxY=%i\n", cube->posY, cube->map->max_Y);
 	}
 	if (keycode == XK_d)
 	{
