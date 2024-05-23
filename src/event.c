@@ -6,7 +6,7 @@
 /*   By: dvo <dvo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 12:54:00 by cassie            #+#    #+#             */
-/*   Updated: 2024/05/23 13:34:13 by dvo              ###   ########.fr       */
+/*   Updated: 2024/05/23 13:54:52 by dvo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,53 +21,6 @@ int	close_window(t_cube *cube)
 	mlx_destroy_display(cube->mlx);
 	free(cube->mlx);
 	exit(EXIT_SUCCESS);
-}
-
-void	limit_move_wall(t_cube *cube)
-{
-	int	x;
-	int	y;
-
-	x = (int) (cube->posX + cube->dirX);
-	y = (int) (cube->posY + cube->dirY * 1.002);
-	if (cube->map->final_map[y][x] == 0)
-	{
-		cube->posY += cube->dirY * 1.002;
-		if (cube->dirX >= 0)
-			cube->posX = x + 1 - 0.00001;
-		else
-			cube->posX= x + 0.00001;
-		return ;
-	}
-}
-
-void	check_hit_wall(t_cube *cube, int i)
-{
-	int	x;
-	int	y;
-	(void)i;
-
-	x = (int) (cube->posX + cube->dirX * 1.002);
-	y = (int) (cube->posY + cube->dirY * 1.002);
-	printf("\n\nMAP at %i, %i is: %i\n", y, x, cube->map->final_map[y][x]);
-	if (cube->map->final_map[y][x] == 0)
-	{
-		printf("NO WALL\n");
-		cube->posX += cube->dirX * 1.002;
-		cube->posY += cube->dirY * 1.002;
-		return ;
-	}
-	y = (int) (cube->posY + cube->dirY);
-	if (cube->map->final_map[y][x] == 0)
-	{
-		cube->posX += cube->dirX * 1.002;
-		if (cube->dirY >= 0)
-			cube->posY = y + 1 - 0.00001;
-		else
-			cube->posY= y + 0.00001;
-		return ;
-	}
-	limit_move_wall(cube);
 }
 
 int	key_control(int keycode, t_cube *cube)
