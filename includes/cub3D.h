@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cassie <cassie@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: dvo <dvo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 10:15:38 by cassie            #+#    #+#             */
-/*   Updated: 2024/05/23 10:20:47 by cassie           ###   ########.fr       */
+/*   Updated: 2024/05/23 13:44:12 by dvo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,17 +28,6 @@ typedef struct s_data
 	int		line_len;
 	int		endian;
 }				t_data;
-
-typedef struct s_data_img
-{
-	int				bpp;
-	int				lline;
-	int				endian;
-	char			*data;
-	int				width;
-	int				height;
-	void			*ptr;
-}					t_data_img;
 
 typedef struct s_position_value
 {
@@ -96,11 +85,11 @@ int	close_window(t_cube *cube);
 void	init_all(t_cube *cube);
 int	init_function(t_cube *cube, char *av);
 int	ft_read(t_cube *cube, char *av);
-int resize_image(t_cube *cube, t_data_img *old_bg, int new_width, int new_height);
 int	attribute_init_map(char **str, int i, int max, t_map *map);
 int	check_parcing(char **str, t_map *map);
 void    ft_free_strarr(char **str);
 int raycast(t_cube *cube);
 int convert_tab_char_to_int(t_cube *cube);
+void	check_hit_wall(t_cube *cube, int i);
 
 #endif
