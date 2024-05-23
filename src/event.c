@@ -6,7 +6,7 @@
 /*   By: cassie <cassie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 12:54:00 by cassie            #+#    #+#             */
-/*   Updated: 2024/05/23 13:56:45 by cassie           ###   ########.fr       */
+/*   Updated: 2024/05/23 14:12:51 by cassie           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,10 +37,10 @@ int	key_control(int keycode, t_cube *cube)
 	}
 	if (keycode == XK_s)
 	{
-		if (cube->posX - cube->dirX * 1.002 <= cube->map->max_Y - 1 && cube->posX - cube->dirX * 1.002 >= 1)
-			cube->posX -= cube->dirX * 1.002;
-		if (cube->posY - cube->dirY * 1.002 <= cube->map->max_X - 1 && cube->posY - cube->dirY * 1.002 >= 1)
-			cube->posY -= cube->dirY * 1.002;
+		if (cube->posX - cube->dirX * 0.8 <= cube->map->max_Y - 1 && cube->posX - cube->dirX * 0.8 >= 1)
+			cube->posX -= cube->dirX * 0.8;
+		if (cube->posY - cube->dirY * 0.8 <= cube->map->max_X - 1 && cube->posY - cube->dirY * 0.8 >= 1)
+			cube->posY -= cube->dirY * 0.8;
 		printf("posX=%f\n", cube->posX);
 		printf("posY=%f\n", cube->posY);
 	}

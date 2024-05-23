@@ -6,7 +6,7 @@
 /*   By: cassie <cassie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 09:38:02 by cassie            #+#    #+#             */
-/*   Updated: 2024/05/23 13:45:26 by cassie           ###   ########.fr       */
+/*   Updated: 2024/05/23 14:00:20 by cassie           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ void  ray_dda(t_cube *cube)
     }
     //Check if ray has hit a wall
     //printf("|%d, %d|\n", mapX, mapY);
-    if(cube->map->final_map[cube->ray.mapX][cube->ray.mapY] > 0) cube->ray.hit = 1;
+    if(cube->map->final_map[cube->ray.mapY][cube->ray.mapX] > 0) cube->ray.hit = 1;
     //if(worldMap[mapX][mapY] > 0) hit = 1;
   }
   if(cube->ray.side == 0) cube->ray.perpWallDist = (cube->ray.sideDistX - cube->ray.deltaDistX);
