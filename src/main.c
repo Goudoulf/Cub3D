@@ -6,7 +6,7 @@
 /*   By: cassie <cassie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 09:57:20 by cassie            #+#    #+#             */
-/*   Updated: 2024/05/22 18:54:51 by cassie           ###   ########.fr       */
+/*   Updated: 2024/05/23 11:25:56 by cassie           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,9 @@ int	main(int argc, char **argv)
 		return (1);
 	int x = 0;
 	int y = 0;
-	while(y < 14)
+	while(y < 24)
 	{
-		while(x < 33)
+		while(x < 24)
 		{
 			printf("%d", cube.map->final_map[y][x]);
 			x++;

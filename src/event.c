@@ -6,7 +6,7 @@
 /*   By: cassie <cassie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 12:54:00 by cassie            #+#    #+#             */
-/*   Updated: 2024/05/23 10:32:42 by cassie           ###   ########.fr       */
+/*   Updated: 2024/05/23 11:54:40 by cassie           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,19 +29,22 @@ int	key_control(int keycode, t_cube *cube)
 		close_window(cube);
 	if (keycode == XK_w)
 	{
-		if (cube->posX + cube->dirX * 1.02 < cube->map->max_Y && cube->posX + cube->dirX * 1.02 > 0)
-			cube->posX += cube->dirX * 1.02;
-		if (cube->posY + cube->dirY * 1.02 < cube->map->max_X && cube->posY + cube->dirY * 1.02 > 0)
-			cube->posY += cube->dirY * 1.02;
+		if (cube->posX + cube->dirX * 1.002 <= cube->map->max_Y - 1 && cube->posX + cube->dirX * 1.002 >= 1)
+			cube->posX += cube->dirX * 1.002;
+		if (cube->posY + cube->dirY * 1.002 <= cube->map->max_X - 1 && cube->posY + cube->dirY * 1.002 >= 1)
+			cube->posY += cube->dirY * 1.002;
+		printf("max_Y=%i\n", cube->map->max_Y);
+		printf("max_X=%i\n", cube->map->max_X);
 		printf("posX=%f\n", cube->posX);
 		printf("posY=%f\n", cube->posY);
+		printf("map0=%d\n", cube->map->final_map[0][0]);
 	}
 	if (keycode == XK_s)
 	{
-		if (cube->posX - cube->dirX * 1.02 < cube->map->max_Y && cube->posX - cube->dirX * 1.02 > 0)
-			cube->posX -= cube->dirX * 1.02;
-		if (cube->posY - cube->dirY * 1.02 < cube->map->max_X && cube->posY - cube->dirY * 1.02 > 0)
-			cube->posY -= cube->dirY * 1.02;
+		if (cube->posX - cube->dirX * 1.002 <= cube->map->max_Y - 1 && cube->posX - cube->dirX * 1.002 >= 1)
+			cube->posX -= cube->dirX * 1.002;
+		if (cube->posY - cube->dirY * 1.002 <= cube->map->max_X - 1 && cube->posY - cube->dirY * 1.002 >= 1)
+			cube->posY -= cube->dirY * 1.002;
 		printf("posX=%f\n", cube->posX);
 		printf("posY=%f\n", cube->posY);
 	}
