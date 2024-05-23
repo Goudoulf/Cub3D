@@ -6,7 +6,7 @@
 /*   By: dvo <dvo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 12:41:08 by cassie            #+#    #+#             */
-/*   Updated: 2024/05/23 17:33:41 by dvo              ###   ########.fr       */
+/*   Updated: 2024/05/23 20:17:07 by dvo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ static void	data_init(t_cube *cube)
 	cube->ray.lineHeight = 0;
 	cube->ray.perpWallDist = 0;
 }
+
 void	init_all(t_cube *cube)
 {
 	cube->win_x = 800;
@@ -67,6 +68,14 @@ void	init_all(t_cube *cube)
 	}
 	cube->img.img_ptr = mlx_new_image(cube->mlx, cube->win_x, cube->win_y);
 	if (cube->img.img_ptr == NULL)
+	{
+		mlx_destroy_window(cube->mlx, cube->win);
+		mlx_destroy_display(cube->mlx);
+		free(cube->mlx);
+		malloc_error();
+	}
+	cube->floor_ceiling.img_ptr = mlx_new_image(cube->mlx, cube->win_x, cube->win_y);
+	if (cube->floor_ceiling.img_ptr == NULL)
 	{
 		mlx_destroy_window(cube->mlx, cube->win);
 		mlx_destroy_display(cube->mlx);

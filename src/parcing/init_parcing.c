@@ -6,7 +6,7 @@
 /*   By: dvo <dvo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 13:29:37 by dvo               #+#    #+#             */
-/*   Updated: 2024/05/23 16:26:17 by dvo              ###   ########.fr       */
+/*   Updated: 2024/05/23 17:42:52 by dvo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,66 +47,6 @@ int	check_start_map(char *str)
 	if (str[i] == '\0' || str[i] == 'N' || str[i] == 'E' || str[i] == '\n' || \
 	str[i] == 'S' || str[i] == 'W' || str[i] == 'F' || str[i] == 'C')
 		return (1);
-	return (0);
-}
-
-int	ft_texture(int direc, char *str, t_map *map)
-{
-	int	i;
-
-	i = 0;
-	while (str[i] != ' ')
-		i++;
-	while (str[i] == ' ')
-		i++;
-	if (direc == 1)
-	{
-		if (map->north)
-			return (-1);
-		map->north = ft_strdup(str + i);
-		if (!map->north)
-			return (-1);
-	}
-	if (direc == 2)
-	{
-		if (map->south)
-			return (-1);
-		map->south = ft_strdup(str + i);
-		if (!map->south)
-			return (-1);
-	}
-	if (direc == 3)
-	{
-		if (map->west)
-			return (-1);
-		map->west = ft_strdup(str + i);
-		if (!map->west)
-			return (-1);
-	}
-	if (direc == 4)
-	{
-		if (map->east)
-			return (-1);
-		map->east = ft_strdup(str + i);
-		if (!map->east)
-			return (-1);
-	}
-	if (direc == 5)
-	{
-		if (map->floor)
-			return (-1);
-		map->floor = ft_strdup(str + i);
-		if (!map->floor)
-			return (-1);
-	}
-	if (direc == 6)
-	{
-		if (map->ceiling)
-			return (-1);
-		map->ceiling = ft_strdup(str + i);
-		if (!map->ceiling)
-			return (-1);
-	}
 	return (0);
 }
 

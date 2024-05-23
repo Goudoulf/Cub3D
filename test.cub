@@ -2,8 +2,8 @@ NO ./textures/pics/wood.png
 SO ./textures/pics/mossy.png
 WE ./textures/pics/redbrick.png
 EA ./textures/pics/greystone.png
-F 1101000
-C 111100
+F 220,100,0
+C 225,30,0
 111111111111111111111111
 100000000000000000000001
 100000000000000000000001

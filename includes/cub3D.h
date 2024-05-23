@@ -6,7 +6,7 @@
 /*   By: dvo <dvo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 10:15:38 by cassie            #+#    #+#             */
-/*   Updated: 2024/05/23 17:37:39 by dvo              ###   ########.fr       */
+/*   Updated: 2024/05/23 20:11:33 by dvo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,8 @@ typedef struct  s_map
 	char	*south;
 	char	*west;
 	char	*east;
-	char	*floor;
-	char	*ceiling;
+	int		floor;
+	int		ceiling;
 	char	**map;
 	int		**final_map;
 	int		max_X;
@@ -74,6 +74,7 @@ typedef struct  s_cube
 	void    *win;
 	t_map   *map;
 	t_data  img;
+	t_data	floor_ceiling;
 	t_raycast ray;
 	int		win_y;
 	int		win_x;
@@ -103,5 +104,6 @@ int render(t_cube *cube);
 int convert_tab_char_to_int(t_cube *cube);
 void	my_mlx_pixel_put(t_data *img, int x, int y, int color);
 void	check_hit_wall(t_cube *cube, double ms, int i);
+int	ft_texture(int direc, char *str, t_map *map);
 
 #endif
