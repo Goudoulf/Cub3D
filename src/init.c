@@ -6,11 +6,12 @@
 /*   By: cassie <cassie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 12:41:08 by cassie            #+#    #+#             */
-/*   Updated: 2024/05/24 16:40:50 by cassie           ###   ########.fr       */
+/*   Updated: 2024/05/24 21:12:42 by cassie           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
+#include <X11/X.h>
 
 static void	malloc_error(void)
 {
@@ -20,15 +21,18 @@ static void	malloc_error(void)
 static void	event_init(t_cube *cube)
 {
 	mlx_hook(cube->win, KeyPress, KeyPressMask, key_control, cube);
+	mlx_hook(cube->win, KeyRelease, KeyReleaseMask, key_release, cube);
 	mlx_hook(cube->win, ButtonPress, ButtonPressMask, mouse_control, cube);
 	mlx_hook(cube->win, MotionNotify, PointerMotionMask, mouse_turn, cube);
 	mlx_hook(cube->win, DestroyNotify, StructureNotifyMask, close_window, cube);
+	mlx_loop_hook(cube->mlx, event_loop, cube);
 }
 
 static void	data_init(t_cube *cube)
 {
 	cube->width = 800;
 	cube->height = 600;
+	cube->oldx = 800 / 2;
 	cube->pos.x = cube->map->player->init_player_x, cube->pos.y = cube->map->player->init_player_y;  //x and y start position
 	cube->dirX = -1, cube->dirY = 0; //initial direction vector
 	cube->planeX = 0;
@@ -52,6 +56,10 @@ static void	data_init(t_cube *cube)
 	cube->ray.lineHeight = 0;
 	cube->ray.perpWallDist = 0;
 	cube->ray.angle = M_PI;
+	cube->ray.move_f = false;
+	cube->ray.move_b = false;
+	cube->ray.move_l = false;
+	cube->ray.move_r = false;
 }
 void	init_all(t_cube *cube)
 {

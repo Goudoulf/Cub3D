@@ -6,7 +6,7 @@
 /*   By: cassie <cassie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 10:15:38 by cassie            #+#    #+#             */
-/*   Updated: 2024/05/24 16:29:04 by cassie           ###   ########.fr       */
+/*   Updated: 2024/05/24 21:12:22 by cassie           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include "../mlx_linux/mlx.h"
 # include "../mlx_linux/mlx_int.h"
 #include <math.h>
+#include <stdbool.h>
 
 typedef struct s_vec
 {
@@ -82,6 +83,10 @@ typedef struct s_raycast
 	int color;
 	double angle;
 	t_vec move;
+	bool	move_f;
+	bool	move_b;
+	bool	move_l;
+	bool	move_r;
 
 } t_raycast;
 
@@ -99,6 +104,8 @@ typedef struct  s_cube
 	double planeY; //the 2d raycaster version of camera plane
 	unsigned int width;
 	unsigned int height;
+	bool	no_change;
+	int		oldx;
 }		t_cube;
 
 int     mouse_control(int button, int x, int y, t_cube *cube);
@@ -116,5 +123,7 @@ int render(t_cube *cube);
 int convert_tab_char_to_int(t_cube *cube);
 void	my_mlx_pixel_put(t_data *img, int x, int y, int color);
 void	check_hit_wall(t_cube *cube, int i);
+int	event_loop(t_cube *cube);
+int	key_release(int keysym, t_cube *cube);
 
 #endif
