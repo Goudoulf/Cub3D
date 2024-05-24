@@ -6,7 +6,7 @@
 /*   By: cassie <cassie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 09:38:02 by cassie            #+#    #+#             */
-/*   Updated: 2024/05/23 20:48:20 by cassie           ###   ########.fr       */
+/*   Updated: 2024/05/24 16:32:31 by cassie           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,8 +88,6 @@ void  ray_dda(t_cube *cube)
       cube->ray.map.y += cube->ray.step.y;
       cube->ray.side = 1;
     }
-    printf("mapx=%d\n", cube->ray.map.x);
-    printf("mapy=%d\n", cube->ray.map.y);
     if(cube->map->final_map[cube->ray.map.y][cube->ray.map.x] > 0) cube->ray.hit = 1;
   }
   if(cube->ray.side == 0) cube->ray.perpWallDist = (cube->ray.sideDist.x - cube->ray.deltaDist.x);
@@ -137,9 +135,10 @@ void ray_hit(t_cube *cube)
 void ray_init(t_cube *cube, uint16_t nb_ray)
 {
   double tutu = 90 * M_PI * 0.5 / 180.0;
-  double angle = - M_PI / 2;
+ // double test = 1 * cosf(cube->ray.angle * M_PI * 0.5 / 180.0);
+  double angle = cube->ray.angle;
   const t_vec	end = (t_vec){
-    cos(angle + tutu),
+    cos(angle + tutu) ,
     sin(angle + tutu),
   };
   cube->ray.rayDir = (t_vec){
@@ -147,17 +146,12 @@ void ray_init(t_cube *cube, uint16_t nb_ray)
     sin(angle - tutu),
   };
   cube->ray.add = (t_vec){
-    (end.x - cube->ray.rayDir.x) / nb_ray,
-    (end.y - cube->ray.rayDir.y) / nb_ray,
+    (end.x - cube->ray.rayDir.x) * 1.0f  / nb_ray,
+    (end.y - cube->ray.rayDir.y) * 1.0f / nb_ray,
   };
-  cube->ray.map = (t_pos){
-      (int)cube->pos.x,
-      (int)cube->pos.y,
-  };
-
-  printf("map=%d\n", cube->map->final_map[0][0]);
-  printf("mapx=%d\n", cube->ray.map.x);
-  printf("mapy=%d\n", cube->ray.map.y);
+//  printf("map=%d\n", cube->map->final_map[0][0]);
+//  printf("mapx=%d\n", cube->ray.map.x);
+//  printf("mapy=%d\n", cube->ray.map.y);
 }
 
 int raycast(t_cube *cube)
@@ -173,6 +167,10 @@ int raycast(t_cube *cube)
     ray_init(cube, 800);
     while(++x < w)
     {
+    cube->ray.map = (t_pos){
+      (int)cube->pos.x,
+      (int)cube->pos.y,
+    };
 //      ray_position(cube, x, w);
       ray_hit(cube);
       ray_dda(cube);

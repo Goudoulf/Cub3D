@@ -6,7 +6,7 @@
 /*   By: cassie <cassie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 12:41:08 by cassie            #+#    #+#             */
-/*   Updated: 2024/05/23 19:23:59 by cassie           ###   ########.fr       */
+/*   Updated: 2024/05/24 16:40:50 by cassie           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ static void	event_init(t_cube *cube)
 {
 	mlx_hook(cube->win, KeyPress, KeyPressMask, key_control, cube);
 	mlx_hook(cube->win, ButtonPress, ButtonPressMask, mouse_control, cube);
+	mlx_hook(cube->win, MotionNotify, PointerMotionMask, mouse_turn, cube);
 	mlx_hook(cube->win, DestroyNotify, StructureNotifyMask, close_window, cube);
 }
 
@@ -50,6 +51,7 @@ static void	data_init(t_cube *cube)
 	cube->ray.deltaDist.y = 0;
 	cube->ray.lineHeight = 0;
 	cube->ray.perpWallDist = 0;
+	cube->ray.angle = M_PI;
 }
 void	init_all(t_cube *cube)
 {

@@ -6,7 +6,7 @@
 /*   By: cassie <cassie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 10:15:38 by cassie            #+#    #+#             */
-/*   Updated: 2024/05/23 19:31:51 by cassie           ###   ########.fr       */
+/*   Updated: 2024/05/24 16:29:04 by cassie           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,31 +66,22 @@ typedef struct  s_map
 
 typedef struct s_raycast
 {
-
-      double cameraX; 
-//      double rayDirX; 
-  //    double rayDirY;
+	double cameraX; 
 	t_vec rayDir;
-//      int mapX;
-//      int mapY;
 	t_pos map;
 	t_vec sideDist;
 	t_vec deltaDist;
-//      double sideDistX;
- //     double sideDistY;
-   //   double deltaDistX;
-     // double deltaDistY;
-      double perpWallDist;
+	double perpWallDist;
 	t_vec step;
 	t_vec add;
-//      int stepX;
-//      int stepY;
-      int hit;
-      int side;
-      int lineHeight;
-      int drawStart;
-      int drawEnd;
-      int color;
+	int hit;
+	int side;
+	int lineHeight;
+	int drawStart;
+	int drawEnd;
+	int color;
+	double angle;
+	t_vec move;
 
 } t_raycast;
 
@@ -102,8 +93,6 @@ typedef struct  s_cube
 	t_data  img;
 	t_raycast ray;
 	t_vec	pos;
-//	double posX;
-//	double posY;
 	double dirX;
 	double dirY;
 	double planeX;
@@ -113,6 +102,7 @@ typedef struct  s_cube
 }		t_cube;
 
 int     mouse_control(int button, int x, int y, t_cube *cube);
+int	mouse_turn(int x, int y, t_cube *cube);
 int	key_control(int keycode, t_cube *cube);
 int	close_window(t_cube *cube);
 void	init_all(t_cube *cube);
