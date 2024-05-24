@@ -6,53 +6,11 @@
 /*   By: dvo <dvo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 17:41:42 by dvo               #+#    #+#             */
-/*   Updated: 2024/05/23 20:01:15 by dvo              ###   ########.fr       */
+/*   Updated: 2024/05/24 14:04:40 by dvo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
-
-int hexCharToInt(char c)
-{
-	if (c >= '0' && c <= '9')
-		return c - '0';
-	else
-		return c - 'A' + 10;
-}
-
-int hexStrToInt(char *str) {
-	int result = 0;
-	int i;
-	int value;
-
-	i = 0;
-	while (str[i])
-	{
-		value = hexCharToInt(str[i]);
-		result = (result * 16) + value; // Multiplier le résultat actuel par 16 (décalage de 4 bits) et ajouter la valeur actuelle
-		i++;
-	}
-	return result;
-}
-
-int	transform_to_hexa(int first, int second, int third)
-{
-	char    *str;
-	char    *hexa;
-
-	hexa = "0123456789ABCDEF";
-	str = ft_calloc(7, sizeof(char));
-	str[0] = hexa[first / 16];
-	str[1] = hexa[first % 16];
-	str[2] = hexa[second / 16];
-	str[3] = hexa[second % 16];
-	str[4] = hexa[third / 16];
-	str[5] = hexa[third % 16];
-	
-	int i = hexStrToInt(str);
-	printf("before:%s, int is:%i\n", str, i);
-	return (i);
-}
 
 int	convert_char_color(char *str)
 {
@@ -71,7 +29,8 @@ int	convert_char_color(char *str)
 		i++;
 	third = ft_atoi(str + i);
 	free (str);
-	return (transform_to_hexa(first, second, third));
+	i = (first << 16) | (second << 8) | third;
+	return (i);
 }
 
 int	ft_texture(int direc, char *str, t_map *map)
