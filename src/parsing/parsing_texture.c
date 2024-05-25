@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_texture.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dvo <dvo@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: cassie <cassie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 17:41:42 by dvo               #+#    #+#             */
-/*   Updated: 2024/05/25 15:31:53 by dvo              ###   ########.fr       */
+/*   Updated: 2024/05/25 11:13:58 by cassie           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	convert_char_color(char *str)
 	int second;
 	int third;
 
-	i = 1;
+	i = 0;
 	first = ft_atoi(str);
 	while (str[i - 1] != ',')
 		i++;
