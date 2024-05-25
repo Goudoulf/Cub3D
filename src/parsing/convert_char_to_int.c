@@ -6,7 +6,7 @@
 /*   By: cassie <cassie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 16:41:03 by dvo               #+#    #+#             */
-/*   Updated: 2024/05/23 10:42:22 by cassie           ###   ########.fr       */
+/*   Updated: 2024/05/25 09:30:10 by cassie           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ size_t  max_len_table(char **str)
 	return (len);
 }
 
-int convert_tab_char_to_int(t_cube *cube)
+int convert_tab_char_to_int(t_cub *cub)
 {
 	size_t max;
 	size_t	x;
@@ -42,16 +42,16 @@ int convert_tab_char_to_int(t_cube *cube)
 
 	x = 0;
 	y = 0;
-	max = max_len_table(cube->map->map);
-	cube->map->max_X = max;
+	max = max_len_table(cub->map->map);
+	cub->map->max_X = max;
 	printf("%zu : max_X\n", max);
-	while (cube->map->map[y])
+	while (cub->map->map[y])
 	{
-		cube->map->final_map[y] = ft_calloc(max, sizeof(int));
-		while (cube->map->map[y][x] != '\0')
+		cub->map->final_map[y] = ft_calloc(max, sizeof(int));
+		while (cub->map->map[y][x] != '\0')
 		{
-			if (cube->map->map[y][x] == '1')
-				cube->map->final_map[y][x] = 1;
+			if (cub->map->map[y][x] == '1')
+				cub->map->final_map[y][x] = 1;
 			x++;
 		}
 		x = 0;

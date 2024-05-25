@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_read_file.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dvo <dvo@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: cassie <cassie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 19:03:05 by dvo               #+#    #+#             */
-/*   Updated: 2024/05/22 16:36:16 by dvo              ###   ########.fr       */
+/*   Updated: 2024/05/25 09:29:19 by cassie           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static void	ft_transform_nl_to_end(char *str)
 	}
 }
 
-int	ft_read(t_cube *cube, char *av)
+int	ft_read(t_cub *cub, char *av)
 {
 	int	fd;
 	int	i;
@@ -37,15 +37,15 @@ int	ft_read(t_cube *cube, char *av)
 	fd = open(av, O_RDONLY);
 	if (fd == -1)
 		return (ft_printf(2, "File not valid\n"), -1);
-	cube->map->buffer = ft_calloc(2001, sizeof(char *));
-	if (!cube->map->buffer)
+	cub->map->buffer = ft_calloc(2001, sizeof(char *));
+	if (!cub->map->buffer)
 		return (-1);
 	while (1)
 	{
-		cube->map->buffer[i] = get_next_line(fd);
-		if (!cube->map->buffer[i] || i == 2000)
+		cub->map->buffer[i] = get_next_line(fd);
+		if (!cub->map->buffer[i] || i == 2000)
 			break ;
-		ft_transform_nl_to_end(cube->map->buffer[i]);
+		ft_transform_nl_to_end(cub->map->buffer[i]);
 		i++;
 	}
 	if (i == 2000)

@@ -6,7 +6,7 @@
 /*   By: cassie <cassie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 13:29:37 by dvo               #+#    #+#             */
-/*   Updated: 2024/05/23 11:47:36 by cassie           ###   ########.fr       */
+/*   Updated: 2024/05/25 09:28:38 by cassie           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,14 +135,14 @@ int	attribute_text_wall(t_map *map)
     return (0);
 }
 
-int	init_function(t_cube *cube, char *av)
+int	init_function(t_cub *cub, char *av)
 {
-	cube->map = ft_calloc(1, sizeof(t_map));
-	if (ft_read(cube, av) == -1)
+	cub->map = ft_calloc(1, sizeof(t_map));
+	if (ft_read(cub, av) == -1)
 		return (-1);
-	if (attribute_text_wall(cube->map) == -1)
+	if (attribute_text_wall(cub->map) == -1)
 		return (-1);
-	if (convert_tab_char_to_int(cube) == -1)
+	if (convert_tab_char_to_int(cub) == -1)
 		return (-1);
 	return (0);
 }

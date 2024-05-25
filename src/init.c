@@ -6,7 +6,7 @@
 /*   By: cassie <cassie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 12:41:08 by cassie            #+#    #+#             */
-/*   Updated: 2024/05/24 21:12:42 by cassie           ###   ########.fr       */
+/*   Updated: 2024/05/25 10:17:12 by cassie           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,71 +18,74 @@ static void	malloc_error(void)
 	exit(EXIT_FAILURE);
 }
 
-static void	event_init(t_cube *cube)
+static void	event_init(t_cub *cub)
 {
-	mlx_hook(cube->win, KeyPress, KeyPressMask, key_control, cube);
-	mlx_hook(cube->win, KeyRelease, KeyReleaseMask, key_release, cube);
-	mlx_hook(cube->win, ButtonPress, ButtonPressMask, mouse_control, cube);
-	mlx_hook(cube->win, MotionNotify, PointerMotionMask, mouse_turn, cube);
-	mlx_hook(cube->win, DestroyNotify, StructureNotifyMask, close_window, cube);
-	mlx_loop_hook(cube->mlx, event_loop, cube);
+	mlx_hook(cub->win, KeyPress, KeyPressMask, key_control, cub);
+	mlx_hook(cub->win, KeyRelease, KeyReleaseMask, key_release, cub);
+	mlx_hook(cub->win, ButtonPress, ButtonPressMask, mouse_control, cub);
+	mlx_hook(cub->win, MotionNotify, PointerMotionMask, mouse_turn, cub);
+	mlx_hook(cub->win, DestroyNotify, StructureNotifyMask, close_window, cub);
+	mlx_loop_hook(cub->mlx, event_loop, cub);
 }
 
-static void	data_init(t_cube *cube)
+static void	data_init(t_cub *cub)
 {
-	cube->width = 800;
-	cube->height = 600;
-	cube->oldx = 800 / 2;
-	cube->pos.x = cube->map->player->init_player_x, cube->pos.y = cube->map->player->init_player_y;  //x and y start position
-	cube->dirX = -1, cube->dirY = 0; //initial direction vector
-	cube->planeX = 0;
-	cube->planeY = 0.66; //the 2d raycaster version of camera plane
-	cube->ray.hit = 0;
-	cube->ray.map.x = 0;
-	cube->ray.map.y = 0;
-	cube->ray.side = 0;
-	cube->ray.color = 0;
-	cube->ray.step.x = 0;
-	cube->ray.step.y = 0;
-	cube->ray.cameraX = 0;
-	cube->ray.drawEnd = 0;
-	cube->ray.rayDir.x = 0;
-	cube->ray.rayDir.y = 0;
-	cube->ray.drawStart = 0;
-	cube->ray.sideDist.x = 0;
-	cube->ray.sideDist.y = 0;
-	cube->ray.deltaDist.x = 0;
-	cube->ray.deltaDist.y = 0;
-	cube->ray.lineHeight = 0;
-	cube->ray.perpWallDist = 0;
-	cube->ray.angle = M_PI;
-	cube->ray.move_f = false;
-	cube->ray.move_b = false;
-	cube->ray.move_l = false;
-	cube->ray.move_r = false;
+	cub->cam.width = WIDTH;
+	cub->cam.height = HEIGHT;
+	cub->cam.oldx = cub->cam.width / 2;
+	cub->ray.pos.x = cub->map->player->init_player_x;
+	cub->ray.pos.y = cub->map->player->init_player_y; 
+//	cub->dirX = -1, cub->dirY = 0; //initial direction vector
+//	cub->planeX = 0;
+//	cub->planeY = 0.66; //the 2d raycaster version of camera plane
+	cub->ray.hit = 0;
+	cub->ray.map.x = 0;
+	cub->ray.map.y = 0;
+	cub->ray.side = 0;
+	cub->ray.color = 0;
+	cub->ray.step.x = 0;
+	cub->ray.step.y = 0;
+	cub->ray.cameraX = 0;
+	cub->ray.drawEnd = 0;
+	cub->ray.rayDir.x = 0;
+	cub->ray.rayDir.y = 0;
+	cub->ray.drawStart = 0;
+	cub->ray.sideDist.x = 0;
+	cub->ray.sideDist.y = 0;
+	cub->ray.deltaDist.x = 0;
+	cub->ray.deltaDist.y = 0;
+	cub->ray.lineHeight = 0;
+	cub->ray.perpWallDist = 0;
+	cub->cam.angle = M_PI;
+	cub->cam.move_f = false;
+	cub->cam.move_b = false;
+	cub->cam.move_l = false;
+	cub->cam.move_r = false;
+	cub->cam.fov = 90;
+	cub->cam.fov_rad = cub->cam.fov * M_PI * 0.5 / 180.0;
 }
-void	init_all(t_cube *cube)
+void	init_all(t_cub *cub)
 {
-	cube->mlx = mlx_init();
-	if (cube->mlx == NULL)
+	cub->mlx = mlx_init();
+	if (cub->mlx == NULL)
 		malloc_error();
-	cube->win = mlx_new_window(cube->mlx, 800, 600, "Cub3D");
-	if (cube->win == NULL)
+	cub->win = mlx_new_window(cub->mlx, 1920, 1080, "Cub3D");
+	if (cub->win == NULL)
 	{
-		mlx_destroy_display(cube->mlx);
-		free(cube->mlx);
+		mlx_destroy_display(cub->mlx);
+		free(cub->mlx);
 		malloc_error();
 	}
-	cube->img.img_ptr = mlx_new_image(cube->mlx, 800, 600);
-	if (cube->img.img_ptr == NULL)
+	cub->img.img_ptr = mlx_new_image(cub->mlx, 1920, 1080);
+	if (cub->img.img_ptr == NULL)
 	{
-		mlx_destroy_window(cube->mlx, cube->win);
-		mlx_destroy_display(cube->mlx);
-		free(cube->mlx);
+		mlx_destroy_window(cub->mlx, cub->win);
+		mlx_destroy_display(cub->mlx);
+		free(cub->mlx);
 		malloc_error();
 	}
-	cube->img.buffer = mlx_get_data_addr(cube->img.img_ptr,
-			&cube->img.bpp, &cube->img.line_len, &cube->img.endian);
-	event_init(cube);
-	data_init(cube);
+	cub->img.buffer = mlx_get_data_addr(cub->img.img_ptr,
+			&cub->img.bpp, &cub->img.line_len, &cub->img.endian);
+	event_init(cub);
+	data_init(cub);
 }
