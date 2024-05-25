@@ -6,13 +6,13 @@
 /*   By: cassie <cassie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 16:41:03 by dvo               #+#    #+#             */
-/*   Updated: 2024/05/25 09:30:10 by cassie           ###   ########.fr       */
+/*   Updated: 2024/05/25 11:03:03 by cassie           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
-size_t  max_len_table(char **str)
+size_t	max_len_table(char **str)
 {
 	size_t	len;
 	size_t	x;
@@ -21,7 +21,6 @@ size_t  max_len_table(char **str)
 	len = 0;
 	x = 0;
 	y = 0;
-
 	while (str[y])
 	{
 		while (str[y][x] != '\0')
@@ -36,7 +35,7 @@ size_t  max_len_table(char **str)
 
 int convert_tab_char_to_int(t_cub *cub)
 {
-	size_t max;
+	size_t	max;
 	size_t	x;
 	size_t	y;
 

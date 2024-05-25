@@ -6,7 +6,7 @@
 /*   By: cassie <cassie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 10:15:38 by cassie            #+#    #+#             */
-/*   Updated: 2024/05/25 10:02:27 by cassie           ###   ########.fr       */
+/*   Updated: 2024/05/25 11:34:10 by cassie           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,27 +33,19 @@ typedef struct s_image
 	int		endian;
 }				t_image;
 
-typedef struct s_position_value
-{
-	int     init_player_y;
-	int     init_player_x;
-	char    init_camera;
-}               t_position_value;
-
 typedef struct  s_map
 {
-	char				**buffer;
-	char				*north;
-	char				*south;
-	char				*west;
-	char				*east;
-	char				*floor;
-	char				*ceiling;
-	char				**map;
-	int					**final_map;
-	int					max_X;
-	int					max_Y;
-	t_position_value    *player;
+	char	**buffer;
+	char	*north;
+	char	*south;
+	char	*west;
+	char	*east;
+	int		floor;
+	int		ceiling;
+	char	**map;
+	int		**final_map;
+	int		max_X;
+	int		max_Y;
 }               t_map;
 
 typedef struct s_camera
@@ -92,6 +84,14 @@ typedef struct s_raycast
 
 } t_raycast;
 
+typedef struct s_mini_map
+{
+	t_image	img;
+	t_image	img_pos;
+	t_pos	last_pos;
+	int		last_color;
+} t_mini_map;
+
 typedef struct  s_cub
 {
 	void		*mlx;
@@ -100,6 +100,10 @@ typedef struct  s_cub
 	t_image		img;
 	t_raycast	ray;
 	t_camera	cam;
+	t_mini_map mini_map;
+	int		win_y;
+	int		win_x;
+	char	init_view;
 }		t_cub;
 
 int		mouse_control(int button, int x, int y, t_cub *cub);
@@ -109,8 +113,8 @@ int		close_window(t_cub *cub);
 void	init_all(t_cub *cub);
 int		init_function(t_cub *cub, char *av);
 int		ft_read(t_cub *cub, char *av);
-int		attribute_init_map(char **str, int i, int max, t_map *map);
-int		check_parcing(char **str, t_map *map);
+int		attribute_init_map(int i, int max, t_map *map, t_cub *cub);
+int		check_parcing(t_map *map, t_cub *cube);
 void    ft_free_strarr(char **str);
 int		raycast(t_cub *cub);
 int		render(t_cub *cub);
@@ -119,5 +123,10 @@ void	my_mlx_pixel_put(t_image *img, int x, int y, int color);
 void	check_hit_wall(t_cub *cub, int i);
 int		event_loop(t_cub *cub);
 int		key_release(int keysym, t_cub *cub);
+//void	check_hit_wall(t_cub *cub, double ms, int i);
+int		ft_texture(int direc, char *str, t_map *map);
+int		create_minimap(t_cub *cub);
+void	put_position_minimap(t_cub *cub);
+
 
 #endif

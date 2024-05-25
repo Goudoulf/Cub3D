@@ -6,7 +6,7 @@
 /*   By: cassie <cassie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 13:43:23 by dvo               #+#    #+#             */
-/*   Updated: 2024/05/25 09:56:02 by cassie           ###   ########.fr       */
+/*   Updated: 2024/05/25 10:55:37 by cassie           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,14 @@
 
 /*
 void	limit_move_wall(t_cub *cub)
+=======
+void	check_hit_wall(t_cube *cube, double ms, int i)
+>>>>>>> origin/dvo
 {
 	int	x;
 	int	y;
 
+<<<<<<< HEAD
 	x = (int) (cub->pos.x + cub->dirX);
 	y = (int) (cub->pos.y + cub->dirY * 0.1);
 	if (cub->map->final_map[y][x] == 0)

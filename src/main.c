@@ -6,7 +6,7 @@
 /*   By: cassie <cassie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 09:57:20 by cassie            #+#    #+#             */
-/*   Updated: 2024/05/25 10:17:58 by cassie           ###   ########.fr       */
+/*   Updated: 2024/05/25 11:27:36 by cassie           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,10 +37,11 @@ int	main(int argc, char **argv)
 {
 	(void) argc;
 	t_cub cub;
+	init_all(&cub);
 	if (init_function(&cub, argv[1]) == -1)
 		return (1);
 	print_map(&cub);
-	init_all(&cub);
+	create_minimap(&cub);
 	render(&cub);
 	mlx_loop(cub.mlx);
 	return (0);

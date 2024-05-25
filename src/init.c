@@ -6,7 +6,7 @@
 /*   By: cassie <cassie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 12:41:08 by cassie            #+#    #+#             */
-/*   Updated: 2024/05/25 10:17:12 by cassie           ###   ########.fr       */
+/*   Updated: 2024/05/25 12:16:40 by cassie           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,8 @@ static void	data_init(t_cub *cub)
 	cub->cam.width = WIDTH;
 	cub->cam.height = HEIGHT;
 	cub->cam.oldx = cub->cam.width / 2;
-	cub->ray.pos.x = cub->map->player->init_player_x;
-	cub->ray.pos.y = cub->map->player->init_player_y; 
+	cub->ray.pos.x = 0;
+	cub->ray.pos.y = 0;
 //	cub->dirX = -1, cub->dirY = 0; //initial direction vector
 //	cub->planeX = 0;
 //	cub->planeY = 0.66; //the 2d raycaster version of camera plane
@@ -63,6 +63,10 @@ static void	data_init(t_cub *cub)
 	cub->cam.move_r = false;
 	cub->cam.fov = 90;
 	cub->cam.fov_rad = cub->cam.fov * M_PI * 0.5 / 180.0;
+	cub->win_x = WIDTH;
+	cub->win_y = HEIGHT;
+	cub->mini_map.last_pos.x = cub->ray.pos.x;
+	cub->mini_map.last_pos.y = cub->ray.pos.y;
 }
 void	init_all(t_cub *cub)
 {
