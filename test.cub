@@ -4,7 +4,7 @@ WE ./textures/pics/redbrick.png
 EA ./textures/pics/greystone.png
 
 F 105,105,105
-C 0,191,255
+C 4,12,77
 
 111111111111111111111111
 100000000000000000000001

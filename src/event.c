@@ -6,7 +6,7 @@
 /*   By: dvo <dvo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 12:54:00 by cassie            #+#    #+#             */
-/*   Updated: 2024/05/25 19:50:33 by dvo              ###   ########.fr       */
+/*   Updated: 2024/05/25 20:28:17 by dvo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,9 +67,11 @@ void update_cam(t_cub *cub)
 		sinf(cub->cam.angle) * cub->cam.move.y;
 	const float	y = sinf(cub->cam.angle) * cub->cam.move.x + \
 		cosf(cub->cam.angle) * cub->cam.move.y;
-	if (cub->ray.pos.x + x <= cub->map->max_Y - 1 && cub->ray.pos.x + x >= 1)
+	if (cub->ray.pos.x + x <= cub->map->max_Y - 1 && cub->ray.pos.x + x >= 1 
+		&& cub->map->final_map[(int)cub->ray.pos.y][(int)(cub->ray.pos.x + x)] == 0)
 		cub->ray.pos.x += x;
-	if (cub->ray.pos.y + y <= cub->map->max_Y - 1 && cub->ray.pos.y + y >= 1)
+	if (cub->ray.pos.y + y <= cub->map->max_Y - 1 && cub->ray.pos.y + y >= 1
+		&& cub->map->final_map[(int)(cub->ray.pos.y + y)][(int)(cub->ray.pos.x)] == 0)
 		cub->ray.pos.y += y;
 	cub->cam.move.x = 0;
 	cub->cam.move.y = 0;

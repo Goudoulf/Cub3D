@@ -6,7 +6,7 @@
 /*   By: dvo <dvo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 10:15:38 by cassie            #+#    #+#             */
-/*   Updated: 2024/05/25 19:23:20 by dvo              ###   ########.fr       */
+/*   Updated: 2024/05/26 01:40:16 by dvo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,23 @@
 #define WIDTH 1920;
 #define HEIGHT 1080;
 
+typedef struct s_tex
+{
+	void	*img_ptr;
+	char	*buffer;
+	int		bpp;
+	int		line_len;
+	int		endian;	
+	int		width;
+	int		height;
+}				t_tex;
 typedef struct s_image
 {
 	void	*img_ptr;
 	char	*buffer;
 	int		bpp;
 	int		line_len;
-	int		endian;
+	int		endian;	
 }				t_image;
 
 typedef struct  s_map
@@ -63,6 +73,15 @@ typedef struct s_camera
 	int		width;
 	int		height;
 }				t_camera;
+
+typedef struct s_texture
+{
+	t_tex north;
+	t_tex south;
+	t_tex east;
+	t_tex west;
+	t_tex statue;
+} t_texture;
 
 typedef struct s_raycast
 {
@@ -101,9 +120,13 @@ typedef struct  s_cub
 	t_raycast	ray;
 	t_camera	cam;
 	t_mini_map mini_map;
+	t_texture	texture;
 	int		win_y;
 	int		win_x;
 	char	init_view;
+	int		view_ennemy;
+	float		posX_ennemy;
+	float		posY_ennemy;
 }		t_cub;
 
 int		mouse_control(int button, int x, int y, t_cub *cub);
@@ -123,10 +146,11 @@ void	my_mlx_pixel_put(t_image *img, int x, int y, int color);
 void	check_hit_wall(t_cub *cub, int i);
 int		event_loop(t_cub *cub);
 int		key_release(int keysym, t_cub *cub);
-//void	check_hit_wall(t_cub *cub, double ms, int i);
+void	ft_set_minimap(t_cub *cub);
 int		ft_texture(int direc, char *str, t_map *map);
 int		create_minimap(t_cub *cub);
 void	put_position_minimap(t_cub *cub, int color);
+void	ft_ennemy_move(t_cub *cub);
 
 
 #endif

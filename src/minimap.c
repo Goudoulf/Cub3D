@@ -6,7 +6,7 @@
 /*   By: dvo <dvo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 14:11:16 by dvo               #+#    #+#             */
-/*   Updated: 2024/05/25 20:24:50 by dvo              ###   ########.fr       */
+/*   Updated: 2024/05/26 00:00:01 by dvo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,9 +83,7 @@ int create_minimap(t_cub *cub)
 	cub->mini_map.img_pos.buffer = mlx_get_data_addr(cub->mini_map.img.img_ptr,
 			&cub->mini_map.img_pos.bpp, &cub->mini_map.img_pos.line_len, &cub->mini_map.img_pos.endian);
 	ft_set_minimap(cub);
-	
 	return (0);
-	
 }
 
 void	put_position_minimap(t_cub *cub, int color)
@@ -93,28 +91,25 @@ void	put_position_minimap(t_cub *cub, int color)
 	int	x;
 	int	y;
 	int	init_x;
-
+	float test_y;
+	float test_x;
 	y = 0;
 	init_x = (cub->win_x / 5);
-	x = 0 + init_x;
+	x = init_x;
 	if (!color)
 		color = (255 << 16) | (0 << 8) | 0;
 	while (y < cub->win_y / 5)	
 	{
 		while(x - init_x < cub->win_x / 5)
 		{
-			if (cub->ray.pos.y + 1.3 < (cub->map->max_Y * y) / (cub->win_y / 5) && cub->ray.pos.y - 1.3 > (cub->map->max_Y * y) / (cub->win_y / 5) && \
-				cub->ray.pos.x + 0.3 < (cub->map->max_X * (x - init_x)) / (cub->win_x / 5)) //&& cub->ray.pos.x - 0.3 > (cub->map->max_X * (x - init_x)) / (cub->win_x / 5))
-			{
+			test_x = (cub->map->max_X * (x - init_x)) / (float)(cub->win_x / 5.0f);
+			test_y = (cub->map->max_Y * y) / (float)(cub->win_y / 5.0f);
+			if (cub->ray.pos.y + 0.3 > test_y && cub->ray.pos.y - 0.3 < test_y && \
+			cub->ray.pos.x + 0.3 > test_x && cub->ray.pos.x - 0.3 < test_x)
 				((unsigned int *)(cub->mini_map.img.buffer))[x + y * 1920 / 5] = color;
-				// ((unsigned int *)(cub->mini_map.img.buffer))[cub->mini_map.last_pos.x 
-				// 	+ cub->mini_map.last_pos.y * 1920 / 5] = cub->map->floor;
-				cub->mini_map.last_pos.x = x;
-				cub->mini_map.last_pos.x = y;
-			}
 			x++;
 		}
 		y++;
-		x = 0 + init_x;
+		x = init_x;
 	}
 }
