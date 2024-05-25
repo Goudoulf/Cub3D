@@ -3,151 +3,142 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dvo <dvo@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: cassie <cassie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 09:38:02 by cassie            #+#    #+#             */
-/*   Updated: 2024/05/23 17:33:22 by dvo              ###   ########.fr       */
+/*   Updated: 2024/05/25 11:14:55 by cassie           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 #include <math.h>
-#define screenWidth 800
-#define screenHeight 600
+#include <stdint.h>
+#define screenWidth 1920
+#define screenHeight 1080
 #define mapWidth 24
 #define mapHeight 24
 
-/*int worldMap[mapWidth][mapHeight]=
+void  ray_draw(t_cub *cub, int x,  int h)
 {
-   {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
-   {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-   {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-   {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-   {1,0,0,0,0,0,2,2,2,2,2,0,0,0,0,3,0,3,0,3,0,0,0,1},
-   {1,0,0,0,0,0,2,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,1},
-   {1,0,0,0,0,0,2,0,0,0,2,0,0,0,0,3,0,0,0,3,0,0,0,1},
-   {1,0,0,0,0,0,2,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,1},
-   {1,0,0,0,0,0,2,2,0,2,2,0,0,0,0,3,0,3,0,3,0,0,0,1},
-   {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-   {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-   {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-   {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-   {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-   {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-   {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-   {1,4,4,4,4,4,4,4,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-   {1,4,0,4,0,0,0,0,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-   {1,4,0,0,0,0,5,0,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-   {1,4,0,4,0,0,0,0,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-   {1,4,0,4,4,4,4,4,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-   {1,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-   {1,4,4,4,4,4,4,4,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-   {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1}
- };*/
+  cub->ray.lineHeight = (int)(h / cub->ray.perpWallDist);
 
-/*void  texture_calc(t_cube *cube)
-{
-  int textNum;
+  cub->ray.drawStart = -cub->ray.lineHeight / 2 + h / 2;
+  if(cub->ray.drawStart < 0)
+    cub->ray.drawStart = 0;
+  cub->ray.drawEnd = cub->ray.lineHeight / 2 + h / 2;
+  if(cub->ray.drawEnd >= h)
+    cub->ray.drawEnd = h - 1;
 
+  cub->ray.color = 0x00FF00;
+  if(cub->ray.side == 1)
+    cub->ray.color = cub->ray.color / 2;
 
-}*/
-
-void  ray_draw(t_cube *cube, int x,  int h)
-{
-  cube->ray.lineHeight = (int)(h / cube->ray.perpWallDist);
-
-  cube->ray.drawStart = -cube->ray.lineHeight / 2 + h / 2;
-  if(cube->ray.drawStart < 0) cube->ray.drawStart = 0;
-  cube->ray.drawEnd = cube->ray.lineHeight / 2 + h / 2;
-  if(cube->ray.drawEnd >= h) cube->ray.drawEnd = h - 1;
-
-  cube->ray.color = 0x00FF00;
-  if(cube->ray.side == 1) {cube->ray.color = cube->ray.color / 2;}
-
-  while (cube->ray.drawStart < cube->ray.drawEnd)
+  while (cub->ray.drawStart < cub->ray.drawEnd)
   {
-    my_mlx_pixel_put(&cube->img, x, cube->ray.drawStart, cube->ray.color);
-    cube->ray.drawStart++;
+//    my_mlx_pixel_put(&cub->img, x, cub->ray.drawStart, cub->ray.color);
+  ((unsigned int *)(cub->img.buffer))[x + cub->ray.drawStart * 1920] = cub->ray.color;
+    cub->ray.drawStart++;
   }
 }
 
-void  ray_dda(t_cube *cube)
+void  ray_dda(t_cub *cub)
 {
-  while(cube->ray.hit == 0)
+  while(cub->ray.hit == 0)
   {
-    if(cube->ray.sideDistX < cube->ray.sideDistY)
+    if(cub->ray.sideDist.x < cub->ray.sideDist.y)
     {
-      cube->ray.sideDistX += cube->ray.deltaDistX;
-      cube->ray.mapX += cube->ray.stepX;
-      cube->ray.side = 0;
+      cub->ray.sideDist.x += cub->ray.deltaDist.x;
+      cub->ray.map.x += cub->ray.step.x;
+      cub->ray.side = 0;
     }
     else
-  {
-      cube->ray.sideDistY += cube->ray.deltaDistY;
-      cube->ray.mapY += cube->ray.stepY;
-      cube->ray.side = 1;
+    {
+      cub->ray.sideDist.y += cub->ray.deltaDist.y;
+      cub->ray.map.y += cub->ray.step.y;
+      cub->ray.side = 1;
     }
-    if(cube->map->final_map[cube->ray.mapY][cube->ray.mapX] > 0) cube->ray.hit = 1;
+    if(cub->map->final_map[cub->ray.map.y][cub->ray.map.x] > 0)
+      cub->ray.hit = 1;
   }
-  if(cube->ray.side == 0) cube->ray.perpWallDist = (cube->ray.sideDistX - cube->ray.deltaDistX);
-  else          cube->ray.perpWallDist = (cube->ray.sideDistY - cube->ray.deltaDistY);
+  if(cub->ray.side == 0)
+    cub->ray.perpWallDist = (cub->ray.sideDist.x - cub->ray.deltaDist.x);
+  else
+    cub->ray.perpWallDist = (cub->ray.sideDist.y - cub->ray.deltaDist.y);
 }
 
-void ray_hit(t_cube *cube)
+void ray_hit(t_cub *cub)
 {
-  cube->ray.hit = 0;
-  if(cube->ray.rayDirX < 0)
+  cub->ray.deltaDist.x = fabsf(1 / cub->ray.rayDir.x);
+  cub->ray.deltaDist.y = fabsf(1 / cub->ray.rayDir.y);
+  cub->ray.hit = 0;
+  if(cub->ray.rayDir.x < 0)
   {
-    cube->ray.stepX = -1;
-    cube->ray.sideDistX = (cube->posX - cube->ray.mapX) * cube->ray.deltaDistX;
+    cub->ray.step.x = -1;
+    cub->ray.sideDist.x = (cub->ray.pos.x - cub->ray.map.x) * cub->ray.deltaDist.x;
   }
   else
   {
-    cube->ray.stepX = 1;
-    cube->ray.sideDistX = (cube->ray.mapX + 1.0 - cube->posX) * cube->ray.deltaDistX;
+    cub->ray.step.x = 1;
+    cub->ray.sideDist.x = (cub->ray.map.x + 1.0 - cub->ray.pos.x) * cub->ray.deltaDist.x;
   }
-  if(cube->ray.rayDirY < 0)
+  if(cub->ray.rayDir.y < 0)
   {
-    cube->ray.stepY = -1;
-    cube->ray.sideDistY = (cube->posY - cube->ray.mapY) * cube->ray.deltaDistY;
+    cub->ray.step.y = -1;
+    cub->ray.sideDist.y = (cub->ray.pos.y - cub->ray.map.y) * cub->ray.deltaDist.y;
   }
   else
   {
-    cube->ray.stepY = 1;
-    cube->ray.sideDistY = (cube->ray.mapY + 1.0 - cube->posY) * cube->ray.deltaDistY;
+    cub->ray.step.y = 1;
+    cub->ray.sideDist.y = (cub->ray.map.y + 1.0 - cub->ray.pos.y) * cub->ray.deltaDist.y;
   }
 }
 
-void ray_position(t_cube *cube, int x, int w)
+void ray_init(t_cub *cub, uint16_t nb_ray)
 {
-  cube->ray.cameraX = 2 * x / (double)w - 1;
-  cube->ray.rayDirX = cube->dirX + cube->planeX * cube->ray.cameraX;
-  cube->ray.rayDirY = cube->dirY + cube->planeY * cube->ray.cameraX;
-  cube->ray.mapX = (int)cube->posX;
-  cube->ray.mapY = (int)cube->posY;
+  float fov_rad;
+  float angle;
+  t_vec end;
 
-
-  cube->ray.deltaDistX = fabs(1 / cube->ray.rayDirX);
-  cube->ray.deltaDistY = fabs(1 / cube->ray.rayDirY);
+  fov_rad = cub->cam.fov_rad;
+  angle = cub->cam.angle;
+  end = (t_vec)
+  {
+    cos(angle + fov_rad) ,
+    sin(angle + fov_rad),
+  };
+  cub->ray.rayDir = (t_vec)
+  {
+    cos(angle - fov_rad),
+    sin(angle - fov_rad),
+  };
+  cub->ray.add = (t_vec)
+  {
+    (end.x - cub->ray.rayDir.x) * 1.0f  / nb_ray,
+    (end.y - cub->ray.rayDir.y) * 1.0f / nb_ray,
+  };
 }
 
-int raycast(t_cube *cube)
+int raycast(t_cub *cub)
 {
-  int w; 
-  int h;
   int x;
 
-  w = cube->win_x;
-  h = cube->win_y;
   x = -1;
-
-    
-    while(++x < w)
+  ray_init(cub, cub->cam.width);
+  while(++x < cub->cam.width)
+  {
+    cub->ray.map = (t_pos)
     {
-      ray_position(cube, x, w);
-      ray_hit(cube);
-      ray_dda(cube);
-      ray_draw(cube, x, h);
-    }	
+	(int)cub->ray.pos.x,
+	(int)cub->ray.pos.y,
+    };
+    ray_hit(cub);
+    ray_dda(cub);
+    ray_draw(cub, x, cub->cam.height);
+    cub->ray.rayDir = (t_vec)
+    {
+	cub->ray.rayDir.x + cub->ray.add.x,
+	cub->ray.rayDir.y + cub->ray.add.y,
+    };
+  }	
   return (0);
 }

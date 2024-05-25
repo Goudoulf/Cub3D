@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_parcing.c                                     :+:      :+:    :+:   */
+/*   init_parsing.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dvo <dvo@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: cassie <cassie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 13:29:37 by dvo               #+#    #+#             */
-/*   Updated: 2024/05/23 17:42:52 by dvo              ###   ########.fr       */
+/*   Updated: 2024/05/25 11:11:25 by cassie           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 int	check_start_map(char *str);
 
-int	create_new_map(char **str, int i, t_map *map, t_cube *cube)
+int	create_new_map(char **str, int i, t_map *map, t_cub *cub)
 {
 	int	max;
 
@@ -29,7 +29,7 @@ int	create_new_map(char **str, int i, t_map *map, t_cube *cube)
 	printf("%i\n", max - i + 1);
 	map->map = ft_calloc(max - i + 2, sizeof(char *));
 	map->final_map = ft_calloc(max - i + 1, sizeof(int *));
-	if (attribute_init_map(i, max, map, cube) == -1)
+	if (attribute_init_map(i, max, map, cub) == -1)
 	{
 		ft_free_strarr(map->map);
 		return (-1);
@@ -50,7 +50,7 @@ int	check_start_map(char *str)
 	return (0);
 }
 
-int	attribute_text_wall(t_map *map, t_cube *cube)
+int	attribute_text_wall(t_map *map, t_cub *cub)
 {
 	int	i;
 
@@ -71,21 +71,19 @@ int	attribute_text_wall(t_map *map, t_cube *cube)
 			ft_texture(6, map->buffer[i], map);
 		i++;
 	}
-	if (create_new_map(map->buffer, i, map, cube) == -1)
+	if (create_new_map(map->buffer, i, map, cub) == -1)
 		return (-1);
 	return (0);
 }
 
-int	init_function(t_cube *cube, char *av)
+int	init_function(t_cub *cub, char *av)
 {
-	cube->posX = 0;
-	cube->posY = 0;
-	cube->map = ft_calloc(1, sizeof(t_map));
-	if (ft_read(cube, av) == -1)
+	cub->map = ft_calloc(1, sizeof(t_map));
+	if (ft_read(cub, av) == -1)
 		return (-1);
-	if (attribute_text_wall(cube->map, cube) == -1)
+	if (attribute_text_wall(cub->map, cub) == -1)
 		return (-1);
-	if (convert_tab_char_to_int(cube) == -1)
+	if (convert_tab_char_to_int(cub) == -1)
 		return (-1);
 	return (0);
 }

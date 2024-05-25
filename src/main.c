@@ -6,37 +6,43 @@
 /*   By: dvo <dvo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 09:57:20 by cassie            #+#    #+#             */
-/*   Updated: 2024/05/24 17:52:32 by dvo              ###   ########.fr       */
+/*   Updated: 2024/05/25 15:32:05 by dvo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
-int	main(int argc, char **argv)
+
+void	print_map(t_cub *cub)
 {
-	(void) argc;
-	(void) argv;
-	t_cube cube;
-	if (init_function(&cube, argv[1]) == -1)
-		return (1);
-	int x = 0;
-	int y = 0;
-	while(y < cube.map->max_Y)
+	int x;
+	int y;
+
+	x = 0;
+	y = 0;
+	while(y < cub->map->max_Y)
 	{
-		while(x < cube.map->max_X)
+		while(x < cub->map->max_X)
 		{
-			printf("%d", cube.map->final_map[y][x]);
+			printf("%d", cub->map->final_map[y][x]);
 			x++;
 		}
 		printf("\n");
 		x = 0;
 		y++;
 	}
-	init_all(&cube);
-	create_minimap(&cube);
-	mlx_mouse_move(cube.mlx ,cube.win, cube.win_x, cube.win_y);
-	mlx_mouse_hide(cube.mlx ,cube.win);
-	render(&cube);
-	mlx_loop(cube.mlx);
+}
+
+int	main(int argc, char **argv)
+{
+	(void) argc;
+	t_cub cub;
+	init_all(&cub);
+	if (init_function(&cub, argv[1]) == -1)
+		return (1);
+	print_map(&cub);
+	create_minimap(&cub);
+	render(&cub);
+	mlx_loop(cub.mlx);
 	return (0);
 }

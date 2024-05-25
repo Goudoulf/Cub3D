@@ -1,40 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_parcing.c                                    :+:      :+:    :+:   */
+/*   check_parsing.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dvo <dvo@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: cassie <cassie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 13:41:39 by dvo               #+#    #+#             */
-/*   Updated: 2024/05/23 16:23:17 by dvo              ###   ########.fr       */
+/*   Updated: 2024/05/25 11:23:17 by cassie           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
-int	check_nbr_valid(t_map *map, t_cube *cube);
+int	check_nbr_valid(t_map *map, t_cub *cub);
 int	check_wall_limit(char **str, size_t y, size_t x);
 
-int	check_parcing(t_map *map, t_cube *cube)
+int	check_parcing(t_map *map, t_cub *cub)
 {
-	if (check_nbr_valid(map, cube) == -1)
+	if (check_nbr_valid(map, cub) == -1)
 		return (-1);
 	return (0);
 }
 
-int	loop_check(t_map *map, size_t y, size_t x, t_cube *cube)
+int	loop_check(t_map *map, size_t y, size_t x, t_cub *cub)
 {
 	if (map->map[y][x] == 'N' || map->map[y][x] == 'S' || \
 	map->map[y][x] == 'W' || map->map[y][x] == 'E')
 	{
-		if (cube->posX != 0 || cube->posY != 0)
+		if (cub->ray.pos.x != 0 || cub->ray.pos.y != 0)
 		{
 			ft_printf(2, "too much initial position\n");
 			return (-1);
 		}
-		cube->posX = x;
-		cube->posY = y;
-		cube->init_view = map->map[y][x];
+		cub->ray.pos.x = x;
+		cub->ray.pos.y = y;
+		cub->init_view = map->map[y][x];
 		map->map[y][x] = '0';
 	}
 	else if (map->map[y][x] == '0')
@@ -53,7 +53,7 @@ int	loop_check(t_map *map, size_t y, size_t x, t_cube *cube)
 	return (0);
 }
 
-int	check_nbr_valid(t_map *map, t_cube *cube)
+int	check_nbr_valid(t_map *map, t_cub *cub)
 {
 	size_t	y;
 	size_t	x;
@@ -64,7 +64,7 @@ int	check_nbr_valid(t_map *map, t_cube *cube)
 	{
 		while (map->map[y][x] && map->map[y][x] != '\n')
 		{
-			if (loop_check(map, y, x, cube))
+			if (loop_check(map, y, x, cub))
 				return (-1);
 			x++;
 		}

@@ -6,18 +6,18 @@
 /*   By: dvo <dvo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 12:54:23 by cassie            #+#    #+#             */
-/*   Updated: 2024/05/24 16:42:29 by dvo              ###   ########.fr       */
+/*   Updated: 2024/05/25 15:24:59 by dvo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
-void	my_mlx_pixel_put(t_data *img, int x, int y, int color)
+void	my_mlx_pixel_put(t_image *img, int x, int y, int color)
 {
-	((unsigned int *)(img->buffer))[x + y * 800] = color;
+	((unsigned int *)(img->buffer))[x + y * 1920] = color;
 }
 
-void	ft_set_floor_ceiling(t_cube *cube)
+void	ft_set_floor_ceiling(t_cub *cub)
 {
 	int offset;
 	int	x;
@@ -25,15 +25,15 @@ void	ft_set_floor_ceiling(t_cube *cube)
 
 	x = 0;
 	y = 0;
-	while (y <cube->win_y)	
+	while (y <cub->win_y)	
 	{
-		while(x < cube->win_x)
+		while(x < cub->win_x)
 		{
-			offset = (cube->img.line_len * y) + (x * (cube->img.bpp / 8));
-			if (y < cube->win_y / 2)
-				*((unsigned int *)(offset + cube->img.buffer)) = cube->map->ceiling;
+			offset = (cub->img.line_len * y) + (x * (cub->img.bpp / 8));
+			if (y < cub->win_y / 2)
+				*((unsigned int *)(offset + cub->img.buffer)) = cub->map->ceiling;
 			else
-				*((unsigned int *)(offset + cube->img.buffer)) = cube->map->floor;
+				*((unsigned int *)(offset + cub->img.buffer)) = cub->map->floor;
 			x++;
 		}
 		y++;
@@ -41,12 +41,13 @@ void	ft_set_floor_ceiling(t_cube *cube)
 	}
 }
 
-int render(t_cube *cube)
+int render(t_cub *cub)
 {
-	ft_set_floor_ceiling(cube);
-	raycast(cube);
-	mlx_put_image_to_window(cube->mlx, cube->win, cube->img.img_ptr, 0, 0);
-	mlx_put_image_to_window(cube->mlx, cube->win, cube->mini_map.img_ptr, (cube->win_x / 3) * 2, 0);
-	put_position_minimap(cube);
+	ft_bzero(cub->img.buffer, 1920*1080*4);
+	ft_set_floor_ceiling(cub);
+	raycast(cub);
+	put_position_minimap(cub);
+	mlx_put_image_to_window(cub->mlx, cub->win, cub->img.img_ptr, 0, 0);
+	mlx_put_image_to_window(cub->mlx, cub->win, cub->mini_map.img.img_ptr, (cub->win_x / 5) * 4, 0);
 	return 0;
 }

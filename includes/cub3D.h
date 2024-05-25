@@ -6,7 +6,7 @@
 /*   By: dvo <dvo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 10:15:38 by cassie            #+#    #+#             */
-/*   Updated: 2024/05/24 16:49:39 by dvo              ###   ########.fr       */
+/*   Updated: 2024/05/25 15:23:22 by dvo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,16 +18,20 @@
 # include "../lib/ft_printf/includes/ft_printf.h"
 # include "../mlx_linux/mlx.h"
 # include "../mlx_linux/mlx_int.h"
+# include "my_struct.h"
 #include <math.h>
+#include <stdbool.h>
+#define WIDTH 1920;
+#define HEIGHT 1080;
 
-typedef struct s_data
+typedef struct s_image
 {
 	void	*img_ptr;
 	char	*buffer;
 	int		bpp;
 	int		line_len;
 	int		endian;
-}				t_data;
+}				t_image;
 
 typedef struct  s_map
 {
@@ -44,70 +48,85 @@ typedef struct  s_map
 	int		max_Y;
 }               t_map;
 
+typedef struct s_camera
+{
+	float	angle;
+	int		fov;
+	float	fov_rad;
+	t_vec	move;
+	bool	no_change;
+	int		oldx;
+	bool	move_f;
+	bool	move_b;
+	bool	move_l;
+	bool	move_r;
+	int		width;
+	int		height;
+}				t_camera;
+
 typedef struct s_raycast
 {
-
-      double cameraX; 
-      double rayDirX; 
-      double rayDirY;
-      int mapX;
-      int mapY;
-      double sideDistX;
-      double sideDistY;
-      double deltaDistX;
-      double deltaDistY;
-      double perpWallDist;
-      int stepX;
-      int stepY;
-      int hit;
-      int side;
-      int lineHeight;
-      int drawStart;
-      int drawEnd;
-      int color;
+	t_vec	pos;
+	float	cameraX; 
+	t_vec	rayDir;
+	t_pos	map;
+	t_vec	sideDist;
+	t_vec	deltaDist;
+	float	perpWallDist;
+	t_vec	step;
+	t_vec	add;
+	int		hit;
+	int		side;
+	int		lineHeight;
+	int		drawStart;
+	int		drawEnd;
+	int		color;
 
 } t_raycast;
 
-typedef struct  s_cube
+typedef struct s_mini_map
 {
-	void        *mlx;
-	void    *win;
-	t_map   *map;
-	t_data	mini_map;
-	t_data	pos_mini_map;
-	t_data  img;
-	t_raycast ray;
+	t_image	img;
+	t_image	img_pos;
+	t_pos	last_pos;
+	int		last_color;
+} t_mini_map;
+
+typedef struct  s_cub
+{
+	void		*mlx;
+	void		*win;
+	t_map		*map;
+	t_image		img;
+	t_raycast	ray;
+	t_camera	cam;
+	t_mini_map mini_map;
 	int		win_y;
 	int		win_x;
-	double posX;
-	double posY;
-	double dirX;
-	double dirY;
-	double planeX;
 	char	init_view;
-	double planeY; //the 2d raycaster version of camera plane
-	unsigned int width;
-	unsigned int height;
-}		t_cube;
+}		t_cub;
 
-int     mouse_control(int button, int x, int y, t_cube *cube);
-int		mouse_camera(int x, int y, t_cube *cube);
-int	key_control(int keycode, t_cube *cube);
-int	close_window(t_cube *cube);
-void	init_all(t_cube *cube);
-int	init_function(t_cube *cube, char *av);
-int	ft_read(t_cube *cube, char *av);
-int	attribute_init_map(int i, int max, t_map *map, t_cube *cube);
-int	check_parcing(t_map *map, t_cube *cube);
+int		mouse_control(int button, int x, int y, t_cub *cub);
+int		mouse_turn(int x, int y, t_cub *cub);
+int		key_control(int keycode, t_cub *cub);
+int		close_window(t_cub *cub);
+void	init_all(t_cub *cub);
+int		init_function(t_cub *cub, char *av);
+int		ft_read(t_cub *cub, char *av);
+int		attribute_init_map(int i, int max, t_map *map, t_cub *cub);
+int		check_parcing(t_map *map, t_cub *cube);
 void    ft_free_strarr(char **str);
-int raycast(t_cube *cube);
-int render(t_cube *cube);
-int convert_tab_char_to_int(t_cube *cube);
-void	check_hit_wall(t_cube *cube, double ms, int i);
-int	ft_texture(int direc, char *str, t_map *map);
-int create_minimap(t_cube *cube);
-void	my_mlx_pixel_put(t_data *img, int x, int y, int color);
-void	put_position_minimap(t_cube *cube);
-void	ft_reset_pos_minimap(t_cube *cube);
+int		raycast(t_cub *cub);
+int		render(t_cub *cub);
+int		convert_tab_char_to_int(t_cub *cub);
+void	my_mlx_pixel_put(t_image *img, int x, int y, int color);
+void	check_hit_wall(t_cub *cub, int i);
+int		event_loop(t_cub *cub);
+int		key_release(int keysym, t_cub *cub);
+//void	check_hit_wall(t_cub *cub, double ms, int i);
+int		ft_texture(int direc, char *str, t_map *map);
+int		create_minimap(t_cub *cub);
+void	put_position_minimap(t_cub *cub);
+
 
 #endif

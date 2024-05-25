@@ -6,34 +6,34 @@
 /*   By: dvo <dvo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 14:11:16 by dvo               #+#    #+#             */
-/*   Updated: 2024/05/24 16:49:22 by dvo              ###   ########.fr       */
+/*   Updated: 2024/05/25 15:23:57 by dvo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
-int ft_border(t_cube *cube, int x, int y)
+int ft_border(t_cub *cub, int x, int y)
 {
-	if (x > (cube->win_x / 3) - 5 || x < 5)
+	if (x > (cub->win_x / 5) - 5 || x < 5)
 		return (1);
-	if (y > (cube->win_y / 3) - 5 || y < 5)
+	if (y > (cub->win_y / 5) - 5 || y < 5)
 		return (1);
 	return (0);
 }
 
-int ft_check_wall(t_cube *cube, int x, int y)
+int ft_check_wall(t_cub *cub, int x, int y)
 {
 	int posx;
 	int posy;
 
-	posx = (cube->map->max_X * x) / (cube->win_x / 3);
-	posy = (cube->map->max_Y * y) / (cube->win_y / 3);
-	if (cube->map->final_map[posy][posx] == 1)
+	posx = (cub->map->max_X * x) / (cub->win_x / 5);
+	posy = (cub->map->max_Y * y) / (cub->win_y / 5);
+	if (cub->map->final_map[posy][posx] == 1)
 		return (1);
 	return (0);
 }
 
-void	ft_set_minimap(t_cube *cube)
+void	ft_set_minimap(t_cub *cub)
 {
 	int offset;
 	int	x;
@@ -44,17 +44,17 @@ void	ft_set_minimap(t_cube *cube)
 
 	int wall = (0 << 16) | (255 << 8) | 0;
 	int border = (218 << 16) | (165 << 8) | 32;
-	while (y < cube->win_y / 3)	
+	while (y < cub->win_y / 5)	
 	{
-		while(x < cube->win_x / 3)
+		while(x < cub->win_x / 5)
 		{
-			offset = (cube->mini_map.line_len * y) + (x * (cube->mini_map.bpp / 8));
-			if (ft_border(cube, x, y))
-				*((unsigned int *)(offset + cube->mini_map.buffer)) = border;
-			else if (ft_check_wall(cube, x, y))
-				*((unsigned int *)(offset + cube->mini_map.buffer)) = wall;
+			offset = (cub->mini_map.img.line_len * y) + (x * (cub->mini_map.img.bpp / 8));
+			if (ft_border(cub, x, y))
+				*((unsigned int *)(offset + cub->mini_map.img.buffer)) = border;
+			else if (ft_check_wall(cub, x, y))
+				*((unsigned int *)(offset + cub->mini_map.img.buffer)) = wall;
 			else
-				*((unsigned int *)(offset + cube->mini_map.buffer)) = cube->map->floor;
+				*((unsigned int *)(offset + cub->mini_map.img.buffer)) = cub->map->floor;
 			x++;
 		}
 		y++;
@@ -62,79 +62,57 @@ void	ft_set_minimap(t_cube *cube)
 	}
 }
 
-int create_minimap(t_cube *cube)
+int create_minimap(t_cub *cub)
 {
-	cube->mini_map.img_ptr = mlx_new_image(cube->mlx, cube->win_x / 3, cube->win_y / 3);
-	if (cube->mini_map.img_ptr == NULL)
+	cub->mini_map.img.img_ptr = mlx_new_image(cub->mlx, cub->win_x / 5, cub->win_y / 5);
+	if (cub->mini_map.img.img_ptr == NULL)
 	{
-		mlx_destroy_window(cube->mlx, cube->win);
-		mlx_destroy_display(cube->mlx);
-		free(cube->mlx);
+		mlx_destroy_window(cub->mlx, cub->win);
+		mlx_destroy_display(cub->mlx);
+		free(cub->mlx);
 	}
-	cube->mini_map.buffer = mlx_get_data_addr(cube->mini_map.img_ptr,
-			&cube->mini_map.bpp, &cube->mini_map.line_len, &cube->mini_map.endian);
-	cube->pos_mini_map.img_ptr = mlx_new_image(cube->mlx, cube->win_x / 3, cube->win_y / 3);
-	if (cube->pos_mini_map.img_ptr == NULL)
+	cub->mini_map.img.buffer = mlx_get_data_addr(cub->mini_map.img.img_ptr,
+			&cub->mini_map.img.bpp, &cub->mini_map.img.line_len, &cub->mini_map.img.endian);
+	cub->mini_map.img_pos.img_ptr = mlx_new_image(cub->mlx, cub->win_x / 5, cub->win_y / 5);
+	if (cub->mini_map.img_pos.img_ptr == NULL)
 	{
-		mlx_destroy_window(cube->mlx, cube->win);
-		mlx_destroy_display(cube->mlx);
-		free(cube->mlx);
+		mlx_destroy_window(cub->mlx, cub->win);
+		mlx_destroy_display(cub->mlx);
+		free(cub->mlx);
 	}
-	cube->pos_mini_map.buffer = mlx_get_data_addr(cube->pos_mini_map.img_ptr,
-			&cube->pos_mini_map.bpp, &cube->pos_mini_map.line_len, &cube->pos_mini_map.endian);
-	ft_set_minimap(cube);
+	cub->mini_map.img_pos.buffer = mlx_get_data_addr(cub->mini_map.img.img_ptr,
+			&cub->mini_map.img_pos.bpp, &cub->mini_map.img_pos.line_len, &cub->mini_map.img_pos.endian);
+	ft_set_minimap(cub);
 	
 	return (0);
 	
 }
 
-void	put_position_minimap(t_cube *cube)
+void	put_position_minimap(t_cub *cub)
 {
 	int	x;
 	int	y;
-	int	offset;
 	int	init_x;
-	int finalx = (int) cube->posX;
-	int finaly = (int) cube->posY;
+	int finalx = (int) cub->ray.pos.x;
+	int finaly = (int) cub->ray.pos.y;
 
 	y = 0;
-	init_x = (cube->win_x / 3) * 2;
+	init_x = (cub->win_x / 5);
 	x = 0 + init_x;
 	int	color = (255 << 16) | (0 << 8) | 0;
-	while (y < cube->win_y / 3)	
+	while (y < cub->win_y / 5)	
 	{
-		while(x - init_x < cube->win_x / 3)
+		while(x - init_x < cub->win_x / 5)
 		{
-			offset = (cube->mini_map.line_len * y) + (x * (cube->mini_map.bpp / 8));
-			if (finaly == (cube->map->max_Y * y) / (cube->win_y / 3) && finalx == (cube->map->max_X * (x - init_x)) / (cube->win_x / 3))
-				*((unsigned int *)(offset + cube->mini_map.buffer)) = color;
-			x++;
-		}
-		y++;
-		x = 0 + init_x;
-	}
-
-}
-
-void	ft_reset_pos_minimap(t_cube *cube)
-{
-	int	x;
-	int	y;
-	int	offset;
-	int	init_x;
-	int finalx = (int) cube->posX;
-	int finaly = (int) cube->posY;
-
-	y = 0;
-	init_x = (cube->win_x / 3) * 2;
-	x = 0 + init_x;
-	while (y < cube->win_y / 3)	
-	{
-		while(x - init_x < cube->win_x / 3)
-		{
-			offset = (cube->mini_map.line_len * y) + (x * (cube->mini_map.bpp / 8));
-			if (finaly == (cube->map->max_Y * y) / (cube->win_y / 3) && finalx == (cube->map->max_X * (x - init_x)) / (cube->win_x / 3))
-				*((unsigned int *)(offset + cube->mini_map.buffer)) = cube->map->floor;
+			if (finaly == (cub->map->max_Y * y) / (cub->win_y / 5) &&
+				finalx == (cub->map->max_X * (x - init_x)) / (cub->win_x / 5))
+			{
+				((unsigned int *)(cub->mini_map.img.buffer))[x + y * 1920 / 5] = color;
+				((unsigned int *)(cub->mini_map.img.buffer))[cub->mini_map.last_pos.x 
+					+ cub->mini_map.last_pos.y * 1920 / 5] = cub->map->floor;
+				cub->mini_map.last_pos.x = x;
+				cub->mini_map.last_pos.x = y;
+			}
 			x++;
 		}
 		y++;

@@ -3,80 +3,93 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dvo <dvo@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: cassie <cassie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 12:41:08 by cassie            #+#    #+#             */
-/*   Updated: 2024/05/24 13:53:54 by dvo              ###   ########.fr       */
+/*   Updated: 2024/05/25 12:16:40 by cassie           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
+#include <X11/X.h>
 
 static void	malloc_error(void)
 {
 	exit(EXIT_FAILURE);
 }
 
-static void	event_init(t_cube *cube)
+static void	event_init(t_cub *cub)
 {
-	mlx_hook(cube->win, KeyPress, KeyPressMask, key_control, cube);
-	mlx_hook(cube->win, ButtonPress, ButtonPressMask, mouse_control, cube);
-	mlx_hook(cube->win, 6, PointerMotionMask, mouse_camera, cube);
-	mlx_hook(cube->win, DestroyNotify, StructureNotifyMask, close_window, cube);
+	mlx_hook(cub->win, KeyPress, KeyPressMask, key_control, cub);
+	mlx_hook(cub->win, KeyRelease, KeyReleaseMask, key_release, cub);
+	mlx_hook(cub->win, ButtonPress, ButtonPressMask, mouse_control, cub);
+	mlx_hook(cub->win, MotionNotify, PointerMotionMask, mouse_turn, cub);
+	mlx_hook(cub->win, DestroyNotify, StructureNotifyMask, close_window, cub);
+	mlx_loop_hook(cub->mlx, event_loop, cub);
 }
 
-static void	data_init(t_cube *cube)
+static void	data_init(t_cub *cub)
 {
-	cube->width = cube->win_x;
-	cube->height = cube->win_y;
-	cube->dirX = -1, cube->dirY = 0; //initial direction vector
-	cube->planeX = 0;
-	cube->planeY = 0.66; //the 2d raycaster version of camera plane
-	cube->ray.hit = 0;
-	cube->ray.mapX = 0;
-	cube->ray.mapY = 0;
-	cube->ray.side = 0;
-	cube->ray.color = 0;
-	cube->ray.stepX = 0;
-	cube->ray.stepY = 0;
-	cube->ray.cameraX = 0;
-	cube->ray.drawEnd = 0;
-	cube->ray.rayDirX = 0;
-	cube->ray.rayDirY = 0;
-	cube->ray.drawStart = 0;
-	cube->ray.sideDistX = 0;
-	cube->ray.sideDistY = 0;
-	cube->ray.deltaDistX = 0;
-	cube->ray.deltaDistY = 0;
-	cube->ray.lineHeight = 0;
-	cube->ray.perpWallDist = 0;
+	cub->cam.width = WIDTH;
+	cub->cam.height = HEIGHT;
+	cub->cam.oldx = cub->cam.width / 2;
+	cub->ray.pos.x = 0;
+	cub->ray.pos.y = 0;
+//	cub->dirX = -1, cub->dirY = 0; //initial direction vector
+//	cub->planeX = 0;
+//	cub->planeY = 0.66; //the 2d raycaster version of camera plane
+	cub->ray.hit = 0;
+	cub->ray.map.x = 0;
+	cub->ray.map.y = 0;
+	cub->ray.side = 0;
+	cub->ray.color = 0;
+	cub->ray.step.x = 0;
+	cub->ray.step.y = 0;
+	cub->ray.cameraX = 0;
+	cub->ray.drawEnd = 0;
+	cub->ray.rayDir.x = 0;
+	cub->ray.rayDir.y = 0;
+	cub->ray.drawStart = 0;
+	cub->ray.sideDist.x = 0;
+	cub->ray.sideDist.y = 0;
+	cub->ray.deltaDist.x = 0;
+	cub->ray.deltaDist.y = 0;
+	cub->ray.lineHeight = 0;
+	cub->ray.perpWallDist = 0;
+	cub->cam.angle = M_PI;
+	cub->cam.move_f = false;
+	cub->cam.move_b = false;
+	cub->cam.move_l = false;
+	cub->cam.move_r = false;
+	cub->cam.fov = 90;
+	cub->cam.fov_rad = cub->cam.fov * M_PI * 0.5 / 180.0;
+	cub->win_x = WIDTH;
+	cub->win_y = HEIGHT;
+	cub->mini_map.last_pos.x = cub->ray.pos.x;
+	cub->mini_map.last_pos.y = cub->ray.pos.y;
 }
-
-
-void	init_all(t_cube *cube)
+void	init_all(t_cub *cub)
 {
-	cube->win_x = 800;
-	cube->win_y = 600;
-	cube->mlx = mlx_init();
-	if (cube->mlx == NULL)
+	cub->mlx = mlx_init();
+	if (cub->mlx == NULL)
 		malloc_error();
-	cube->win = mlx_new_window(cube->mlx, cube->win_x, cube->win_y, "Cub3D");
-	if (cube->win == NULL)
+	cub->win = mlx_new_window(cub->mlx, 1920, 1080, "Cub3D");
+	if (cub->win == NULL)
 	{
-		mlx_destroy_display(cube->mlx);
-		free(cube->mlx);
+		mlx_destroy_display(cub->mlx);
+		free(cub->mlx);
 		malloc_error();
 	}
-	cube->img.img_ptr = mlx_new_image(cube->mlx, cube->win_x, cube->win_y);
-	if (cube->img.img_ptr == NULL)
+	cub->img.img_ptr = mlx_new_image(cub->mlx, 1920, 1080);
+	if (cub->img.img_ptr == NULL)
 	{
-		mlx_destroy_window(cube->mlx, cube->win);
-		mlx_destroy_display(cube->mlx);
-		free(cube->mlx);
+		mlx_destroy_window(cub->mlx, cub->win);
+		mlx_destroy_display(cub->mlx);
+		free(cub->mlx);
 		malloc_error();
 	}
-	cube->img.buffer = mlx_get_data_addr(cube->img.img_ptr,
-			&cube->img.bpp, &cube->img.line_len, &cube->img.endian);
-	event_init(cube);
-	data_init(cube);
+	cub->img.buffer = mlx_get_data_addr(cub->img.img_ptr,
+			&cub->img.bpp, &cub->img.line_len, &cub->img.endian);
+	event_init(cub);
+	data_init(cub);
 }
