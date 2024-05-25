@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minimap.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cassie <cassie@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: dvo <dvo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 14:11:16 by dvo               #+#    #+#             */
-/*   Updated: 2024/05/25 12:35:13 by cassie           ###   ########.fr       */
+/*   Updated: 2024/05/25 20:24:50 by dvo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,28 +88,27 @@ int create_minimap(t_cub *cub)
 	
 }
 
-void	put_position_minimap(t_cub *cub)
+void	put_position_minimap(t_cub *cub, int color)
 {
 	int	x;
 	int	y;
 	int	init_x;
-	int finalx = (int) cub->ray.pos.x;
-	int finaly = (int) cub->ray.pos.y;
 
 	y = 0;
 	init_x = (cub->win_x / 5);
 	x = 0 + init_x;
-	int	color = (255 << 16) | (0 << 8) | 0;
+	if (!color)
+		color = (255 << 16) | (0 << 8) | 0;
 	while (y < cub->win_y / 5)	
 	{
 		while(x - init_x < cub->win_x / 5)
 		{
-			if (finaly == (cub->map->max_Y * y) / (cub->win_y / 5) &&
-				finalx == (cub->map->max_X * (x - init_x)) / (cub->win_x / 5))
+			if (cub->ray.pos.y + 1.3 < (cub->map->max_Y * y) / (cub->win_y / 5) && cub->ray.pos.y - 1.3 > (cub->map->max_Y * y) / (cub->win_y / 5) && \
+				cub->ray.pos.x + 0.3 < (cub->map->max_X * (x - init_x)) / (cub->win_x / 5)) //&& cub->ray.pos.x - 0.3 > (cub->map->max_X * (x - init_x)) / (cub->win_x / 5))
 			{
 				((unsigned int *)(cub->mini_map.img.buffer))[x + y * 1920 / 5] = color;
-				((unsigned int *)(cub->mini_map.img.buffer))[cub->mini_map.last_pos.x 
-					+ cub->mini_map.last_pos.y * 1920 / 5] = cub->map->floor;
+				// ((unsigned int *)(cub->mini_map.img.buffer))[cub->mini_map.last_pos.x 
+				// 	+ cub->mini_map.last_pos.y * 1920 / 5] = cub->map->floor;
 				cub->mini_map.last_pos.x = x;
 				cub->mini_map.last_pos.x = y;
 			}

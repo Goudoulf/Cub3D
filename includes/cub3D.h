@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cassie <cassie@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: dvo <dvo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 10:15:38 by cassie            #+#    #+#             */
-/*   Updated: 2024/05/25 11:34:10 by cassie           ###   ########.fr       */
+/*   Updated: 2024/05/25 19:23:20 by dvo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,7 +126,7 @@ int		key_release(int keysym, t_cub *cub);
 //void	check_hit_wall(t_cub *cub, double ms, int i);
 int		ft_texture(int direc, char *str, t_map *map);
 int		create_minimap(t_cub *cub);
-void	put_position_minimap(t_cub *cub);
+void	put_position_minimap(t_cub *cub, int color);
 
 
 #endif

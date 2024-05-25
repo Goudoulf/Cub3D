@@ -168,3 +168,8 @@ a gerer cat'<'infile ok
 ## Command to keep for final test
 
  ...
+
+
+render gettimeofday
+le stocker ds variable
+while(1), temps > temps voulu, si oui render 1/60
