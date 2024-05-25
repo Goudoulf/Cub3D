@@ -6,7 +6,7 @@
 /*   By: dvo <dvo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 09:57:20 by cassie            #+#    #+#             */
-/*   Updated: 2024/05/24 15:14:26 by dvo              ###   ########.fr       */
+/*   Updated: 2024/05/24 17:52:32 by dvo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,9 @@ int	main(int argc, char **argv)
 		return (1);
 	int x = 0;
 	int y = 0;
-	while(y < 24)
+	while(y < cube.map->max_Y)
 	{
-		while(x < 24)
+		while(x < cube.map->max_X)
 		{
 			printf("%d", cube.map->final_map[y][x]);
 			x++;

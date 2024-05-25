@@ -6,7 +6,7 @@
 /*   By: dvo <dvo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 14:11:16 by dvo               #+#    #+#             */
-/*   Updated: 2024/05/24 16:20:51 by dvo              ###   ########.fr       */
+/*   Updated: 2024/05/24 16:49:22 by dvo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,4 +114,30 @@ void	put_position_minimap(t_cube *cube)
 		x = 0 + init_x;
 	}
 
+}
+
+void	ft_reset_pos_minimap(t_cube *cube)
+{
+	int	x;
+	int	y;
+	int	offset;
+	int	init_x;
+	int finalx = (int) cube->posX;
+	int finaly = (int) cube->posY;
+
+	y = 0;
+	init_x = (cube->win_x / 3) * 2;
+	x = 0 + init_x;
+	while (y < cube->win_y / 3)	
+	{
+		while(x - init_x < cube->win_x / 3)
+		{
+			offset = (cube->mini_map.line_len * y) + (x * (cube->mini_map.bpp / 8));
+			if (finaly == (cube->map->max_Y * y) / (cube->win_y / 3) && finalx == (cube->map->max_X * (x - init_x)) / (cube->win_x / 3))
+				*((unsigned int *)(offset + cube->mini_map.buffer)) = cube->map->floor;
+			x++;
+		}
+		y++;
+		x = 0 + init_x;
+	}
 }

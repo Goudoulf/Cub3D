@@ -6,7 +6,7 @@
 /*   By: dvo <dvo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 12:54:23 by cassie            #+#    #+#             */
-/*   Updated: 2024/05/24 16:21:00 by dvo              ###   ########.fr       */
+/*   Updated: 2024/05/24 16:42:29 by dvo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,5 @@ int render(t_cube *cube)
 	mlx_put_image_to_window(cube->mlx, cube->win, cube->img.img_ptr, 0, 0);
 	mlx_put_image_to_window(cube->mlx, cube->win, cube->mini_map.img_ptr, (cube->win_x / 3) * 2, 0);
 	put_position_minimap(cube);
-	//mlx_put_image_to_window(cube->mlx, cube->win, cube->pos_mini_map.img_ptr, (cube->win_x / 3) * 2, 0);
 	return 0;
 }

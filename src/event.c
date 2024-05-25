@@ -6,7 +6,7 @@
 /*   By: dvo <dvo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 12:54:00 by cassie            #+#    #+#             */
-/*   Updated: 2024/05/23 17:33:31 by dvo              ###   ########.fr       */
+/*   Updated: 2024/05/24 16:48:04 by dvo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ int	key_control(int keycode, t_cube *cube)
 	double	ms;
 
 	ms = 0.3;
+	ft_reset_pos_minimap(cube);
 	if (keycode == XK_Escape)
 		close_window(cube);
 	if (keycode == XK_w)
