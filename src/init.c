@@ -6,7 +6,7 @@
 /*   By: cassie <cassie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 12:41:08 by cassie            #+#    #+#             */
-/*   Updated: 2024/05/25 12:16:40 by cassie           ###   ########.fr       */
+/*   Updated: 2024/05/25 19:37:01 by cassie           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,21 @@ static void	data_init(t_cub *cub)
 	cub->mini_map.last_pos.x = cub->ray.pos.x;
 	cub->mini_map.last_pos.y = cub->ray.pos.y;
 }
+
+void	texture_init(t_cub *cub)
+{
+	cub->texture.north.img_ptr = mlx_xpm_file_to_image(cub->mlx, "./textures/mossy.xpm", &cub->texture.north.width, &cub->texture.north.height);	
+	if (!cub->texture.north.img_ptr)
+		exit(1);
+	cub->texture.north.buffer = mlx_get_data_addr(cub->texture.north.img_ptr,
+			&cub->texture.north.bpp, &cub->texture.north.line_len, &cub->texture.north.endian);
+	cub->texture.south.img_ptr = mlx_xpm_file_to_image(cub->mlx, "./textures/greystone.xpm",&cub->texture.south.width, &cub->texture.south.height); 
+	if (!cub->texture.south.img_ptr)
+		exit(1);
+	cub->texture.south.buffer = mlx_get_data_addr(cub->texture.south.img_ptr,
+			&cub->texture.south.bpp, &cub->texture.south.line_len, &cub->texture.south.endian);
+}
+
 void	init_all(t_cub *cub)
 {
 	cub->mlx = mlx_init();
@@ -92,4 +107,5 @@ void	init_all(t_cub *cub)
 			&cub->img.bpp, &cub->img.line_len, &cub->img.endian);
 	event_init(cub);
 	data_init(cub);
+	texture_init(cub);
 }

@@ -6,7 +6,7 @@
 /*   By: cassie <cassie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 10:15:38 by cassie            #+#    #+#             */
-/*   Updated: 2024/05/25 11:34:10 by cassie           ###   ########.fr       */
+/*   Updated: 2024/05/25 19:07:19 by cassie           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,23 @@
 #define WIDTH 1920;
 #define HEIGHT 1080;
 
+typedef struct s_tex
+{
+	void	*img_ptr;
+	char	*buffer;
+	int		bpp;
+	int		line_len;
+	int		endian;	
+	int		width;
+	int		height;
+}				t_tex;
 typedef struct s_image
 {
 	void	*img_ptr;
 	char	*buffer;
 	int		bpp;
 	int		line_len;
-	int		endian;
+	int		endian;	
 }				t_image;
 
 typedef struct  s_map
@@ -63,6 +73,14 @@ typedef struct s_camera
 	int		width;
 	int		height;
 }				t_camera;
+
+typedef struct s_texture
+{
+	t_tex north;
+	t_tex south;
+	t_tex east;
+	t_tex west;
+} t_texture;
 
 typedef struct s_raycast
 {
@@ -101,6 +119,7 @@ typedef struct  s_cub
 	t_raycast	ray;
 	t_camera	cam;
 	t_mini_map mini_map;
+	t_texture	texture;
 	int		win_y;
 	int		win_x;
 	char	init_view;

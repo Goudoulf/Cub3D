@@ -6,7 +6,7 @@
 /*   By: cassie <cassie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 09:38:02 by cassie            #+#    #+#             */
-/*   Updated: 2024/05/25 11:14:55 by cassie           ###   ########.fr       */
+/*   Updated: 2024/05/25 19:35:53 by cassie           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,22 @@
 #define mapWidth 24
 #define mapHeight 24
 
+int
+	get_tex_color(t_tex *tex, int y, int x)
+{
+	if (x >= 0 && x < tex->width
+		&& y >= 0 && y < tex->height)
+	{
+		return (*(int*)(tex->buffer
+			+ (4 * tex->width * (int)y)
+			+ (4 * (int)x)));
+	}
+	return (0x0);
+}
+
 void  ray_draw(t_cub *cub, int x,  int h)
 {
+  t_tex *tex = NULL;
   cub->ray.lineHeight = (int)(h / cub->ray.perpWallDist);
 
   cub->ray.drawStart = -cub->ray.lineHeight / 2 + h / 2;
@@ -33,10 +47,27 @@ void  ray_draw(t_cub *cub, int x,  int h)
   if(cub->ray.side == 1)
     cub->ray.color = cub->ray.color / 2;
 
+  float wallX;
+  if (cub->ray.side == 0) wallX = cub->ray.pos.y + cub->ray.perpWallDist * cub->ray.rayDir.y;
+  else wallX = cub->ray.pos.x + cub->ray.perpWallDist * cub->ray.rayDir.x;
+  wallX -= floorf(wallX);
+
+  int texX = (int)(wallX * 64);
+  if (cub->ray.side == 0 && cub->ray.rayDir.x > 0) texX = 64 - texX - 1;
+  if (cub->ray.side == 1 && cub->ray.rayDir.y < 0) texX = 64 - texX - 1;
+  if (cub->ray.side == 0 ) tex = &cub->texture.north;
+  if (cub->ray.side == 1 ) tex = &cub->texture.south;
+ // float step = 1.0 * 64 / cub->ray.lineHeight;
+ // float texPos = (cub->ray.drawStart - (float)h / 2 + (float)cub->ray.lineHeight / 2) * step;
   while (cub->ray.drawStart < cub->ray.drawEnd)
   {
+      //int texY = (int)texPos & (64 - 1);
+      int texY = (int)(cub->ray.drawStart * 2 - 1080 + cub->ray.lineHeight) * ((64 / 2.) / cub->ray.lineHeight);
+      //texPos += step;
+//      uint32_t color = cub->texture.north.buffer[64 * texY + texX];
 //    my_mlx_pixel_put(&cub->img, x, cub->ray.drawStart, cub->ray.color);
-  ((unsigned int *)(cub->img.buffer))[x + cub->ray.drawStart * 1920] = cub->ray.color;
+//  ((unsigned int *)(cub->img.buffer))[x + cub->ray.drawStart * 1920] = cub->ray.color;
+  ((unsigned int *)(cub->img.buffer))[x + cub->ray.drawStart * 1920] = get_tex_color(tex, texY, texX);
     cub->ray.drawStart++;
   }
 }
