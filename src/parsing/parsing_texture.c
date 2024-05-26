@@ -6,7 +6,7 @@
 /*   By: cassie <cassie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 17:41:42 by dvo               #+#    #+#             */
-/*   Updated: 2024/05/25 11:13:58 by cassie           ###   ########.fr       */
+/*   Updated: 2024/05/26 08:55:03 by cassie           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,7 @@ int	convert_char_color(char *str)
 
 	i = 0;
 	first = ft_atoi(str);
-	while (str[i - 1] != ',')
-		i++;
+	while (str[++i - 1] != ',');
 	second = ft_atoi(str + i);
 	i++;
 	while (str[i - 1] != ',')

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dvo <dvo@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: cassie <cassie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 10:15:38 by cassie            #+#    #+#             */
-/*   Updated: 2024/05/26 02:50:08 by dvo              ###   ########.fr       */
+/*   Updated: 2024/05/26 08:43:55 by cassie           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,8 +118,8 @@ typedef struct  s_cub
 	void		*win;
 	t_map		*map;
 	t_image		img;
-	t_raycast	ray;
-	t_camera	cam;
+	t_raycast	*ray;
+	t_camera	*cam;
 	t_mini_map mini_map;
 	t_texture	texture;
 	int		win_y;

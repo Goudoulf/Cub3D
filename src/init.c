@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dvo <dvo@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: cassie <cassie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 12:41:08 by cassie            #+#    #+#             */
-/*   Updated: 2024/05/26 02:49:55 by dvo              ###   ########.fr       */
+/*   Updated: 2024/05/26 08:44:26 by cassie           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,47 +28,29 @@ static void	event_init(t_cub *cub)
 	mlx_loop_hook(cub->mlx, event_loop, cub);
 }
 
-static void	data_init(t_cub *cub)
+static void	cub_init(t_cub *cub)
 {
-	cub->cam.width = WIDTH;
-	cub->cam.height = HEIGHT;
-	cub->cam.oldx = cub->cam.width / 2;
-	cub->ray.pos.x = 0;
-	cub->ray.pos.y = 0;
+	cub->ray = ft_calloc(1, sizeof(t_raycast));
+	cub->cam = ft_calloc(1, sizeof(t_camera));
+	cub->cam->width = WIDTH;
+	cub->cam->height = HEIGHT;
+	cub->cam->oldx = cub->cam->width / 2;
 //	cub->dirX = -1, cub->dirY = 0; //initial direction vector
 //	cub->planeX = 0;
 //	cub->planeY = 0.66; //the 2d raycaster version of camera plane
-	cub->ray.hit = 0;
-	cub->ray.map.x = 0;
-	cub->ray.map.y = 0;
-	cub->ray.side = 0;
-	cub->ray.color = 0;
-	cub->ray.step.x = 0;
-	cub->ray.step.y = 0;
-	cub->ray.cameraX = 0;
-	cub->ray.drawEnd = 0;
-	cub->ray.rayDir.x = 0;
-	cub->ray.rayDir.y = 0;
-	cub->ray.drawStart = 0;
-	cub->ray.sideDist.x = 0;
-	cub->ray.sideDist.y = 0;
-	cub->ray.deltaDist.x = 0;
-	cub->ray.deltaDist.y = 0;
-	cub->ray.lineHeight = 0;
-	cub->ray.perpWallDist = 0;
-	cub->view_ennemy = 0;
-	cub->flag_die = 0;
-	cub->cam.angle = M_PI;
-	cub->cam.move_f = false;
-	cub->cam.move_b = false;
-	cub->cam.move_l = false;
-	cub->cam.move_r = false;
-	cub->cam.fov = 90;
-	cub->cam.fov_rad = cub->cam.fov * M_PI * 0.5 / 180.0;
+	cub->cam->angle = M_PI;
+	cub->cam->move_f = false;
+	cub->cam->move_b = false;
+	cub->cam->move_l = false;
+	cub->cam->move_r = false;
+	cub->cam->fov = 90;
+	cub->cam->fov_rad = cub->cam->fov * M_PI * 0.5 / 180.0;
 	cub->win_x = WIDTH;
 	cub->win_y = HEIGHT;
-	cub->mini_map.last_pos.x = cub->ray.pos.x;
-	cub->mini_map.last_pos.y = cub->ray.pos.y;
+	cub->mini_map.last_pos.x = cub->ray->pos.x;
+	cub->mini_map.last_pos.y = cub->ray->pos.y;
+	//cub->map->max_X = 0;
+	//cub->map->max_Y = 0;
 }
 
 void	texture_init(t_cub *cub)
@@ -119,6 +101,6 @@ void	init_all(t_cub *cub)
 	cub->img.buffer = mlx_get_data_addr(cub->img.img_ptr,
 			&cub->img.bpp, &cub->img.line_len, &cub->img.endian);
 	event_init(cub);
-	data_init(cub);
+	cub_init(cub);
 	texture_init(cub);
 }

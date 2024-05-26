@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minimap.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dvo <dvo@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: cassie <cassie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 14:11:16 by dvo               #+#    #+#             */
-/*   Updated: 2024/05/26 00:00:01 by dvo              ###   ########.fr       */
+/*   Updated: 2024/05/26 09:23:49 by cassie           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,8 +104,8 @@ void	put_position_minimap(t_cub *cub, int color)
 		{
 			test_x = (cub->map->max_X * (x - init_x)) / (float)(cub->win_x / 5.0f);
 			test_y = (cub->map->max_Y * y) / (float)(cub->win_y / 5.0f);
-			if (cub->ray.pos.y + 0.3 > test_y && cub->ray.pos.y - 0.3 < test_y && \
-			cub->ray.pos.x + 0.3 > test_x && cub->ray.pos.x - 0.3 < test_x)
+			if (cub->ray->pos.y + 0.3 > test_y && cub->ray->pos.y - 0.3 < test_y && \
+			cub->ray->pos.x + 0.3 > test_x && cub->ray->pos.x - 0.3 < test_x)
 				((unsigned int *)(cub->mini_map.img.buffer))[x + y * 1920 / 5] = color;
 			x++;
 		}

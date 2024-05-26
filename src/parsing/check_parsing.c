@@ -6,7 +6,7 @@
 /*   By: cassie <cassie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 13:41:39 by dvo               #+#    #+#             */
-/*   Updated: 2024/05/25 11:23:17 by cassie           ###   ########.fr       */
+/*   Updated: 2024/05/26 08:31:59 by cassie           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,13 +27,13 @@ int	loop_check(t_map *map, size_t y, size_t x, t_cub *cub)
 	if (map->map[y][x] == 'N' || map->map[y][x] == 'S' || \
 	map->map[y][x] == 'W' || map->map[y][x] == 'E')
 	{
-		if (cub->ray.pos.x != 0 || cub->ray.pos.y != 0)
+		if (cub->ray->pos.x != 0 || cub->ray->pos.y != 0)
 		{
 			ft_printf(2, "too much initial position\n");
 			return (-1);
 		}
-		cub->ray.pos.x = x;
-		cub->ray.pos.y = y;
+		cub->ray->pos.x = x;
+		cub->ray->pos.y = y;
 		cub->init_view = map->map[y][x];
 		map->map[y][x] = '0';
 	}
