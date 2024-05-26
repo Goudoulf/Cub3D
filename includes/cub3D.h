@@ -6,7 +6,7 @@
 /*   By: dvo <dvo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 10:15:38 by cassie            #+#    #+#             */
-/*   Updated: 2024/05/26 01:40:16 by dvo              ###   ########.fr       */
+/*   Updated: 2024/05/26 02:50:08 by dvo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@ typedef struct s_texture
 	t_tex east;
 	t_tex west;
 	t_tex statue;
+	t_tex scream;
 } t_texture;
 
 typedef struct s_raycast
@@ -125,6 +126,7 @@ typedef struct  s_cub
 	int		win_x;
 	char	init_view;
 	int		view_ennemy;
+	int		flag_die;
 	float		posX_ennemy;
 	float		posY_ennemy;
 }		t_cub;

@@ -6,7 +6,7 @@
 /*   By: dvo <dvo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 12:41:08 by cassie            #+#    #+#             */
-/*   Updated: 2024/05/26 01:11:59 by dvo              ###   ########.fr       */
+/*   Updated: 2024/05/26 02:49:55 by dvo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ static void	data_init(t_cub *cub)
 	cub->ray.lineHeight = 0;
 	cub->ray.perpWallDist = 0;
 	cub->view_ennemy = 0;
+	cub->flag_die = 0;
 	cub->cam.angle = M_PI;
 	cub->cam.move_f = false;
 	cub->cam.move_b = false;
@@ -77,6 +78,7 @@ void	texture_init(t_cub *cub)
 		exit(1);
 	cub->texture.north.buffer = mlx_get_data_addr(cub->texture.north.img_ptr,
 			&cub->texture.north.bpp, &cub->texture.north.line_len, &cub->texture.north.endian);
+	sleep (2);
 	cub->texture.south.img_ptr = mlx_xpm_file_to_image(cub->mlx, "./textures/greystone.xpm",&cub->texture.south.width, &cub->texture.south.height); 
 	if (!cub->texture.south.img_ptr)
 		exit(1);
@@ -87,6 +89,11 @@ void	texture_init(t_cub *cub)
 		exit(1);
 	cub->texture.statue.buffer = mlx_get_data_addr(cub->texture.statue.img_ptr,
 			&cub->texture.statue.bpp, &cub->texture.statue.line_len, &cub->texture.statue.endian);
+	cub->texture.scream.img_ptr = mlx_xpm_file_to_image(cub->mlx, "./textures/scream.xpm",&cub->texture.scream.width, &cub->texture.scream.height); 
+	if (!cub->texture.scream.img_ptr)
+		exit(1);
+	cub->texture.scream.buffer = mlx_get_data_addr(cub->texture.scream.img_ptr,
+			&cub->texture.scream.bpp, &cub->texture.scream.line_len, &cub->texture.scream.endian);
 }
 
 void	init_all(t_cub *cub)
