@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cassie <cassie@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: dvo <dvo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 09:38:02 by cassie            #+#    #+#             */
-/*   Updated: 2024/05/26 08:45:32 by cassie           ###   ########.fr       */
+/*   Updated: 2024/05/27 05:11:07 by dvo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,9 @@
 #include <stdint.h>
 #define screenWidth 1920
 #define screenHeight 1080
-#define mapWidth 24
-#define mapHeight 24
 
-int
-	get_tex_color(t_tex *tex, int y, int x)
+
+int get_tex_color(t_tex *tex, int y, int x)
 {
 	if (x >= 0 && x < tex->width
 		&& y >= 0 && y < tex->height)
@@ -57,7 +55,7 @@ void  ray_draw(t_cub *cub, int x,  int h)
   if (cub->ray->side == 1 && cub->ray->rayDir.y < 0) texX = 64 - texX - 1;
   if (cub->ray->side == 0 ) tex = &cub->texture.north;
   if (cub->ray->side == 1 ) tex = &cub->texture.south;
-  if (cub->ray->hit == 2 ) tex = &cub->texture.statue;
+  //if (cub->ray->hit == 2 ) tex = &cub->texture.north;
  // float step = 1.0 * 64 / cub->ray->lineHeight;
  // float texPos = (cub->ray->drawStart - (float)h / 2 + (float)cub->ray->lineHeight / 2) * step;
   while (cub->ray->drawStart < cub->ray->drawEnd)
@@ -94,7 +92,13 @@ void  ray_dda(t_cub *cub)
      if(cub->map->final_map[cub->ray->map.y][cub->ray->map.x] == 2)
      {
         cub->view_ennemy = 1;
-        cub->ray->hit = 2;
+        cub->ray->flag_statue = 1;
+       cub->ray->statue.drawStart  = cub->ray->drawStart;
+       cub->ray->statue.drawEnd = cub->ray->drawEnd;
+        if(cub->ray->side == 0)
+          cub->ray->statue.perpWallDist = (cub->ray->sideDist.x - cub->ray->deltaDist.x);
+        else
+          cub->ray->statue.perpWallDist = (cub->ray->sideDist.y - cub->ray->deltaDist.y);
      }
   }
   if(cub->ray->side == 0)
@@ -108,6 +112,7 @@ void ray_hit(t_cub *cub)
   cub->ray->deltaDist.x = fabsf(1 / cub->ray->rayDir.x);
   cub->ray->deltaDist.y = fabsf(1 / cub->ray->rayDir.y);
   cub->ray->hit = 0;
+  cub->ray->flag_statue = 0;
   if(cub->ray->rayDir.x < 0)
   {
     cub->ray->step.x = -1;
@@ -171,6 +176,8 @@ int raycast(t_cub *cub)
     ray_hit(cub);
     ray_dda(cub);
     ray_draw(cub, x, cub->cam->height);
+    if (cub->ray->flag_statue == 1)
+      ray_draw_statue(cub, x, cub->cam->height);
     cub->ray->rayDir = (t_vec)
     {
 	cub->ray->rayDir.x + cub->ray->add.x,

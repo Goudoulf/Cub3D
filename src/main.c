@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cassie <cassie@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: dvo <dvo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 09:57:20 by cassie            #+#    #+#             */
-/*   Updated: 2024/05/26 08:50:36 by cassie           ###   ########.fr       */
+/*   Updated: 2024/05/27 01:27:48 by dvo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,9 @@ void	print_map(t_cub *cub)
 
 	x = 0;
 	y = 0;
-	while(y < 24)
+	while(y < cub->map->max_Y)
 	{
-		while(x < 24)
+		while(x < cub->map->max_X)
 		{
 			printf("%d", cub->map->final_map[y][x]);
 			x++;

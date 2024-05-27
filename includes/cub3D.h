@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cassie <cassie@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: dvo <dvo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 10:15:38 by cassie            #+#    #+#             */
-/*   Updated: 2024/05/26 08:43:55 by cassie           ###   ########.fr       */
+/*   Updated: 2024/05/27 05:06:04 by dvo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,14 @@ typedef struct s_texture
 	t_tex scream;
 } t_texture;
 
+typedef struct s_ray_en
+{
+		int drawStart;
+		int drawEnd;
+		int		side;
+		float	perpWallDist;
+} t_ray_en;
+
 typedef struct s_raycast
 {
 	t_vec	pos;
@@ -101,6 +109,8 @@ typedef struct s_raycast
 	int		drawStart;
 	int		drawEnd;
 	int		color;
+	t_ray_en statue;
+	int		flag_statue;
 
 } t_raycast;
 
@@ -153,6 +163,8 @@ int		ft_texture(int direc, char *str, t_map *map);
 int		create_minimap(t_cub *cub);
 void	put_position_minimap(t_cub *cub, int color);
 void	ft_ennemy_move(t_cub *cub);
+void	ray_draw_statue(t_cub *cub, int x, int h);
+int get_tex_color(t_tex *tex, int y, int x);
 
 
 #endif
