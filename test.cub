@@ -1,7 +1,7 @@
-NO ./textures/pics/wood.png
-SO ./textures/pics/mossy.png
-WE ./textures/pics/redbrick.png
-EA ./textures/pics/greystone.png
+NO ./textures/wood.xpm
+SO ./textures/mossy.xpm
+WE ./textures/redbrick.xpm
+EA ./textures/greystone.xpm
 
 F 105,105,105
 C 4,12,77
