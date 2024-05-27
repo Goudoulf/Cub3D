@@ -6,7 +6,7 @@
 /*   By: dvo <dvo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 10:15:38 by cassie            #+#    #+#             */
-/*   Updated: 2024/05/27 05:06:04 by dvo              ###   ########.fr       */
+/*   Updated: 2024/05/27 10:53:22 by dvo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,6 +165,9 @@ void	put_position_minimap(t_cub *cub, int color);
 void	ft_ennemy_move(t_cub *cub);
 void	ray_draw_statue(t_cub *cub, int x, int h);
 int get_tex_color(t_tex *tex, int y, int x);
+int	check_texture(t_map *map);
+int check_valid_color(char *str);
+
 
 
 #endif
