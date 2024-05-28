@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_texture.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cassie <cassie@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: dvo <dvo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 17:41:42 by dvo               #+#    #+#             */
-/*   Updated: 2024/05/28 13:13:28 by cassie           ###   ########.fr       */
+/*   Updated: 2024/05/28 15:36:14 by cassie           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,10 @@ int	convert_char_color(char *str)
 	int third;
 
 	if (check_valid_color(str) == -1)
+	{
+		free (str);
 		return (-1);
+	}
 	i = 0;
 	first = ft_atoi(str);
 	while (str[++i - 1] != ',');
@@ -77,7 +80,7 @@ int	ft_texture(int direc, char *str, t_map *map)
 	}
 	if (direc == 5)
 	{
-		if (map->floor)
+		if (map->floor != -1)
 			return (-1);
 		map->floor = convert_char_color(ft_strdup(str + i));
 		if (map->floor == -1)
@@ -85,7 +88,7 @@ int	ft_texture(int direc, char *str, t_map *map)
 	}
 	if (direc == 6)
 	{
-		if (map->ceiling)
+		if (map->ceiling != -1)
 			return (-1);
 		map->ceiling = convert_char_color(ft_strdup(str + i));
 		if (map->ceiling == -1)

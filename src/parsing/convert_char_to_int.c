@@ -6,7 +6,7 @@
 /*   By: cassie <cassie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 16:41:03 by dvo               #+#    #+#             */
-/*   Updated: 2024/05/28 14:14:03 by cassie           ###   ########.fr       */
+/*   Updated: 2024/05/28 15:35:29 by cassie           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int convert_tab_char_to_int(t_cub *cub)
 		cub->map->final_map[y] = ft_calloc(max, sizeof(int));
 		while (cub->map->map[y][x] != '\0')
 		{
-			if (cub->map->map[y][x] == '1')
+			if (cub->map->map[y][x] != '0')
 				cub->map->final_map[y][x] = 1;
 			if (cub->map->map[y][x] == '3')
 				cub->map->final_map[y][x] = -1;
@@ -64,28 +64,3 @@ int convert_tab_char_to_int(t_cub *cub)
 	return (0);
 }
 
-void	ft_add_ennemy(t_cub *cub)
-{
-	int	x;
-	int	y;
-
-	x = 1;
-	y = 1;
-	while (y < cub->map->max_Y)
-	{
-		while (x < cub->map->max_X)
-		{
-			if (cub->map->final_map[y][x] == 0)
-			{
-				cub->map->final_map[y][x] = 2;
-				cub->posX_ennemy = x;
-				cub->posY_ennemy = y;
-				return ;
-			}
-			x++;
-		}
-		y++;
-		x = 0;
-	}
-
-}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cassie <cassie@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: dvo <dvo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 10:15:38 by cassie            #+#    #+#             */
-/*   Updated: 2024/05/28 13:53:59 by cassie           ###   ########.fr       */
+/*   Updated: 2024/05/28 15:33:55 by cassie           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,6 +141,7 @@ typedef struct  s_cub
 	char	init_view;
 	int		view_ennemy;
 	int		flag_die;
+	long	fps_statue;
 	float		posX_ennemy;
 	float		posY_ennemy;
 	bool		door_m;
@@ -171,11 +172,13 @@ void	put_position_minimap(t_cub *cub, int color);
 void	ft_ennemy_move(t_cub *cub);
 void	ray_draw_statue(t_cub *cub, int x, int h);
 int		tex_color(t_tex *tex, int y, int x);
-float set_angle(t_cub *cub);
+float	set_angle(t_cub *cub);
 void	texture_init(t_cub *cub);
-int	check_texture(t_map *map);
-int check_valid_color(char *str);
-
-
+int		check_texture(t_map *map);
+int		check_valid_color(char *str);
+void    ft_free_init_all(t_cub *cub);
+void    ft_free_text(t_map *map);
+void	ft_add_ennemy(t_cub *cub);
+void	ft_sonar(t_cub *cub, int **map);
 
 #endif
