@@ -6,7 +6,7 @@
 /*   By: cassie <cassie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 10:15:38 by cassie            #+#    #+#             */
-/*   Updated: 2024/05/27 20:33:28 by cassie           ###   ########.fr       */
+/*   Updated: 2024/05/28 10:06:19 by cassie           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -168,6 +168,9 @@ void	ray_draw_statue(t_cub *cub, int x, int h);
 int		tex_color(t_tex *tex, int y, int x);
 float set_angle(t_cub *cub);
 void	texture_init(t_cub *cub);
+int	check_texture(t_map *map);
+int check_valid_color(char *str);
+
 
 
 #endif

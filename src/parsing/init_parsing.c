@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_parsing.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cassie <cassie@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: dvo <dvo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 13:29:37 by dvo               #+#    #+#             */
-/*   Updated: 2024/05/26 08:06:09 by cassie           ###   ########.fr       */
+/*   Updated: 2024/05/27 10:33:10 by dvo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,12 @@ int	create_new_map(char **str, int i, t_map *map, t_cub *cub)
 		max++;
 	map->max_Y = max - i;
 	max--;
-	while (check_start_map(str[max]) == 1)
+	while ((check_start_map(str[max]) == 1) && max > i)
 		max --;
+	if (max == i)
+	{
+		ft_printf(2, "Map not exist\n");
+	}
 	printf("%i\n", max - i + 1);
 	map->map = ft_calloc(max - i + 2, sizeof(char *));
 	map->final_map = ft_calloc(max - i + 1, sizeof(int *));
@@ -42,6 +46,8 @@ int	check_start_map(char *str)
 	int	i;
 
 	i = 0;
+	if (!str)
+		return (0);
 	while (str[i] == ' ')
 		i++;
 	if (str[i] == '\0' || str[i] == 'N' || str[i] == 'E' || str[i] == '\n' || \
@@ -70,6 +76,11 @@ int	attribute_text_wall(t_map *map, t_cub *cub)
 		if (ft_strncmp(map->buffer[i], "C ", 2) == 0)
 			ft_texture(6, map->buffer[i], map);
 		i++;
+	}
+	if (!map->buffer[i] && !check_texture(map))
+	{
+		ft_printf(2, "Map didn't exist\n");
+		return (-1);
 	}
 	if (create_new_map(map->buffer, i, map, cub) == -1)
 		return (-1);

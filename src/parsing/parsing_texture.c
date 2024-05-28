@@ -6,7 +6,7 @@
 /*   By: cassie <cassie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 17:41:42 by dvo               #+#    #+#             */
-/*   Updated: 2024/05/27 09:22:36 by cassie           ###   ########.fr       */
+/*   Updated: 2024/05/28 10:06:59 by cassie           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ int	convert_char_color(char *str)
 	int second;
 	int third;
 
+	if (check_valid_color(str) == -1)
+		return (-1);
 	i = 0;
 	first = ft_atoi(str);
 	while (str[++i - 1] != ',');
@@ -78,7 +80,7 @@ int	ft_texture(int direc, char *str, t_map *map)
 		if (map->floor)
 			return (-1);
 		map->floor = convert_char_color(ft_strdup(str + i));
-		if (!map->floor)
+		if (map->floor == -1)
 			return (-1);
 	}
 	if (direc == 6)
@@ -86,7 +88,7 @@ int	ft_texture(int direc, char *str, t_map *map)
 		if (map->ceiling)
 			return (-1);
 		map->ceiling = convert_char_color(ft_strdup(str + i));
-		if (!map->ceiling)
+		if (map->ceiling == -1)
 			return (-1);
 	}
 	return (0);
