@@ -35,7 +35,7 @@ LIBFT = ./lib/libft/libft.a
 
 CC = cc
 MD := mkdir -p
-CFLAGS = -Wall -Wextra -Werror -I/usr/include -Imlx_linux -I${INC} -g -O3 -fsanitize=address
+CFLAGS = -Wall -Wextra -Werror -I/usr/include -Imlx_linux -I${INC} -g -O3
 NFLAGS = -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz
 
 RM = rm -rf
@@ -43,7 +43,7 @@ RM = rm -rf
 all: libft ft_printf ${NAME}
 
 ${NAME}: ${OBJS} ${FT_PRINTF} ${LIBFT} ${MLX}
-	${CC} ${OBJS} ${NFLAGS} ${FT_PRINTF} ${LIBFT} -o $(NAME) -fsanitize=address
+	${CC} ${OBJS} ${NFLAGS} ${FT_PRINTF} ${LIBFT} -o $(NAME)
 
 mlx: ${MLX_DIR}
 	${MAKE} -C ./mlx_linux

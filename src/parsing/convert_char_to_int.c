@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   convert_char_to_int.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dvo <dvo@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: cassie <cassie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 16:41:03 by dvo               #+#    #+#             */
-/*   Updated: 2024/05/26 01:35:17 by dvo              ###   ########.fr       */
+/*   Updated: 2024/05/28 14:14:03 by cassie           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,8 @@ int convert_tab_char_to_int(t_cub *cub)
 		{
 			if (cub->map->map[y][x] == '1')
 				cub->map->final_map[y][x] = 1;
+			if (cub->map->map[y][x] == '3')
+				cub->map->final_map[y][x] = -1;
 			x++;
 		}
 		x = 0;

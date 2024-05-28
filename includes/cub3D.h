@@ -6,7 +6,7 @@
 /*   By: cassie <cassie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 10:15:38 by cassie            #+#    #+#             */
-/*   Updated: 2024/05/28 10:06:19 by cassie           ###   ########.fr       */
+/*   Updated: 2024/05/28 13:53:59 by cassie           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,13 +76,14 @@ typedef struct s_camera
 
 typedef struct s_texture
 {
-	t_tex *textures[2][2][2];
+	t_tex *tab[2][2][2];
 	t_tex north;
 	t_tex south;
 	t_tex east;
 	t_tex west;
 	t_tex statue;
 	t_tex scream;
+	t_tex door;
 } t_texture;
 
 typedef struct s_ray_en
@@ -112,6 +113,8 @@ typedef struct s_raycast
 	int		color;
 	t_ray_en statue;
 	int		flag_statue;
+	t_pos tex_pos;
+	float wall_pos;
 
 } t_raycast;
 
@@ -140,6 +143,8 @@ typedef struct  s_cub
 	int		flag_die;
 	float		posX_ennemy;
 	float		posY_ennemy;
+	bool		door_m;
+	t_pos		door_p;
 }		t_cub;
 
 int		mouse_control(int button, int x, int y, t_cub *cub);

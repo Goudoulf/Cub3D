@@ -1,13 +1,13 @@
 /* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   event.c                                            :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: cassie <cassie@student.42lyon.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/21 12:54:00 by cassie            #+#    #+#             */
-/*   Updated: 2024/05/28 10:25:31 by cassie           ###   ########.fr       */
-/*                                                                            */
+/*																			  */
+/*														  :::	   ::::::::   */
+/*	 event.c											:+:		 :+:	:+:   */
+/*													  +:+ +:+		  +:+	  */
+/*	 By: cassie <cassie@student.42lyon.fr>			+#+  +:+	   +#+		  */
+/*												  +#+#+#+#+#+	+#+			  */
+/*	 Created: 2024/05/21 12:54:00 by cassie			   #+#	  #+#			  */
+/*	 Updated: 2024/05/28 11:49:49 by cassie			  ###	########.fr		  */
+/*																			  */
 /* ************************************************************************** */
 
 #include "cub3D.h"
@@ -66,6 +66,13 @@ int	key_control(int keycode, t_cub *cub)
 		cub->cam->angle -= 0.05;
 	if (keycode == XK_Right)
 		cub->cam->angle += 0.05;
+	if (keycode == XK_f &&  cub->door_m == true)
+	{		
+		if (cub->map->final_map[cub->door_p.y][cub->door_p.x] == -2)
+			cub->map->final_map[cub->door_p.y][cub->door_p.x] = -1;
+		else if (cub->map->final_map[cub->door_p.y][cub->door_p.x] == -1)
+			cub->map->final_map[cub->door_p.y][cub->door_p.x] = -2;
+	}
 	return (0);
 }
 
@@ -94,10 +101,12 @@ void update_cam(t_cub *cub)
 	const float	y = sinf(cub->cam->angle) * cub->cam->move.x + \
 		cosf(cub->cam->angle) * cub->cam->move.y;
 	if (cub->ray->pos.x + x <= cub->map->max_X - 1 && cub->ray->pos.x + x >= 1 
-		&& cub->map->final_map[(int)cub->ray->pos.y][(int)(cub->ray->pos.x + x)] == 0)
+		&& (cub->map->final_map[(int)cub->ray->pos.y][(int)(cub->ray->pos.x + x)] == 0
+		|| cub->map->final_map[(int)cub->ray->pos.y][(int)(cub->ray->pos.x + x)] == -2))
 		cub->ray->pos.x += x;
 	if (cub->ray->pos.y + y <= cub->map->max_Y - 1 && cub->ray->pos.y + y >= 1
-		&& cub->map->final_map[(int)(cub->ray->pos.y + y)][(int)(cub->ray->pos.x)] == 0)
+		&& (cub->map->final_map[(int)(cub->ray->pos.y + y)][(int)(cub->ray->pos.x)] == 0
+		|| cub->map->final_map[(int)(cub->ray->pos.y + y)][(int)(cub->ray->pos.x)] == -2))
 		cub->ray->pos.y += y;
 	cub->cam->move.x = 0;
 	cub->cam->move.y = 0;
@@ -116,6 +125,45 @@ void key_move(t_camera *cam)
 	cam->no_change = false;
 }
 
+void check_door(t_cub *cub)
+{
+	if (cub->map->final_map[(int)(cub->ray->pos.y + 1)][(int)(cub->ray->pos.x)] == -1 
+		|| cub->map->final_map[(int)(cub->ray->pos.y + 1)][(int)(cub->ray->pos.x)] == -2)
+	{
+		cub->door_m = true;
+		cub->door_p.y = cub->ray->pos.y + 1;
+		cub->door_p.x = cub->ray->pos.x;
+		return ;
+	}
+	if (cub->map->final_map[(int)(cub->ray->pos.y - 1)][(int)(cub->ray->pos.x)] == -1
+		|| cub->map->final_map[(int)(cub->ray->pos.y - 1)][(int)(cub->ray->pos.x)] == -2)
+	{
+		cub->door_m = true;
+		cub->door_p.y = cub->ray->pos.y - 1;
+		cub->door_p.x = cub->ray->pos.x;
+		return ;
+	}
+	if (cub->map->final_map[(int)(cub->ray->pos.y)][(int)(cub->ray->pos.x) - 1] == -1
+		|| cub->map->final_map[(int)(cub->ray->pos.y)][(int)(cub->ray->pos.x) - 1] == -2)
+	{
+		cub->door_m = true;
+		cub->door_p.y = cub->ray->pos.y;
+		cub->door_p.x = cub->ray->pos.x - 1;
+		return ;
+	}
+	if (cub->map->final_map[(int)(cub->ray->pos.y)][(int)(cub->ray->pos.x) + 1] == -1 
+		|| cub->map->final_map[(int)(cub->ray->pos.y)][(int)(cub->ray->pos.x) + 1] == -2)
+	{
+		cub->door_m = true;
+		cub->door_p.y = cub->ray->pos.y;
+		cub->door_p.x = cub->ray->pos.x + 1;
+		return ;
+	}
+	cub->door_m = false;
+	cub->door_p.y = 0;
+	cub->door_p.x = 0;
+}
+
 int	event_loop(t_cub *cub)
 {
 	key_move(cub->cam);
@@ -125,6 +173,9 @@ int	event_loop(t_cub *cub)
 	cub->cam->oldx = 1920 / 2;
 	mlx_mouse_move(cub->mlx, cub->win, 1920 / 2, 1080 / 2);
 	update_cam(cub);
+	check_door(cub);
+	if (cub->door_m == true)
+		printf("door waiting\n");
 	cub->cam->no_change = true;
 	render(cub);
 	return (0);

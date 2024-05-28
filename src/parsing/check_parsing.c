@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_parsing.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dvo <dvo@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: cassie <cassie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 13:41:39 by dvo               #+#    #+#             */
-/*   Updated: 2024/05/27 07:36:06 by dvo              ###   ########.fr       */
+/*   Updated: 2024/05/28 13:17:30 by cassie           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int	loop_check(t_map *map, size_t y, size_t x, t_cub *cub)
 			return (-1);
 		}
 	}
-	else if (map->map[y][x] != '1' && map->map[y][x] != ' ')
+	else if (map->map[y][x] != '1' && map->map[y][x] != '3' && map->map[y][x] != ' ')
 	{
 		ft_printf(2, "%c not define on [%i][%i]\n", map->map[y][x], y, x);
 		return (-1);

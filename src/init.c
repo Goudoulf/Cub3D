@@ -1,13 +1,13 @@
 /* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   init.c                                             :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: cassie <cassie@student.42lyon.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/21 12:41:08 by cassie            #+#    #+#             */
-/*   Updated: 2024/05/27 20:58:15 by cassie           ###   ########.fr       */
-/*                                                                            */
+/*									      */
+/*							  :::	   ::::::::   */
+/*   init.c						:+:	 :+:	:+:   */
+/*						      +:+ +:+	      +:+     */
+/*   By: cassie <cassie@student.42lyon.fr>	    +#+  +:+	   +#+	      */
+/*						  +#+#+#+#+#+	+#+	      */
+/*   Created: 2024/05/21 12:41:08 by cassie	       #+#    #+#	      */
+/*   Updated: 2024/05/28 11:40:02 by cassie	      ###   ########.fr       */
+/*									      */
 /* ************************************************************************** */
 
 #include "cub3D.h"
@@ -20,15 +20,14 @@
 
 
 void init_texture_lookup(t_cub *cub) {
-    cub->texture.textures[0][0][0] = &cub->texture.west;  // side = 0, vector.x < 0
-    cub->texture.textures[0][1][0] = &cub->texture.east;// side = 0, vector.x >= 0
-    cub->texture.textures[1][0][0] = &cub->texture.south;// side = 1, vector.y < 0
-    cub->texture.textures[1][0][1] = &cub->texture.north;// side = 1, vector.y >= 0
-    // Assign the same for the second index as they are not used
-    cub->texture.textures[0][0][1] = cub->texture.textures[0][0][0];
-    cub->texture.textures[0][1][1] = cub->texture.textures[0][1][0];
-    cub->texture.textures[1][1][0] = cub->texture.textures[1][0][0];
-    cub->texture.textures[1][1][1] = cub->texture.textures[1][0][1];
+	cub->texture.tab[0][0][0] = &cub->texture.west;  // side = 0, vector.x < 0
+	cub->texture.tab[0][1][0] = &cub->texture.east;// side = 0, vector.x >= 0
+	cub->texture.tab[1][0][0] = &cub->texture.south;// side = 1, vector.y < 0
+	cub->texture.tab[1][0][1] = &cub->texture.north;// side = 1, vector.y >= 0
+	cub->texture.tab[0][0][1] = cub->texture.tab[0][0][0];
+	cub->texture.tab[0][1][1] = cub->texture.tab[0][1][0];
+	cub->texture.tab[1][1][0] = cub->texture.tab[1][0][0];
+	cub->texture.tab[1][1][1] = cub->texture.tab[1][0][1];
 }
 static void	malloc_error(void)
 {
@@ -63,6 +62,7 @@ float set_angle(t_cub *cub)
 
 static void	cub_init(t_cub *cub)
 {
+	cub->door_m = false;
 	cub->ray = ft_calloc(1, sizeof(t_raycast));
 	cub->cam = ft_calloc(1, sizeof(t_camera));
 	cub->cam->width = WIDTH;
@@ -118,6 +118,11 @@ void	texture_init(t_cub *cub)
 		exit(1);
 	cub->texture.scream.buffer = mlx_get_data_addr(cub->texture.scream.img_ptr,
 			&cub->texture.scream.bpp, &cub->texture.scream.line_len, &cub->texture.scream.endian);
+	cub->texture.door.img_ptr = mlx_xpm_file_to_image(cub->mlx, "./textures/door.xpm", &cub->texture.door.width, &cub->texture.door.height);	
+	if (!cub->texture.door.img_ptr)
+		exit(1);
+	cub->texture.door.buffer = mlx_get_data_addr(cub->texture.door.img_ptr,
+			&cub->texture.door.bpp, &cub->texture.door.line_len, &cub->texture.door.endian);
 	init_texture_lookup(cub);
 }
 

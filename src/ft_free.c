@@ -1,30 +1,30 @@
 /* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   ft_free.c                                          :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: dvo <dvo@student.42.fr>                    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/22 14:20:39 by dvo               #+#    #+#             */
-/*   Updated: 2024/05/22 14:25:21 by dvo              ###   ########.fr       */
-/*                                                                            */
+/*																			  */
+/*														  :::	   ::::::::   */
+/*	 ft_free.c											:+:		 :+:	:+:   */
+/*													  +:+ +:+		  +:+	  */
+/*	 By: cassie <cassie@student.42lyon.fr>			+#+  +:+	   +#+		  */
+/*												  +#+#+#+#+#+	+#+			  */
+/*	 Created: 2024/05/22 14:20:39 by dvo			   #+#	  #+#			  */
+/*	 Updated: 2024/05/28 11:47:03 by cassie			  ###	########.fr		  */
+/*																			  */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
-void    ft_free_strarr(char **str)
+void	ft_free_strarr(char **str)
 {
-    size_t i;
+	size_t i;
 
-    i = 0;
-    while (str[i])
-        i++;
-    i--;
-    while (i > 0)
-    {
-        free(str[i]);
-        i--;
-    }
-    free(str[i]);
-    free(str);
+	i = 0;
+	while (str[i])
+		i++;
+	i--;
+	while (i > 0)
+	{
+		free(str[i]);
+		i--;
+	}
+	free(str[i]);
+	free(str);
 }
