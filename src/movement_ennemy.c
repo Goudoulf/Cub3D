@@ -6,7 +6,7 @@
 /*   By: dvo <dvo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/26 01:13:29 by dvo               #+#    #+#             */
-/*   Updated: 2024/05/28 15:41:00 by cassie           ###   ########.fr       */
+/*   Updated: 2024/05/28 16:40:39 by cassie           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,10 +46,10 @@ void ray_draw_statue(t_cub *cub, int x, int h)
 	int texX = (int)(wallX * 64);
 	if (cub->ray->statue.side == 0 && cub->ray->vector.x > 0) texX = 64 - texX - 1;
 	if (cub->ray->statue.side == 1 && cub->ray->vector.y < 0) texX = 64 - texX - 1;
-	if (cub->ray->side == 0 && cub->ray->vector.x < 0) tex = &cub->texture.statue;
-	if (cub->ray->side == 1 && cub->ray->vector.y < 0) tex = &cub->texture.statue;
-	if (cub->ray->side == 0 && cub->ray->vector.x > 0) tex = &cub->texture.statue;
-	if (cub->ray->side == 1 && cub->ray->vector.y > 0) tex = &cub->texture.statue;
+	if (cub->ray->statue.side == 0 && cub->ray->vector.x < 0) tex = &cub->texture.statue;
+	if (cub->ray->statue.side == 1 && cub->ray->vector.y < 0) tex = &cub->texture.statue;
+	if (cub->ray->statue.side == 0 && cub->ray->vector.x > 0) tex = &cub->texture.statue;
+	if (cub->ray->statue.side == 1 && cub->ray->vector.y > 0) tex = &cub->texture.statue;
 
 	while (drawStart < drawEnd)
 	{

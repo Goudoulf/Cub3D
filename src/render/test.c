@@ -1,13 +1,13 @@
 /* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   raycasting.c                                       :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: cassie <cassie@student.42lyon.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/28 16:13:02 by cassie            #+#    #+#             */
-/*   Updated: 2024/05/28 16:30:34 by cassie           ###   ########.fr       */
-/*                                                                            */
+/*									      */
+/*							  :::	   ::::::::   */
+/*   test.c						:+:	 :+:	:+:   */
+/*						      +:+ +:+	      +:+     */
+/*   By: cassie <cassie@student.42lyon.fr>	    +#+  +:+	   +#+	      */
+/*						  +#+#+#+#+#+	+#+	      */
+/*   Created: 2024/05/28 16:18:22 by cassie	       #+#    #+#	      */
+/*   Updated: 2024/05/28 16:22:17 by cassie	      ###   ########.fr       */
+/*									      */
 /* ************************************************************************** */
 
 #include "cub3D.h"
@@ -49,7 +49,7 @@ void  ray_draw(t_cub *cub, t_raycast *ray, int x, int h)
   while (ray->start < ray->end)
   {
 	ray->tex_pos.y = ((ray->start * 2 - h + ray->line) * (64 >> 1)) / ray->line;
-	((unsigned int *)(cub->img.buffer))[x + ray->start * 1920] 
+	((unsigned int *):wq(cub->img.buffer))[x + ray->start * 1920] 
 	  = tex_color(tex, ray->tex_pos.y, ray->tex_pos.x);
 	ray->start++;
   }
@@ -136,21 +136,15 @@ int raycast(t_cub *cub)
   ray_init(cub, cub->cam->width);
   while(++x < cub->cam->width)
   {
-    cub->ray->map = (t_pos)
-      {
-	(int)cub->ray->pos.x,
-	(int)cub->ray->pos.y,
-    };
+    cub->ray->map.x = (int)cub->ray->pos.x;
+    cub->ray->map.y = (int)cub->ray->pos.y;
     ray_direction(cub->ray);
     ray_w_hit(cub, cub->ray);
     ray_draw(cub, cub->ray, x, cub->cam->height);
     if (cub->ray->flag_statue == 1)
       ray_draw_statue(cub, x, cub->cam->height);
-    cub->ray->vector = (t_vec)
-      {
-	cub->ray->vector.x + cub->ray->add.x,
-	cub->ray->vector.y + cub->ray->add.y,
-    };
+    cub->ray->vector.x += cub->ray->add.x;
+    cub->ray->vector.y += cub->ray->add.y;
   }
   return (0);
 }
