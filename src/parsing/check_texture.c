@@ -6,7 +6,7 @@
 /*   By: dvo <dvo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 07:58:19 by dvo               #+#    #+#             */
-/*   Updated: 2024/05/27 20:48:01 by dvo              ###   ########.fr       */
+/*   Updated: 2024/05/28 19:12:32 by dvo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,9 @@ int	check_texture(t_map *map)
 	map->floor == -1)
 	{
 		ft_printf(2, "Information from texture is missing\n");
-		return (1);
+			return (0);
 	}
-    return (0);
+    return (1);
 }
 
 int check_valid_color(char *str)

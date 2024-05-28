@@ -6,7 +6,7 @@
 /*   By: dvo <dvo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 10:15:38 by cassie            #+#    #+#             */
-/*   Updated: 2024/05/28 15:33:55 by cassie           ###   ########.fr       */
+/*   Updated: 2024/05/28 19:27:49 by dvo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -173,7 +173,7 @@ void	ft_ennemy_move(t_cub *cub);
 void	ray_draw_statue(t_cub *cub, int x, int h);
 int		tex_color(t_tex *tex, int y, int x);
 float	set_angle(t_cub *cub);
-void	texture_init(t_cub *cub);
+int		texture_init(t_cub *cub);
 int		check_texture(t_map *map);
 int		check_valid_color(char *str);
 void    ft_free_init_all(t_cub *cub);

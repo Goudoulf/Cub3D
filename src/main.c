@@ -6,7 +6,7 @@
 /*   By: dvo <dvo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 09:57:20 by cassie            #+#    #+#             */
-/*   Updated: 2024/05/28 15:35:01 by cassie           ###   ########.fr       */
+/*   Updated: 2024/05/28 20:03:07 by dvo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,8 @@ void	print_map(t_cub *cub)
 
 int	main(int argc, char **argv)
 {
-	(void) argc;
+	if (argc != 2)
+		return (1);
 	t_cub *cub;
 	cub = ft_calloc(1, sizeof(t_cub));
 	init_all(cub);
@@ -44,7 +45,15 @@ int	main(int argc, char **argv)
 		ft_free_init_all(cub);
 		return (1);
 	}
-	texture_init(cub);
+	if (texture_init(cub) == -1)
+	{
+		ft_free_text(cub->map);
+		ft_free_strarr(cub->map->map);
+		free(cub->map->final_map);
+		free(cub->map);
+		ft_free_init_all(cub);
+		return (1);
+	}
 	cub->cam->angle = set_angle(cub);
 	print_map(cub);
 	create_minimap(cub);
