@@ -6,11 +6,13 @@
 /*   By: dvo <dvo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 10:54:20 by dvo               #+#    #+#             */
-/*   Updated: 2024/05/28 11:24:14 by dvo              ###   ########.fr       */
+/*   Updated: 2024/05/28 13:04:36 by dvo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
+
+int	check_road(int **map, int posy, int posx, t_cub *cub);
 
 void	ft_add_ennemy(t_cub *cub)
 {
@@ -23,12 +25,11 @@ void	ft_add_ennemy(t_cub *cub)
 	{
 		while (x < cub->map->max_X)
 		{
-			if (cub->map->final_map[y][x] == 0 && check_road(cub->map->final_map, y, x))
+			if (cub->map->final_map[y][x] == 0 && check_road(cub->map->final_map, y, x, cub))
 			{
 				cub->map->final_map[y][x] = 2;
 				cub->posX_ennemy = x;
 				cub->posY_ennemy = y;
-				printf("[%i][%i]\n", y, x);
 				return ;
 			}
 			x++;
@@ -39,67 +40,80 @@ void	ft_add_ennemy(t_cub *cub)
 
 }
 
-static int	check_5(char *str)
+static int check_around(int **map, int y, int x, t_cub *cub)
 {
-	int	i;
-	int	check;
+	int nbr;
 
-	i = 0;
-	check = 0;
-	while (str[i])
+	nbr = 0;
+	if (x > 0 && map[y][x - 1] == 0)
 	{
-		if (str[i] == '5')
-			check++;
-		i++;
+		map[y][x - 1] = 5;
+		nbr++;
 	}
-	return (check);
+	if (x < cub->map->max_X && map[y][x + 1] == 0)
+	{
+		map[y][x + 1] = 5;
+		nbr++;
+	}
+	if (y < cub->map->max_Y && map[y + 1][x] == 0)
+	{
+		map[y + 1][x] = 5;
+		nbr++;
+	}
+	if (y > 0 && map[y - 1][x] == 0)
+	{
+		map[y - 1][x] = 5;
+		nbr++;
+	}
+	return (nbr);
 }
 
-// static void	check_around(char *str, int i)
-// {
-// 	int	line;
-
-// 	line = 0;
-// 	while (str[line] != '\n')
-// 		line++;
-// 	if (str[i - 1] == '0' || str[i - 1] == 'E' || str[i - 1] == 'C')
-// 		str[i - 1] = '5';
-// 	if (str[i + 1] == '0' || str[i + 1] == 'E' || str[i + 1] == 'C')
-// 		str[i + 1] = '5';
-// 	if (str[i + line + 1] == '0' || str[i + line + 1] == 'E' \
-// 	|| str[i + line + 1] == 'C')
-// 		str[i + line + 1] = '5';
-// 	if (str[i - line - 1] == '0' || str[i - line - 1] == 'E' \
-// 	|| str[i - line - 1] == 'C')
-// 		str[i - line - 1] = '5';
-// 	str[i] = '6';
-// }
-
-int	check_road(char **map, int posy, int posx)
+int reset_five(int **map, t_cub *cub)
 {
-	int	i;
-    int nbr_five;
-    int x;
-    int y;
+	int res;
+	int y;
+	int x;
 
-    nbr_five = 1;
-    map[posy][posx] = 5;
+	res = 0;
+	y = 0;
+	if (map[(int)cub->ray->pos.y][(int)cub->ray->pos.x] == 5)
+		res = 1;
+	while (y < cub->map->max_Y)
+		{
+			x = 0;
+			while (x < cub->map->max_X)
+			{
+				if (map[y][x] == 5)
+					map[y][x] = 0;
+				x++;
+			}
+			y++;
+		}
+	return (res);
+}
+int	check_road(int **map, int posy, int posx, t_cub *cub)
+{
+	int nbr_five;
+	int x;
+	int y;
+
+	nbr_five = 1;
+	y = 0;
+	map[posy][posx] = 5;
 	while (nbr_five != 0)
 	{
-        nbr_five = 0;
-		i = 0;
-		while (map[y])
+		nbr_five = 0;
+		while (y < cub->map->max_Y)
 		{
-            x = 0;
-            while (map[y][x])
-            {
-			    if (map[y][x] == 5)
-				    nbr_five += check_around(map, y, x);
-                x++;
-            }
-			i++;
-            y++;
+			x = 0;
+			while (x < cub->map->max_X)
+			{
+				if (map[y][x] == 5)
+					nbr_five += check_around(map, y, x, cub);
+				x++;
+			}
+			y++;
 		}
 	}
-	return (0);
+	return (reset_five(map, cub));
 }

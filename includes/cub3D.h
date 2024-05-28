@@ -6,7 +6,7 @@
 /*   By: dvo <dvo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 10:15:38 by cassie            #+#    #+#             */
-/*   Updated: 2024/05/28 11:26:41 by dvo              ###   ########.fr       */
+/*   Updated: 2024/05/28 15:29:26 by dvo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,6 +138,7 @@ typedef struct  s_cub
 	char	init_view;
 	int		view_ennemy;
 	int		flag_die;
+	long	fps_statue;
 	float		posX_ennemy;
 	float		posY_ennemy;
 }		t_cub;
@@ -172,5 +173,7 @@ int		check_texture(t_map *map);
 int		check_valid_color(char *str);
 void    ft_free_init_all(t_cub *cub);
 void    ft_free_text(t_map *map);
+void	ft_add_ennemy(t_cub *cub);
+void	ft_sonar(t_cub *cub, int **map);
 
 #endif

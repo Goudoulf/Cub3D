@@ -6,7 +6,7 @@
 /*   By: dvo <dvo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 16:41:03 by dvo               #+#    #+#             */
-/*   Updated: 2024/05/28 10:54:17 by dvo              ###   ########.fr       */
+/*   Updated: 2024/05/28 13:29:52 by dvo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int convert_tab_char_to_int(t_cub *cub)
 		cub->map->final_map[y] = ft_calloc(max, sizeof(int));
 		while (cub->map->map[y][x] != '\0')
 		{
-			if (cub->map->map[y][x] == '1')
+			if (cub->map->map[y][x] != '0')
 				cub->map->final_map[y][x] = 1;
 			x++;
 		}
