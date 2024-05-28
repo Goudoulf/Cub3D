@@ -6,14 +6,30 @@
 /*   By: cassie <cassie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 12:41:08 by cassie            #+#    #+#             */
-/*   Updated: 2024/05/27 09:23:50 by cassie           ###   ########.fr       */
+/*   Updated: 2024/05/27 20:58:15 by cassie           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 #include <X11/X.h>
 #include <stdio.h>
+#define WEST 0
+#define EAST 1
+#define SOUTH 2
+#define NORTH 3
 
+
+void init_texture_lookup(t_cub *cub) {
+    cub->texture.textures[0][0][0] = &cub->texture.west;  // side = 0, vector.x < 0
+    cub->texture.textures[0][1][0] = &cub->texture.east;// side = 0, vector.x >= 0
+    cub->texture.textures[1][0][0] = &cub->texture.south;// side = 1, vector.y < 0
+    cub->texture.textures[1][0][1] = &cub->texture.north;// side = 1, vector.y >= 0
+    // Assign the same for the second index as they are not used
+    cub->texture.textures[0][0][1] = cub->texture.textures[0][0][0];
+    cub->texture.textures[0][1][1] = cub->texture.textures[0][1][0];
+    cub->texture.textures[1][1][0] = cub->texture.textures[1][0][0];
+    cub->texture.textures[1][1][1] = cub->texture.textures[1][0][1];
+}
 static void	malloc_error(void)
 {
 	exit(EXIT_FAILURE);
@@ -102,6 +118,7 @@ void	texture_init(t_cub *cub)
 		exit(1);
 	cub->texture.scream.buffer = mlx_get_data_addr(cub->texture.scream.img_ptr,
 			&cub->texture.scream.bpp, &cub->texture.scream.line_len, &cub->texture.scream.endian);
+	init_texture_lookup(cub);
 }
 
 void	init_all(t_cub *cub)

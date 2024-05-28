@@ -6,7 +6,7 @@
 /*   By: cassie <cassie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 09:38:02 by cassie            #+#    #+#             */
-/*   Updated: 2024/05/27 16:33:05 by cassie           ###   ########.fr       */
+/*   Updated: 2024/05/28 10:31:20 by cassie           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,49 +29,36 @@ int tex_color(t_tex *tex, int y, int x)
 	return (0x0);
 }
 
-void  ray_draw(t_cub *cub, int x,  int h)
+void  ray_draw(t_cub *cub, t_raycast *ray, int x,  int h)
 {
   t_tex *tex;
-  t_vec tex_pos;
+  t_pos tex_pos;
   float wallX;
 
-  cub->ray->line = (int)(h / cub->ray->pvector);
-  cub->ray->start =  -cub->ray->line / 2 + h / 2;
-  if(cub->ray->start < 0)
-    cub->ray->start = 0;
-  cub->ray->end = cub->ray->line / 2 + h / 2;
-  if(cub->ray->end >= h)
-    cub->ray->end = h - 1;
-  if (cub->ray->side == 0)
-    wallX = cub->ray->pos.y + cub->ray->pvector * cub->ray->vector.y;
+  ray->line = (int)(h / ray->pvector);
+  ray->start =  (-ray->line >> 1) + (h >> 1);
+  if(ray->start < 0)
+    ray->start = 0;
+  ray->end = (ray->line >> 1) + (h >> 1);
+  if(ray->end >= h)
+    ray->end = h - 1;
+  if (ray->side == 0)
+    wallX = ray->pos.y + ray->pvector * ray->vector.y;
   else 
-    wallX = cub->ray->pos.x + cub->ray->pvector * cub->ray->vector.x;
+    wallX = ray->pos.x + ray->pvector * ray->vector.x;
   wallX -= floorf(wallX);
   tex_pos.x = (int)(wallX * 64);
-  if (cub->ray->side == 0 && cub->ray->vector.x > 0)
-    tex_pos.x = 64 - tex_pos.x - 1;
-  if (cub->ray->side == 1 && cub->ray->vector.y < 0)
-    tex_pos.x = 64 - tex_pos.x - 1;
-  if (cub->ray->side == 0 && cub->ray->vector.x < 0)
-    tex = &cub->texture.west;
-  else if (cub->ray->side == 1 && cub->ray->vector.y < 0)
-    tex = &cub->texture.south;
-  else if (cub->ray->side == 0 && cub->ray->vector.x > 0) 
-    tex = &cub->texture.east;
-  else if (cub->ray->side == 1 && cub->ray->vector.y > 0)
-    tex = &cub->texture.north;
-  while (cub->ray->start < cub->ray->end)
+  if ((ray->side == 0 && ray->vector.x > 0) 
+    || (ray->side == 1 && ray->vector.y < 0))
+    tex_pos.x = tex_pos.x & (64 - 1);
+  tex = cub->texture.textures[ray->side][(ray->vector.x > 0)][(ray->vector.y > 0)];
+  while (ray->start < ray->end)
   {
-    tex_pos.y = (int)(cub->ray->start * 2 - 1080 + cub->ray->line) * ((64 / 2.) / cub->ray->line);
-    ((unsigned int *)(cub->img.buffer))[x + cub->ray->start * 1920] = tex_color(tex, tex_pos.y, tex_pos.x);
-    cub->ray->start++;
+    tex_pos.y = ((ray->start * 2 - h + ray->line) * (64 >> 1)) / ray->line;
+    ((unsigned int *)(cub->img.buffer))[x + ray->start * 1920] = tex_color(tex, tex_pos.y, tex_pos.x);
+    ray->start++;
   }
 }
-/*ray->next.x += (ray->next.x < ray->next.y) * ray->delta.x; 
-    ray->next.y += (ray->next.x > ray->next.y) * ray->delta.y;
-    ray->map.x += (ray->next.x < ray->next.y) * ray->step.x;
-    ray->map.y += (ray->next.x > ray->next.y) * ray->step.y;
-    ray->side = (ray->next.x > ray->next.y) * 1;*/
 
 void  ray_w_hit(t_cub *cub , t_raycast *ray)
 {
@@ -159,7 +146,7 @@ int raycast(t_cub *cub)
     };
     ray_direction(cub->ray);
     ray_w_hit(cub, cub->ray);
-    ray_draw(cub, x, cub->cam->height);
+    ray_draw(cub, cub->ray, x, cub->cam->height);
     if (cub->ray->flag_statue == 1)
       ray_draw_statue(cub, x, cub->cam->height);
     cub->ray->vector = (t_vec)

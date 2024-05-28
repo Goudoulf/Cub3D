@@ -6,7 +6,7 @@
 /*   By: dvo <dvo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 10:15:38 by cassie            #+#    #+#             */
-/*   Updated: 2024/05/27 20:37:32 by dvo              ###   ########.fr       */
+/*   Updated: 2024/05/28 11:26:41 by dvo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,7 @@ typedef struct s_camera
 
 typedef struct s_texture
 {
+	t_tex *textures[2][2][2];
 	t_tex north;
 	t_tex south;
 	t_tex east;
