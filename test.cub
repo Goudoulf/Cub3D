@@ -1,10 +1,16 @@
-NO ./textures/pics/wood.png
-SO ./textures/pics/mossy.png
-WE ./textures/pics/redbrick.png
-EA ./textures/pics/greystone.png
+NO ./textures/wood.xpm
+SO ./textures/mossy.xpm
+WE ./textures/redbrick.xpm
+EA ./textures/greystone.xpm
 
 F 105,105,105
 C 4,12,77
 
 
-111111111111111111111111
+    111111
+   1000001
+111100111
+1000001
+100001
+1000S1
+111111

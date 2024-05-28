@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dvo <dvo@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: cassie <cassie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 10:15:38 by cassie            #+#    #+#             */
-/*   Updated: 2024/05/27 20:37:32 by dvo              ###   ########.fr       */
+/*   Updated: 2024/05/27 16:07:47 by cassie           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,11 +165,8 @@ void	put_position_minimap(t_cub *cub, int color);
 void	ft_ennemy_move(t_cub *cub);
 void	ray_draw_statue(t_cub *cub, int x, int h);
 int		tex_color(t_tex *tex, int y, int x);
-float	set_angle(t_cub *cub);
+float set_angle(t_cub *cub);
 void	texture_init(t_cub *cub);
-int		check_texture(t_map *map);
-int		check_valid_color(char *str);
-void    ft_free_init_all(t_cub *cub);
-void    ft_free_text(t_map *map);
+
 
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dvo <dvo@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: cassie <cassie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 09:57:20 by cassie            #+#    #+#             */
-/*   Updated: 2024/05/27 20:27:24 by dvo              ###   ########.fr       */
+/*   Updated: 2024/05/27 09:23:43 by cassie           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,10 +40,7 @@ int	main(int argc, char **argv)
 	cub = ft_calloc(1, sizeof(t_cub));
 	init_all(cub);
 	if (init_function(cub, argv[1]) == -1)
-	{
-		ft_free_init_all(cub);
 		return (1);
-	}
 	texture_init(cub);
 	cub->cam->angle = set_angle(cub);
 	print_map(cub);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_parsing.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dvo <dvo@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: cassie <cassie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 13:41:39 by dvo               #+#    #+#             */
-/*   Updated: 2024/05/27 22:45:43 by dvo              ###   ########.fr       */
+/*   Updated: 2024/05/26 08:31:59 by cassie           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,11 +71,6 @@ int	check_nbr_valid(t_map *map, t_cub *cub)
 		x = 0;
 		y++;
 	}
-			if (!cub->init_view)
-		{
-			ft_printf (2, "No inital start\n");
-			return (-1);
-		}
 	return (0);
 }
 

@@ -6,7 +6,7 @@
 /*   By: dvo <dvo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 16:41:03 by dvo               #+#    #+#             */
-/*   Updated: 2024/05/28 10:54:17 by dvo              ###   ########.fr       */
+/*   Updated: 2024/05/26 01:35:17 by dvo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,3 +62,28 @@ int convert_tab_char_to_int(t_cub *cub)
 	return (0);
 }
 
+void	ft_add_ennemy(t_cub *cub)
+{
+	int	x;
+	int	y;
+
+	x = 1;
+	y = 1;
+	while (y < cub->map->max_Y)
+	{
+		while (x < cub->map->max_X)
+		{
+			if (cub->map->final_map[y][x] == 0)
+			{
+				cub->map->final_map[y][x] = 2;
+				cub->posX_ennemy = x;
+				cub->posY_ennemy = y;
+				return ;
+			}
+			x++;
+		}
+		y++;
+		x = 0;
+	}
+
+}
