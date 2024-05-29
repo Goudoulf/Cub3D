@@ -6,7 +6,7 @@
 /*   By: cassie <cassie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 16:41:03 by dvo               #+#    #+#             */
-/*   Updated: 2024/05/28 15:35:29 by cassie           ###   ########.fr       */
+/*   Updated: 2024/05/29 14:09:40 by cassie           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ size_t	max_len_table(char **str)
 	return (len);
 }
 
-int convert_tab_char_to_int(t_cub *cub)
+int	convert_tab_char_to_int(t_cub *cub)
 {
 	size_t	max;
 	size_t	x;
@@ -63,4 +63,3 @@ int convert_tab_char_to_int(t_cub *cub)
 	ft_add_ennemy(cub);
 	return (0);
 }
-

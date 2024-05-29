@@ -6,7 +6,7 @@
 /*   By: cassie <cassie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 13:41:39 by dvo               #+#    #+#             */
-/*   Updated: 2024/05/28 15:35:14 by cassie           ###   ########.fr       */
+/*   Updated: 2024/05/29 14:11:18 by cassie           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,8 @@ int	loop_check(t_map *map, size_t y, size_t x, t_cub *cub)
 			return (-1);
 		}
 	}
-	else if (map->map[y][x] != '1' && map->map[y][x] != '3' && map->map[y][x] != ' ')
+	else if (map->map[y][x] != '1' && map->map[y][x] != '3'
+		&& map->map[y][x] != ' ')
 	{
 		ft_printf(2, "%c not define on [%i][%i]\n", map->map[y][x], y, x);
 		return (-1);
@@ -71,11 +72,11 @@ int	check_nbr_valid(t_map *map, t_cub *cub)
 		x = 0;
 		y++;
 	}
-			if (!cub->init_view)
-		{
-			ft_printf (2, "No inital start\n");
-			return (-1);
-		}
+	if (!cub->init_view)
+	{
+		ft_printf (2, "No inital start\n");
+		return (-1);
+	}
 	return (0);
 }
 

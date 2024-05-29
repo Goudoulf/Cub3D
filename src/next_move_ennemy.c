@@ -6,11 +6,11 @@
 /*   By: dvo <dvo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 15:29:01 by dvo               #+#    #+#             */
-/*   Updated: 2024/05/28 15:30:23 by dvo              ###   ########.fr       */
+/*   Updated: 2024/05/29 15:36:20 by cassie           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3D.h"
+/*#include "cub3D.h"
 
 static void change_pos_statue(t_cub *cub, int x, int y)
 {
@@ -23,7 +23,8 @@ static void change_pos_statue(t_cub *cub, int x, int y)
     else if ((int)cub->posY_ennemy < y)
 	    cub->posY_ennemy += 0.05;
     cub->map->final_map[(int)cub->posY_ennemy][(int)cub->posX_ennemy] = 2;
-    if ((int)cub->posY_ennemy == (int)(cub->ray->pos.y) && (int)(cub->posX_ennemy) == (int)(cub->ray->pos.x))
+    if ((int)cub->posY_ennemy == (int)(cub->ray->pos.y) 
+	&& (int)(cub->posX_ennemy) == (int)(cub->ray->pos.x))
         cub->flag_die = 1;
 }
 
@@ -71,9 +72,11 @@ static void	move_vector(t_cub *cub, int **map)
 	{
 		if (x > 0 && cub->map->final_map[y][x - 1] == dist - 1)
 			x -= 1;
-		else if (x < cub->map->max_X && cub->map->final_map[y][x + 1] == dist - 1)
+		else if (x < cub->map->max_X && cub->map->final_map[y][x + 1]
+		== dist - 1)
 			x += 1;
-		else if (y < cub->map->max_Y && cub->map->final_map[y + 1][x] == dist - 1)
+		else if (y < cub->map->max_Y && cub->map->final_map[y + 1][x]
+		== dist - 1)
 			y += 1;
 		else if (y > 0 && cub->map->final_map[y - 1][x] == dist - 1)
 			y -= 1;
@@ -108,4 +111,4 @@ void	ft_sonar(t_cub *cub, int **map)
 		y = 0;
 	}
 	move_vector(cub, map);
-}
+}*/

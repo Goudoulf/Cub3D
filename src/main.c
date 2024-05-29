@@ -6,23 +6,22 @@
 /*   By: dvo <dvo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 09:57:20 by cassie            #+#    #+#             */
-/*   Updated: 2024/05/28 20:03:07 by dvo              ###   ########.fr       */
+/*   Updated: 2024/05/29 15:26:22 by cassie           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
-
 void	print_map(t_cub *cub)
 {
-	int x;
-	int y;
+	int	x;
+	int	y;
 
 	x = 0;
 	y = 0;
-	while(y < cub->map->max_Y)
+	while (y < cub->map->max_Y)
 	{
-		while(x < cub->map->max_X)
+		while (x < cub->map->max_X)
 		{
 			printf("%d", cub->map->final_map[y][x]);
 			x++;
@@ -35,9 +34,10 @@ void	print_map(t_cub *cub)
 
 int	main(int argc, char **argv)
 {
+	t_cub	*cub;
+
 	if (argc != 2)
 		return (1);
-	t_cub *cub;
 	cub = ft_calloc(1, sizeof(t_cub));
 	init_all(cub);
 	if (init_function(cub, argv[1]) == -1)

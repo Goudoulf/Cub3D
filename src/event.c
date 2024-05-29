@@ -174,8 +174,8 @@ int	event_loop(t_cub *cub)
 	mlx_mouse_move(cub->mlx, cub->win, 1920 / 2, 1080 / 2);
 	update_cam(cub);
 	check_door(cub);
-	if (cub->door_m == true)
-		printf("door waiting\n");
+//	if (cub->door_m == true)
+//		printf("door waiting\n");
 	cub->cam->no_change = true;
 	render(cub);
 	return (0);

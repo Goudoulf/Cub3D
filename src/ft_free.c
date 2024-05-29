@@ -1,26 +1,26 @@
 /* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   ft_free.c                                          :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: dvo <dvo@student.42.fr>                    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/22 14:20:39 by dvo               #+#    #+#             */
-/*   Updated: 2024/05/28 19:31:02 by dvo              ###   ########.fr       */
-/*                                                                            */
+/*																			  */
+/*														  :::	   ::::::::   */
+/*	 ft_free.c											:+:		 :+:	:+:   */
+/*													  +:+ +:+		  +:+	  */
+/*	 By: dvo <dvo@student.42.fr>					+#+  +:+	   +#+		  */
+/*												  +#+#+#+#+#+	+#+			  */
+/*	 Created: 2024/05/22 14:20:39 by dvo			   #+#	  #+#			  */
+/*	 Updated: 2024/05/28 19:31:02 by dvo			  ###	########.fr		  */
+/*																			  */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
 void	ft_free_strarr(char **str)
 {
-	size_t i;
+	size_t	i;
 
 	i = 0;
 	if (!str || !str[0])
 	{
 		free(str);
-	 	return ;
+		return ;
 	}
 	while (str[i])
 		i++;
@@ -34,7 +34,7 @@ void	ft_free_strarr(char **str)
 	free(str);
 }
 
-void    ft_free_init_all(t_cub *cub)
+void	ft_free_init_all(t_cub *cub)
 {
 	free (cub->ray);
 	free (cub->cam);
@@ -45,7 +45,7 @@ void    ft_free_init_all(t_cub *cub)
 	free (cub);
 }
 
-void    ft_free_text(t_map *map)
+void	ft_free_text(t_map *map)
 {
 	if (map->north)
 	{
@@ -56,11 +56,11 @@ void    ft_free_text(t_map *map)
 		free (map->south);
 	}
 	if (map->east)
-    {
-        free (map->east);
-    }
-    if (map->west)
-    {
-        free (map->west);
-    }
+	{
+		free (map->east);
+	}
+	if (map->west)
+	{
+		free (map->west);
+	}
 }

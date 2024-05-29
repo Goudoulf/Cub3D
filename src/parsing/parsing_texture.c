@@ -6,7 +6,7 @@
 /*   By: dvo <dvo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 17:41:42 by dvo               #+#    #+#             */
-/*   Updated: 2024/05/28 15:36:14 by cassie           ###   ########.fr       */
+/*   Updated: 2024/05/29 14:08:56 by cassie           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 int	convert_char_color(char *str)
 {
-	int i;
-	int first;
-	int second;
-	int third;
+	int	i;
+	int	first;
+	int	second;
+	int	third;
 
 	if (check_valid_color(str) == -1)
 	{
@@ -26,7 +26,8 @@ int	convert_char_color(char *str)
 	}
 	i = 0;
 	first = ft_atoi(str);
-	while (str[++i - 1] != ',');
+	while (str[++i - 1] != ',')
+		;
 	second = ft_atoi(str + i);
 	i++;
 	while (str[i - 1] != ',')

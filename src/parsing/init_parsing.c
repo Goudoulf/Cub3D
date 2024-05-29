@@ -6,7 +6,7 @@
 /*   By: dvo <dvo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 13:29:37 by dvo               #+#    #+#             */
-/*   Updated: 2024/05/28 19:35:41 by dvo              ###   ########.fr       */
+/*   Updated: 2024/05/29 14:07:49 by cassie           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ int	create_new_map(char **str, int i, t_map *map, t_cub *cub)
 	max = i;
 	while (str[max])
 		max++;
-	map->max_Y = max - i;
 	max--;
 	while ((check_start_map(str[max]) == 1) && max > i)
 		max --;
@@ -32,6 +31,7 @@ int	create_new_map(char **str, int i, t_map *map, t_cub *cub)
 		return (-1);
 	}
 	printf("%i\n", max - i + 1);
+	map->max_Y = max - i + 1;
 	map->map = ft_calloc(max - i + 2, sizeof(char *));
 	map->final_map = ft_calloc(max - i + 1, sizeof(int *));
 	if (attribute_init_map(i, max, map, cub) == -1)
@@ -100,7 +100,7 @@ int	attribute_text_wall(t_map *map, t_cub *cub)
 		{
 			ft_printf(2, "|%i| didn't exist\n", map->buffer[i][0]);
 			return (-1);
-		}	
+		}
 		i++;
 	}
 	if (!map->buffer[i] || !check_texture(map))
