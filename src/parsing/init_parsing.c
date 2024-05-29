@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_parsing.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cassie <cassie@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: dvo <dvo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 13:29:37 by dvo               #+#    #+#             */
-/*   Updated: 2024/05/28 15:35:48 by cassie           ###   ########.fr       */
+/*   Updated: 2024/05/28 19:35:41 by dvo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,8 @@ int	create_new_map(char **str, int i, t_map *map, t_cub *cub)
 		max --;
 	if (max == i)
 	{
-		ft_printf(2, "Map not exist\n");
+		ft_printf(2, "Problem with map\n");
+		return (-1);
 	}
 	printf("%i\n", max - i + 1);
 	map->map = ft_calloc(max - i + 2, sizeof(char *));
@@ -36,6 +37,7 @@ int	create_new_map(char **str, int i, t_map *map, t_cub *cub)
 	if (attribute_init_map(i, max, map, cub) == -1)
 	{
 		ft_free_strarr(map->map);
+		free(map->final_map);
 		return (-1);
 	}
 	return (0);
@@ -50,8 +52,7 @@ int	check_start_map(char *str)
 		return (0);
 	while (str[i] == ' ')
 		i++;
-	if (str[i] == '\0' || str[i] == 'N' || str[i] == 'E' || str[i] == '\n' || \
-	str[i] == 'S' || str[i] == 'W' || str[i] == 'F' || str[i] == 'C')
+	if (str[i] != '1' && str[i] != '0')
 		return (1);
 	return (0);
 }
@@ -70,36 +71,41 @@ int	attribute_text_wall(t_map *map, t_cub *cub)
 			if (ft_texture(1, map->buffer[i], map) == -1)
 				return (-1);
 		}
-		if (ft_strncmp(map->buffer[i], "SO ", 3) == 0)
+		else if (ft_strncmp(map->buffer[i], "SO ", 3) == 0)
 		{
 			if (ft_texture(2, map->buffer[i], map) == -1)
 				return (-1);
 		}
-		if (ft_strncmp(map->buffer[i], "WE ", 3) == 0)
+		else if (ft_strncmp(map->buffer[i], "WE ", 3) == 0)
 		{
 			if (ft_texture(3, map->buffer[i], map) == -1)
 				return (-1);
 		}
-		if (ft_strncmp(map->buffer[i], "EA ", 3) == 0)
+		else if (ft_strncmp(map->buffer[i], "EA ", 3) == 0)
 		{
 			if (ft_texture(4, map->buffer[i], map) == -1)
 				return (-1);
 		}
-		if (ft_strncmp(map->buffer[i], "F ", 2) == 0)
+		else if (ft_strncmp(map->buffer[i], "F ", 2) == 0)
 		{
 			if (ft_texture(5, map->buffer[i], map) == -1)
 				return (-1);
 		}
-		if (ft_strncmp(map->buffer[i], "C ", 2) == 0)
+		else if (ft_strncmp(map->buffer[i], "C ", 2) == 0)
 		{
 			if (ft_texture(6, map->buffer[i], map) == -1)
 				return (-1);
 		}
+		else if (map->buffer[i][0] != '\0')
+		{
+			ft_printf(2, "|%i| didn't exist\n", map->buffer[i][0]);
+			return (-1);
+		}	
 		i++;
 	}
-	if (!map->buffer[i] && !check_texture(map))
+	if (!map->buffer[i] || !check_texture(map))
 	{
-		ft_printf(2, "Map didn't exist\n");
+		ft_printf(2, "Invalid map\n");
 		return (-1);
 	}
 	if (create_new_map(map->buffer, i, map, cub) == -1)

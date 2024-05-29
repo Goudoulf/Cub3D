@@ -81,49 +81,50 @@ static void	cub_init(t_cub *cub)
 	cub->mini_map.last_pos.y = cub->ray->pos.y;
 }
 
-void	texture_init(t_cub *cub)
+int	texture_init(t_cub *cub)
 {
 	cub->texture.north.img_ptr = mlx_xpm_file_to_image(cub->mlx, cub->map->north, &cub->texture.north.width, &cub->texture.north.height);	
 	if (!cub->texture.north.img_ptr)
-		exit(1);
+		return (-1);
 	cub->texture.north.buffer = mlx_get_data_addr(cub->texture.north.img_ptr,
 			&cub->texture.north.bpp, &cub->texture.north.line_len, &cub->texture.north.endian);
 
 	cub->texture.south.img_ptr = mlx_xpm_file_to_image(cub->mlx, cub->map->south,&cub->texture.south.width, &cub->texture.south.height); 
 	if (!cub->texture.south.img_ptr)
-		exit(1);
+		return (-1);
 	cub->texture.south.buffer = mlx_get_data_addr(cub->texture.south.img_ptr,
 			&cub->texture.south.bpp, &cub->texture.south.line_len, &cub->texture.south.endian);
 
 	cub->texture.east.img_ptr = mlx_xpm_file_to_image(cub->mlx, cub->map->east,&cub->texture.east.width, &cub->texture.east.height); 
 	if (!cub->texture.east.img_ptr)
-		exit(1);
+		return (-1);
 	cub->texture.east.buffer = mlx_get_data_addr(cub->texture.east.img_ptr,
 			&cub->texture.east.bpp, &cub->texture.east.line_len, &cub->texture.east.endian);
 
 	cub->texture.west.img_ptr = mlx_xpm_file_to_image(cub->mlx, cub->map->west,&cub->texture.west.width, &cub->texture.west.height); 
 	if (!cub->texture.west.img_ptr)
-		exit(1);
+		return (-1);
 	cub->texture.west.buffer = mlx_get_data_addr(cub->texture.west.img_ptr,
 			&cub->texture.west.bpp, &cub->texture.west.line_len, &cub->texture.west.endian);
 
 	cub->texture.statue.img_ptr = mlx_xpm_file_to_image(cub->mlx, "./textures/statue.xpm",&cub->texture.statue.width, &cub->texture.statue.height); 
 	if (!cub->texture.statue.img_ptr)
-		exit(1);
+		return (-1);
 	cub->texture.statue.buffer = mlx_get_data_addr(cub->texture.statue.img_ptr,
 			&cub->texture.statue.bpp, &cub->texture.statue.line_len, &cub->texture.statue.endian);
 
 	cub->texture.scream.img_ptr = mlx_xpm_file_to_image(cub->mlx, "./textures/scream.xpm",&cub->texture.scream.width, &cub->texture.scream.height); 
 	if (!cub->texture.scream.img_ptr)
-		exit(1);
+		return (-1);
 	cub->texture.scream.buffer = mlx_get_data_addr(cub->texture.scream.img_ptr,
 			&cub->texture.scream.bpp, &cub->texture.scream.line_len, &cub->texture.scream.endian);
 	cub->texture.door.img_ptr = mlx_xpm_file_to_image(cub->mlx, "./textures/door.xpm", &cub->texture.door.width, &cub->texture.door.height);	
 	if (!cub->texture.door.img_ptr)
-		exit(1);
+		return (-1);
 	cub->texture.door.buffer = mlx_get_data_addr(cub->texture.door.img_ptr,
 			&cub->texture.door.bpp, &cub->texture.door.line_len, &cub->texture.door.endian);
 	init_texture_lookup(cub);
+	return (0);
 }
 
 void	init_all(t_cub *cub)
