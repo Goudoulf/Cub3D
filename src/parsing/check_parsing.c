@@ -6,7 +6,7 @@
 /*   By: cassie <cassie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 13:41:39 by dvo               #+#    #+#             */
-/*   Updated: 2024/05/29 14:11:18 by cassie           ###   ########.fr       */
+/*   Updated: 2024/05/29 21:11:12 by cassie           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,7 @@ int	loop_check(t_map *map, size_t y, size_t x, t_cub *cub)
 	map->map[y][x] == 'W' || map->map[y][x] == 'E')
 	{
 		if (cub->ray->pos.x != 0 || cub->ray->pos.y != 0)
-		{
-			ft_printf(2, "too much initial position\n");
-			return (-1);
-		}
+			return (print_error("too much initial position\n", -1));
 		cub->ray->pos.x = x;
 		cub->ray->pos.y = y;
 		cub->init_view = map->map[y][x];
@@ -40,10 +37,7 @@ int	loop_check(t_map *map, size_t y, size_t x, t_cub *cub)
 	else if (map->map[y][x] == '0')
 	{
 		if (check_wall_limit(map->map, y, x) == -1)
-		{
-			ft_printf(2, "map is not limited by wall at %i, %i\n", y, x);
-			return (-1);
-		}
+			return (print_error_pos("map is not limited by wall at", -1, x, y));
 	}
 	else if (map->map[y][x] != '1' && map->map[y][x] != '3'
 		&& map->map[y][x] != ' ')

@@ -6,7 +6,7 @@
 /*   By: cassie <cassie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 16:13:02 by cassie            #+#    #+#             */
-/*   Updated: 2024/05/29 15:30:51 by cassie           ###   ########.fr       */
+/*   Updated: 2024/05/29 20:56:25 by cassie           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,26 +14,13 @@
 #include <math.h>
 #include <stdint.h>
 
-int	tex_color(t_tex *tex, int y, int x)
-{
-	if (x >= 0 && x < tex->width
-		&& y >= 0 && y < tex->height)
-	{
-		return (*(int *)(tex->buffer
-			+ (4 * tex->width * (int)y)
-			+ (4 * (int)x)));
-	}
-	return (0x0);
-}
-
 void	ray_draw(t_cub *cub, t_raycast *ray, int x, int h)
 {
 	t_tex	*tex;
 
 	ray->line = (int)(h / ray->pvector);
 	ray->start = (-ray->line >> 1) + (h >> 1);
-	if (ray->start < 0)
-		ray->start = 0;
+	ray->start = (ray->start > 0) * ray->start;
 	ray->end = (ray->line >> 1) + (h >> 1);
 	ray->end = ((ray->end >= h) * h - 1) + (ray->end * (ray->end < h));
 	ray->wall_pos = (!ray->side) * (ray->pos.y + ray->pvector * ray->vector.y)
@@ -55,6 +42,17 @@ void	ray_draw(t_cub *cub, t_raycast *ray, int x, int h)
 	}
 }
 
+	/*	if (cub->map->final_map[cub->ray->map.y][cub->ray->map.x] == 2)
+		{
+			cub->view_ennemy = 1;
+			ray->flag_statue = 1;
+			ray->statue.drawStart = ray->start;
+			ray->statue.drawEnd = ray->end;
+			ray->statue.pvector = (ray->side == 0)
+				* (ray->next.x - ray->delta.x) + (ray->side == 1)
+					* * (ray->next.y - ray->delta.y);
+		}*/
+
 void	ray_w_hit(t_cub *cub, t_raycast *ray)
 {
 	while (ray->w_hit == 0)
@@ -75,14 +73,6 @@ void	ray_w_hit(t_cub *cub, t_raycast *ray)
 			cub->ray->w_hit = 1;
 		if (cub->map->final_map[cub->ray->map.y][cub->ray->map.x] == -1)
 			cub->ray->w_hit = 1;
-		if (cub->map->final_map[cub->ray->map.y][cub->ray->map.x] == 2)
-		{
-			cub->view_ennemy = 1;
-			ray->flag_statue = 1;
-			ray->statue.drawStart = ray->start;
-			ray->statue.drawEnd = ray->end;
-			ray->statue.pvector = (ray->side == 0) * (ray->next.x - ray->delta.x) + (ray->side == 1) * (ray->next.y - ray->delta.y);
-		}
 	}
 	ray->pvector = (ray->side == 0) * (ray->next.x - ray->delta.x)
 		+ (ray->side == 1) * (ray->next.y - ray->delta.y);
@@ -127,6 +117,8 @@ void	ray_init(t_cub *cub, uint16_t nb_ray)
 	};
 }
 
+	/*if (cub->ray->flag_statue == 1)
+			ray_draw_statue(cub, x, cub->cam->height);*/
 int	raycast(t_cub *cub)
 {
 	int	x;
@@ -143,8 +135,6 @@ int	raycast(t_cub *cub)
 		ray_direction(cub->ray);
 		ray_w_hit(cub, cub->ray);
 		ray_draw(cub, cub->ray, x, cub->cam->height);
-//		if (cub->ray->flag_statue == 1)
-//			ray_draw_statue(cub, x, cub->cam->height);
 		cub->ray->vector = (t_vec)
 		{
 			cub->ray->vector.x + cub->ray->add.x,

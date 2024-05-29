@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dvo <dvo@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: cassie <cassie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 10:15:38 by cassie            #+#    #+#             */
-/*   Updated: 2024/05/28 19:27:49 by dvo              ###   ########.fr       */
+/*   Updated: 2024/05/29 21:09:04 by cassie           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,8 @@ typedef struct s_camera
 	bool	move_b;
 	bool	move_l;
 	bool	move_r;
+	bool	cam_r;
+	bool	cam_l;
 	int		width;
 	int		height;
 }				t_camera;
@@ -180,5 +182,13 @@ void    ft_free_init_all(t_cub *cub);
 void    ft_free_text(t_map *map);
 void	ft_add_ennemy(t_cub *cub);
 void	ft_sonar(t_cub *cub, int **map);
+int		texture_init(t_cub *cub);
+void	check_door(t_cub *cub, t_raycast *ray, t_map *map);
+void	update_cam(t_cub *cub, t_raycast *ray, t_map *map);
+int		close_window(t_cub *cub);
+void	key_move(t_camera *cam);
+int		tex_color(t_tex *tex, int y, int x);
+int		print_error(char *err, int ret);
+int		print_error_pos(char *err, int ret, int x, int y);
 
 #endif

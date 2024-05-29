@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_texture.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dvo <dvo@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: cassie <cassie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 17:41:42 by dvo               #+#    #+#             */
-/*   Updated: 2024/05/29 14:08:56 by cassie           ###   ########.fr       */
+/*   Updated: 2024/05/29 21:37:45 by cassie           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,15 +38,8 @@ int	convert_char_color(char *str)
 	return (i);
 }
 
-int	ft_texture(int direc, char *str, t_map *map)
+int	direc1(int direc, char *str, t_map *map, int i)
 {
-	int	i;
-
-	i = 0;
-	while (str[i] != ' ')
-		i++;
-	while (str[i] == ' ')
-		i++;
 	if (direc == 1)
 	{
 		if (map->north)
@@ -63,6 +56,11 @@ int	ft_texture(int direc, char *str, t_map *map)
 		if (!map->south)
 			return (-1);
 	}
+	return (0);
+}
+
+int	direc2(int direc, char *str, t_map *map, int i)
+{
 	if (direc == 3)
 	{
 		if (map->west)
@@ -79,6 +77,11 @@ int	ft_texture(int direc, char *str, t_map *map)
 		if (!map->east)
 			return (-1);
 	}
+	return (0);
+}
+
+int	direc3(int direc, char *str, t_map *map, int i)
+{
 	if (direc == 5)
 	{
 		if (map->floor != -1)
@@ -95,5 +98,23 @@ int	ft_texture(int direc, char *str, t_map *map)
 		if (map->ceiling == -1)
 			return (-1);
 	}
+	return (0);
+}
+
+int	ft_texture(int direc, char *str, t_map *map)
+{
+	int	i;
+
+	i = 0;
+	while (str[i] != ' ')
+		i++;
+	while (str[i] == ' ')
+		i++;
+	if (direc1(direc, str, map, i) == -1)
+		return (-1);
+	if (direc2(direc, str, map, i) == -1)
+		return (-1);
+	if (direc3(direc, str, map, i) == -1)
+		return (-1);
 	return (0);
 }

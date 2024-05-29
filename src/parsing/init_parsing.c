@@ -3,17 +3,29 @@
 /*                                                        :::      ::::::::   */
 /*   init_parsing.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dvo <dvo@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: cassie <cassie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 13:29:37 by dvo               #+#    #+#             */
-/*   Updated: 2024/05/29 14:07:49 by cassie           ###   ########.fr       */
+/*   Updated: 2024/05/29 21:50:36 by cassie           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 #include "stdio.h"
 
-int	check_start_map(char *str);
+int	check_start_map(char *str)
+{
+	int	i;
+
+	i = 0;
+	if (!str)
+		return (0);
+	while (str[i] == ' ')
+		i++;
+	if (str[i] != '1' && str[i] != '0')
+		return (1);
+	return (0);
+}
 
 int	create_new_map(char **str, int i, t_map *map, t_cub *cub)
 {
@@ -43,17 +55,25 @@ int	create_new_map(char **str, int i, t_map *map, t_cub *cub)
 	return (0);
 }
 
-int	check_start_map(char *str)
+int	check_content(t_map *map, int i)
 {
-	int	i;
-
-	i = 0;
-	if (!str)
-		return (0);
-	while (str[i] == ' ')
-		i++;
-	if (str[i] != '1' && str[i] != '0')
-		return (1);
+	if (ft_strncmp(map->buffer[i], "NO ", 3) == 0)
+		return (ft_texture(1, map->buffer[i], map) == -1);
+	else if (ft_strncmp(map->buffer[i], "SO ", 3) == 0)
+		return (ft_texture(2, map->buffer[i], map) == -1);
+	else if (ft_strncmp(map->buffer[i], "WE ", 3) == 0)
+		return (ft_texture(3, map->buffer[i], map) == -1);
+	else if (ft_strncmp(map->buffer[i], "EA ", 3) == 0)
+		return (ft_texture(4, map->buffer[i], map) == -1);
+	else if (ft_strncmp(map->buffer[i], "F ", 2) == 0)
+		return (ft_texture(5, map->buffer[i], map) == -1);
+	else if (ft_strncmp(map->buffer[i], "C ", 2) == 0)
+		return (ft_texture(6, map->buffer[i], map) == -1);
+	else if (map->buffer[i][0] != '\0')
+	{
+		ft_printf(2, "|%i| didn't exist\n", map->buffer[i][0]);
+		return (-1);
+	}
 	return (0);
 }
 
@@ -66,39 +86,8 @@ int	attribute_text_wall(t_map *map, t_cub *cub)
 	map->floor = -1;
 	while (check_start_map(map->buffer[i]) == 1)
 	{
-		if (ft_strncmp(map->buffer[i], "NO ", 3) == 0)
+		if (check_content(map, i) == -1)
 		{
-			if (ft_texture(1, map->buffer[i], map) == -1)
-				return (-1);
-		}
-		else if (ft_strncmp(map->buffer[i], "SO ", 3) == 0)
-		{
-			if (ft_texture(2, map->buffer[i], map) == -1)
-				return (-1);
-		}
-		else if (ft_strncmp(map->buffer[i], "WE ", 3) == 0)
-		{
-			if (ft_texture(3, map->buffer[i], map) == -1)
-				return (-1);
-		}
-		else if (ft_strncmp(map->buffer[i], "EA ", 3) == 0)
-		{
-			if (ft_texture(4, map->buffer[i], map) == -1)
-				return (-1);
-		}
-		else if (ft_strncmp(map->buffer[i], "F ", 2) == 0)
-		{
-			if (ft_texture(5, map->buffer[i], map) == -1)
-				return (-1);
-		}
-		else if (ft_strncmp(map->buffer[i], "C ", 2) == 0)
-		{
-			if (ft_texture(6, map->buffer[i], map) == -1)
-				return (-1);
-		}
-		else if (map->buffer[i][0] != '\0')
-		{
-			ft_printf(2, "|%i| didn't exist\n", map->buffer[i][0]);
 			return (-1);
 		}
 		i++;
