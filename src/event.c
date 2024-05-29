@@ -21,7 +21,6 @@ int	close_window(t_cub *cub)
 	mlx_destroy_image(cub->mlx, cub->texture.statue.img_ptr);
 	mlx_destroy_image(cub->mlx, cub->texture.scream.img_ptr);
 	mlx_destroy_image(cub->mlx, cub->mini_map.img.img_ptr);
-	mlx_destroy_image(cub->mlx, cub->mini_map.img_pos.img_ptr);
 	mlx_destroy_image(cub->mlx, cub->img.img_ptr);
 	mlx_destroy_window(cub->mlx, cub->win);
 	mlx_destroy_display(cub->mlx);

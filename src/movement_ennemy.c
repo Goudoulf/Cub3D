@@ -6,7 +6,7 @@
 /*   By: dvo <dvo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/26 01:13:29 by dvo               #+#    #+#             */
-/*   Updated: 2024/05/28 16:40:39 by cassie           ###   ########.fr       */
+/*   Updated: 2024/05/29 22:41:38 by dvo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ void    ft_ennemy_move(t_cub *cub)
 {
 	struct timeval	tv;
 
+	return ;
 	gettimeofday(&tv, NULL);
 	if (cub->view_ennemy == 1 || (tv.tv_sec * 1000000 + tv.tv_usec) < cub->fps_statue)
 		return ;

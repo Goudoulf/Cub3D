@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   check_parsing.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cassie <cassie@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: dvo <dvo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 13:41:39 by dvo               #+#    #+#             */
-/*   Updated: 2024/05/28 15:35:14 by cassie           ###   ########.fr       */
+/*   Updated: 2024/05/29 14:48:00 by dvo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
 int	check_nbr_valid(t_map *map, t_cub *cub);
-int	check_wall_limit(char **str, size_t y, size_t x);
+int	check_wall_limit(char **str, int y, int x);
 
 int	check_parcing(t_map *map, t_cub *cub)
 {
@@ -22,7 +22,7 @@ int	check_parcing(t_map *map, t_cub *cub)
 	return (0);
 }
 
-int	loop_check(t_map *map, size_t y, size_t x, t_cub *cub)
+int	loop_check(t_map *map, int y, int x, t_cub *cub)
 {
 	if (map->map[y][x] == 'N' || map->map[y][x] == 'S' || \
 	map->map[y][x] == 'W' || map->map[y][x] == 'E')
@@ -55,8 +55,8 @@ int	loop_check(t_map *map, size_t y, size_t x, t_cub *cub)
 
 int	check_nbr_valid(t_map *map, t_cub *cub)
 {
-	size_t	y;
-	size_t	x;
+	int	y;
+	int	x;
 
 	y = 0;
 	x = 0;
@@ -86,13 +86,18 @@ int	compare_wall(char str)
 	return (0);
 }
 
-int	check_wall_limit(char **str, size_t y, size_t x)
+int	check_wall_limit(char **str, int y, int x)
 {
-	if (compare_wall(str[y][x + 1]) == -1)
+	int	max_x;
+
+	max_x = 0;
+	while (str[y + 1] && str[y + 1][max_x])
+		max_x++; 
+	if ((!str[y][x + 1]) || compare_wall(str[y][x + 1]) == -1)
 		return (-1);
 	if (x == 0 || compare_wall(str[y][x - 1]) == -1)
 		return (-1);
-	if (!str[y + 1] || compare_wall(str[y + 1][x]) == -1)
+	if (x > max_x || !str[y + 1] || compare_wall(str[y + 1][x]) == -1)
 		return (-1);
 	if (y == 0 || compare_wall(str[y - 1][x]) == -1)
 		return (-1);

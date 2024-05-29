@@ -14,10 +14,10 @@ NAME = cub3D
 
 SRCS_FILE = main.c init.c event.c ./parsing/init_parsing.c \
 			./parsing/ft_read_file.c ./parsing/ft_init_final_map.c \
-			./parsing/check_parsing.c ft_free.c ./parsing/convert_char_to_int.c \
-			./render/raycasting.c ./render/render.c event_utils.c ./parsing/parsing_texture.c \
-			minimap.c movement_ennemy.c parsing/check_texture.c parsing/parse_statue.c \
-			next_move_ennemy.c
+			./parsing/check_parsing.c ft_free.c ./render/raycasting.c \
+			./render/render.c event_utils.c ./parsing/parsing_texture.c \
+			./minimap/minimap.c movement_ennemy.c parsing/check_texture.c parsing/parse_statue.c \
+			next_move_ennemy.c ./minimap/init_text.c ./minimap/resize_image.c ./minimap/alpha_channel.c
 
 INC = includes
 

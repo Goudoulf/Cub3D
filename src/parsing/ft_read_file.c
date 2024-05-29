@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_read_file.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cassie <cassie@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: dvo <dvo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 19:03:05 by dvo               #+#    #+#             */
-/*   Updated: 2024/05/25 11:03:38 by cassie           ###   ########.fr       */
+/*   Updated: 2024/05/29 14:54:12 by dvo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ int	ft_read(t_cub *cub, char *av)
 		ft_transform_nl_to_end(cub->map->buffer[i]);
 		i++;
 	}
+	printf("%i\n", i);
 	if (i == 2000)
 		return (-1);
 	return (0);
