@@ -6,7 +6,7 @@
 /*   By: cassie <cassie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 16:41:03 by dvo               #+#    #+#             */
-/*   Updated: 2024/05/30 06:42:22 by cassie           ###   ########.fr       */
+/*   Updated: 2024/05/30 07:01:09 by cassie           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,23 @@ size_t	max_len_table(char **str)
 		y++;
 	}
 	return (len);
+}
+
+int	attribute_init_map(int i, int max, t_map *map, t_cub *cub)
+{
+	int	index_f;
+
+	index_f = 0;
+	while (i <= max)
+	{
+		map->map[index_f] = ft_strdup(map->buffer[i]);
+		i++;
+		index_f++;
+	}
+	cub->map->max_x = max_len_table(cub->map->map);
+	if (check_parcing(map, cub) == -1)
+		return (-1);
+	return (0);
 }
 
 int	convert_tab_char_to_int(t_cub *cub)

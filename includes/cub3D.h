@@ -6,7 +6,7 @@
 /*   By: cassie <cassie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 10:15:38 by cassie            #+#    #+#             */
-/*   Updated: 2024/05/30 06:37:57 by cassie           ###   ########.fr       */
+/*   Updated: 2024/05/30 06:51:10 by cassie           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ typedef struct s_tex
 	int		width;
 	int		height;
 }				t_tex;
+
 typedef struct s_image
 {
 	void	*img_ptr;
@@ -125,6 +126,11 @@ typedef struct s_mini_map
 	t_image		img_pos;
 	t_pos		last_pos;
 	int			last_color;
+	t_tex		*n_bot;
+	t_image		*floor;
+	t_tex		*wall;
+	int			x_case;
+	int			y_case;
 }				t_mini_map;
 
 typedef struct s_cub
@@ -163,7 +169,6 @@ int		raycast(t_cub *cub);
 int		render(t_cub *cub);
 int		convert_tab_char_to_int(t_cub *cub);
 void	my_mlx_pixel_put(t_image *img, int x, int y, int color);
-void	check_hit_wall(t_cub *cub, int i);
 int		event_loop(t_cub *cub);
 int		key_release(int keysym, t_cub *cub);
 void	ft_set_minimap(t_cub *cub);
@@ -189,5 +194,9 @@ void	key_move(t_camera *cam);
 int		tex_color(t_tex *tex, int y, int x);
 int		print_error(char *err, int ret);
 int		print_error_pos(char *err, int ret, int x, int y);
+int		init_text_map(t_cub *cub);
+int		init_text_characters(t_cub *cub);
+int		resize_image(t_cub *cub, t_tex *old, int new_width, int new_height);
+int		alpha_channel(t_cub *cub, t_tex *old);
 
 #endif

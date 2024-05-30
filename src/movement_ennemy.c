@@ -17,6 +17,7 @@ void	ft_ennemy_move(t_cub *cub)
 {
 	struct timeval	tv;
 
+	return ;
 	gettimeofday(&tv, NULL);
 	if (cub->view_ennemy == 1
 		|| (tv.tv_sec * 1000000 + tv.tv_usec) < cub->fps_statue)

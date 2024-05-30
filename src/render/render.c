@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cassie <cassie@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: dvo <dvo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 12:54:23 by cassie            #+#    #+#             */
-/*   Updated: 2024/05/29 20:57:35 by cassie           ###   ########.fr       */
+/*   Updated: 2024/05/30 07:03:36 by cassie           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ int	render(t_cub *cub)
 	mlx_put_image_to_window(cub->mlx, cub->win, cub->img.img_ptr, 0, 0);
 	mlx_put_image_to_window(cub->mlx, cub->win, cub->mini_map.img.img_ptr,
 		(cub->win_x / 5) * 4, 0);
+	mlx_put_image_to_window(cub->mlx, cub->win, cub->mini_map.floor->img_ptr, 0, 0);
 	cub->view_ennemy = 0;
 	return (0);
 }
