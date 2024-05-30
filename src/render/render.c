@@ -6,7 +6,7 @@
 /*   By: dvo <dvo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 12:54:23 by cassie            #+#    #+#             */
-/*   Updated: 2024/05/30 07:03:36 by cassie           ###   ########.fr       */
+/*   Updated: 2024/05/30 09:24:16 by cassie           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,10 +52,10 @@ int	render(t_cub *cub)
 	ft_set_floor_ceiling(cub);
 	raycast(cub);
 	ft_set_minimap(cub);
-	put_position_minimap(cub, 0);
+	//put_position_minimap(cub, 0);
 	mlx_put_image_to_window(cub->mlx, cub->win, cub->img.img_ptr, 0, 0);
 	mlx_put_image_to_window(cub->mlx, cub->win, cub->mini_map.img.img_ptr,
-		(cub->win_x / 5) * 4, 0);
+		(cub->win_x / 8) * 7, 0);
 	mlx_put_image_to_window(cub->mlx, cub->win, cub->mini_map.floor->img_ptr, 0, 0);
 	cub->view_ennemy = 0;
 	return (0);

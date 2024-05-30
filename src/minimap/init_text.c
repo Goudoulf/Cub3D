@@ -6,7 +6,7 @@
 /*   By: dvo <dvo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 15:37:14 by dvo               #+#    #+#             */
-/*   Updated: 2024/05/29 22:40:55 by dvo              ###   ########.fr       */
+/*   Updated: 2024/05/30 09:09:31 by cassie           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void    get_floor_minimap(t_cub *cub)
 	int offset;
 
 	y = 0;
-	cub->mini_map.floor = ft_calloc(1, sizeof(t_image));
+	cub->mini_map.floor = ft_calloc(1, sizeof(t_tex));
 	cub->mini_map.floor->img_ptr = mlx_new_image(cub->mlx, cub->mini_map.x_case, cub->mini_map.y_case);
 	if (cub->mini_map.floor->img_ptr == NULL)
 	{

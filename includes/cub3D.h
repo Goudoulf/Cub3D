@@ -6,7 +6,7 @@
 /*   By: cassie <cassie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 10:15:38 by cassie            #+#    #+#             */
-/*   Updated: 2024/05/30 06:51:10 by cassie           ###   ########.fr       */
+/*   Updated: 2024/05/30 09:27:21 by cassie           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,7 +127,10 @@ typedef struct s_mini_map
 	t_pos		last_pos;
 	int			last_color;
 	t_tex		*n_bot;
-	t_image		*floor;
+	t_tex		*s_bot;
+	t_tex		*e_bot;
+	t_tex		*w_bot;
+	t_tex		*floor;
 	t_tex		*wall;
 	int			x_case;
 	int			y_case;
