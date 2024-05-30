@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_parsing.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cassie <cassie@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: dvo <dvo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 13:29:37 by dvo               #+#    #+#             */
-/*   Updated: 2024/05/30 06:54:05 by cassie           ###   ########.fr       */
+/*   Updated: 2024/05/30 14:18:19 by dvo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,8 @@ int	create_new_map(char **str, int i, t_map *map, t_cub *cub)
 	map->max_y = max - i + 1;
 	map->map = ft_calloc(max - i + 2, sizeof(char *));
 	map->final_map = ft_calloc(max - i + 1, sizeof(int *));
+	if (!map->map || !map->final_map)
+		return (-1);
 	if (attribute_init_map(i, max, map, cub) == -1)
 	{
 		ft_free_strarr(map->map);
@@ -105,6 +107,8 @@ int	attribute_text_wall(t_map *map, t_cub *cub)
 int	init_function(t_cub *cub, char *av)
 {
 	cub->map = ft_calloc(1, sizeof(t_map));
+	if (!cub->map)
+		return (-1);
 	if (ft_read(cub, av) == -1)
 		return (free(cub->map), -1);
 	if (attribute_text_wall(cub->map, cub) == -1)
@@ -117,6 +121,7 @@ int	init_function(t_cub *cub, char *av)
 	if (convert_tab_char_to_int(cub) == -1)
 	{
 		ft_free_strarr(cub->map->buffer);
+		ft_free_strarr(cub->map->map);
 		ft_free_text(cub->map);
 		free(cub->map);
 		return (-1);

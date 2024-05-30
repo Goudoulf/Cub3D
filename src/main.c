@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cassie <cassie@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: dvo <dvo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 09:57:20 by cassie            #+#    #+#             */
-/*   Updated: 2024/05/30 06:41:42 by cassie           ###   ########.fr       */
+/*   Updated: 2024/05/30 13:06:06 by dvo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,8 @@ int	main(int argc, char **argv)
 	if (argc != 2)
 		return (1);
 	cub = ft_calloc(1, sizeof(t_cub));
+	if (!cub)
+		return (1);
 	init_all(cub);
 	if (init_function(cub, argv[1]) == -1)
 	{

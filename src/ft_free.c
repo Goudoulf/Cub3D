@@ -12,8 +12,11 @@
 
 #include "cub3D.h"
 
-void	ft_free_strarr(char **str)
+void	ft_free_strarr(void *s)
 {
+	char **str;
+
+	str = (char **)s;
 	size_t	i;
 
 	i = 0;

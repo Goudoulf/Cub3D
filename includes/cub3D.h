@@ -6,7 +6,7 @@
 /*   By: dvo <dvo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 10:15:38 by cassie            #+#    #+#             */
-/*   Updated: 2024/05/30 11:03:13 by dvo              ###   ########.fr       */
+/*   Updated: 2024/05/30 14:25:00 by dvo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,23 +120,12 @@ typedef struct s_raycast
 
 }				t_raycast;
 
-typedef struct	s_hero_sprite
-{
-	t_tex			move;
-	int				type_move;
-	t_hero_sprite	*next;
-}				t_hero_sprite;
-
 typedef struct s_mini_map
 {
 	t_image		img;
 	t_image		img_pos;
 	t_pos		last_pos;
 	int			last_color;
-	t_hero_sprite	*bot;
-	t_hero_sprite	*top;
-	t_hero_sprite	*left;
-	t_hero_sprite	*right;
 	t_tex		*n_bot;
 	t_tex		*s_bot;
 	t_tex		*e_bot;
@@ -178,7 +167,7 @@ int		init_function(t_cub *cub, char *av);
 int		ft_read(t_cub *cub, char *av);
 int		attribute_init_map(int i, int max, t_map *map, t_cub *cub);
 int		check_parcing(t_map *map, t_cub *cube);
-void	ft_free_strarr(char **str);
+void	ft_free_strarr(void *s);
 int		raycast(t_cub *cub);
 int		render(t_cub *cub);
 int		convert_tab_char_to_int(t_cub *cub);
@@ -212,5 +201,6 @@ int		init_text_map(t_cub *cub);
 int		init_text_characters(t_cub *cub);
 int		resize_image(t_cub *cub, t_tex *old, int new_width, int new_height);
 int		alpha_channel(t_cub *cub, t_tex *old);
+void	free_text(t_cub *cub);
 
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   convert_char_to_int.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cassie <cassie@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: dvo <dvo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 16:41:03 by dvo               #+#    #+#             */
-/*   Updated: 2024/05/30 07:01:09 by cassie           ###   ########.fr       */
+/*   Updated: 2024/05/30 14:17:07 by dvo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,10 @@ int	attribute_init_map(int i, int max, t_map *map, t_cub *cub)
 	while (i <= max)
 	{
 		map->map[index_f] = ft_strdup(map->buffer[i]);
+		if (!map->map[index_f])
+		{
+			return (-1);
+		}
 		i++;
 		index_f++;
 	}
@@ -65,7 +69,12 @@ int	convert_tab_char_to_int(t_cub *cub)
 	printf("%zu : max_X\n", max);
 	while (cub->map->map[y])
 	{
-		cub->map->final_map[y] = ft_calloc(max, sizeof(int));
+		cub->map->final_map[y] = NULL; //ft_calloc(max, sizeof(int));
+		if (!cub->map->final_map[y])
+		{
+			ft_free_strarr(cub->map->final_map);
+			return (-1);
+		}
 		while (cub->map->map[y][x] != '\0')
 		{
 			if (cub->map->map[y][x] != '0')

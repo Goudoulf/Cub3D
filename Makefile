@@ -18,7 +18,8 @@ SRCS_FILE = main.c init.c event.c ./parsing/init_parsing.c \
 			./render/raycasting.c ./render/render.c event_utils.c ./parsing/parsing_texture.c \
 			./minimap/minimap.c movement_ennemy.c parsing/check_texture.c parsing/parse_statue.c \
 			next_move_ennemy.c init_texture.c close_window.c ./render/tex_color.c \
-			print_error.c ./minimap/init_text.c ./minimap/resize_image.c ./minimap/alpha_channel.c
+			print_error.c ./minimap/init_text.c ./minimap/resize_image.c ./minimap/alpha_channel.c \
+			ft_free_tex.c
 
 INC = includes
 
