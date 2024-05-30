@@ -6,7 +6,7 @@
 /*   By: dvo <dvo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 14:11:16 by dvo               #+#    #+#             */
-/*   Updated: 2024/05/30 14:08:19 by cassie           ###   ########.fr       */
+/*   Updated: 2024/05/30 17:52:08 by cassie           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ t_tex *find_hero(t_cub *cub)
 	if (!cub->texture.move)
 		cub->texture.move = cub->texture.hero;
 	cub->texture.move = cub->texture.move->next;
-	return (&cub->texture.move->tex);
+	return (cub->texture.move->tex);
 }
 
 void	put_minimap(t_cub *cub, int y, int x, t_tex *src)

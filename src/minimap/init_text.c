@@ -6,7 +6,7 @@
 /*   By: dvo <dvo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 15:37:14 by dvo               #+#    #+#             */
-/*   Updated: 2024/05/30 12:50:52 by cassie           ###   ########.fr       */
+/*   Updated: 2024/05/30 17:45:05 by cassie           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ int init_text_map(t_cub *cub)
 	cub->mini_map.wall->img_ptr = mlx_xpm_file_to_image(cub->mlx, cub->map->south, &cub->mini_map.wall->width, &cub->mini_map.wall->height); 
 	if (!cub->mini_map.wall->img_ptr)
 		return (-1);
-	printf("old:%i, %i", cub->mini_map.wall->height, cub->mini_map.wall->width);
 	if (resize_image(cub, cub->mini_map.wall, cub->mini_map.x_case, cub->mini_map.y_case) == -1)
 		return (-1);
 	cub->mini_map.wall->buffer = mlx_get_data_addr(cub->mini_map.wall->img_ptr,

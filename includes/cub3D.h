@@ -6,7 +6,7 @@
 /*   By: dvo <dvo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 10:15:38 by cassie            #+#    #+#             */
-/*   Updated: 2024/05/30 14:38:20 by cassie           ###   ########.fr       */
+/*   Updated: 2024/05/30 17:51:22 by cassie           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,7 +129,8 @@ typedef struct s_raycast
 
 typedef struct	s_list
 {
-	t_tex			tex;
+	t_tex			*tex;
+	bool			is_last;
 	t_list			*next;
 }				t_list;
 

@@ -6,7 +6,7 @@
 /*   By: dvo <dvo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 19:43:28 by cassie            #+#    #+#             */
-/*   Updated: 2024/05/30 14:32:03 by cassie           ###   ########.fr       */
+/*   Updated: 2024/05/30 17:57:04 by cassie           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,23 +49,56 @@ int	texture_mini(t_cub *cub, t_tex *tex, char *path)
 
 
 }
+void	ft_lstadd_back(t_list **lst, t_list *new)
+{
+	t_list	*temp;
+
+	temp = *lst;
+	if (new == NULL)
+		return ;
+	if (*lst == NULL)
+	{
+		*lst = new;
+		new->next = NULL;
+		return ;
+	}
+	while (temp->next != NULL)
+		temp = temp->next;
+	temp->next = new;
+}
+
+t_list	*ft_lstnew(t_tex *content)
+{
+	t_list	*new;
+
+	new = malloc(sizeof(t_list));
+	if (!new)
+		return (NULL);
+	new->tex = content;
+	new->next = NULL;
+	return (new);
+}
 
 int	init_hero_list(t_cub *cub)
 {
 	t_list *temp;
 
 	cub->texture.hero = ft_calloc(1, sizeof(t_list));
-	cub->texture.hero->tex = cub->texture.left1;
+	cub->texture.hero->tex = &cub->texture.left1;
+	cub->texture.hero->is_last = false;
 	temp = cub->texture.hero;
 	cub->texture.hero->next = ft_calloc(1, sizeof(t_list));
 	cub->texture.hero = cub->texture.hero->next;
-	cub->texture.hero->tex = cub->texture.left2;
+	cub->texture.hero->tex = &cub->texture.left2;
+	cub->texture.hero->is_last = false;
 	cub->texture.hero->next = ft_calloc(1, sizeof(t_list));
 	cub->texture.hero = cub->texture.hero->next;
-	cub->texture.hero->tex = cub->texture.left3;
+	cub->texture.hero->tex = &cub->texture.left3;
+	cub->texture.hero->is_last = false;
 	cub->texture.hero->next = ft_calloc(1, sizeof(t_list));
 	cub->texture.hero = cub->texture.hero->next;
-	cub->texture.hero->tex = cub->texture.left2;
+	cub->texture.hero->tex = &cub->texture.left2;
+	cub->texture.hero->is_last = true;
 	cub->texture.hero->next = temp;
 	return (1);
 }
