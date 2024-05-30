@@ -6,7 +6,7 @@
 /*   By: cassie <cassie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 20:23:15 by cassie            #+#    #+#             */
-/*   Updated: 2024/05/29 20:44:12 by cassie           ###   ########.fr       */
+/*   Updated: 2024/05/30 06:44:48 by cassie           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	close_window(t_cub *cub)
 		free(cub->map->map[i]);
 	free(cub->map->map);
 	i = -1;
-	while (++i < cub->map->max_Y)
+	while (++i < cub->map->max_y)
 		free(cub->map->final_map[i]);
 	free(cub->map->final_map);
 	i = -1;

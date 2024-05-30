@@ -6,7 +6,7 @@
 /*   By: cassie <cassie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 10:15:38 by cassie            #+#    #+#             */
-/*   Updated: 2024/05/29 21:09:04 by cassie           ###   ########.fr       */
+/*   Updated: 2024/05/30 06:37:57 by cassie           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,10 @@
 # include "../mlx_linux/mlx.h"
 # include "../mlx_linux/mlx_int.h"
 # include "my_struct.h"
-#include <math.h>
-#include <stdbool.h>
-#define WIDTH 1920;
-#define HEIGHT 1080;
+# include <math.h>
+# include <stdbool.h>
+# define WIDTH 1920
+# define HEIGHT 1080
 
 typedef struct s_tex
 {
@@ -43,7 +43,7 @@ typedef struct s_image
 	int		endian;	
 }				t_image;
 
-typedef struct  s_map
+typedef struct s_map
 {
 	char	**buffer;
 	char	*north;
@@ -54,9 +54,9 @@ typedef struct  s_map
 	int		ceiling;
 	char	**map;
 	int		**final_map;
-	int		max_X;
-	int		max_Y;
-}               t_map;
+	int		max_x;
+	int		max_y;
+}			t_map;
 
 typedef struct s_camera
 {
@@ -78,57 +78,56 @@ typedef struct s_camera
 
 typedef struct s_texture
 {
-	t_tex *tab[2][2][2];
-	t_tex north;
-	t_tex south;
-	t_tex east;
-	t_tex west;
-	t_tex statue;
-	t_tex scream;
-	t_tex door;
-} t_texture;
+	t_tex	*tab[2][2][2];
+	t_tex	north;
+	t_tex	south;
+	t_tex	east;
+	t_tex	west;
+	t_tex	statue;
+	t_tex	scream;
+	t_tex	door;
+}			t_texture;
 
 typedef struct s_ray_en
 {
-		int drawStart;
-		int drawEnd;
-		int		side;
-		float	pvector;
-} t_ray_en;
+	int		drawstart;
+	int		drawend;
+	int		side;
+	float	pvector;
+}			t_ray_en;
 
 typedef struct s_raycast
 {
-	t_vec	pos;
-	float	cameraX; 
-	t_vec	vector;
-	t_pos	map;
-	t_vec	next;
-	t_vec	delta;
-	float	pvector;
-	t_vec	step;
-	t_vec	add;
-	int		w_hit;
-	int		side;
-	int		line;
-	int		start;
-	int		end;
-	int		color;
-	t_ray_en statue;
-	int		flag_statue;
-	t_pos tex_pos;
-	float wall_pos;
+	t_vec		pos;
+	t_vec		vector;
+	t_pos		map;
+	t_vec		next;
+	t_vec		delta;
+	float		pvector;
+	t_vec		step;
+	t_vec		add;
+	int			w_hit;
+	int			side;
+	int			line;
+	int			start;
+	int			end;
+	int			color;
+	t_ray_en	statue;
+	int			flag_statue;
+	t_pos		tex_pos;
+	float		wall_pos;
 
-} t_raycast;
+}				t_raycast;
 
 typedef struct s_mini_map
 {
-	t_image	img;
-	t_image	img_pos;
-	t_pos	last_pos;
-	int		last_color;
-} t_mini_map;
+	t_image		img;
+	t_image		img_pos;
+	t_pos		last_pos;
+	int			last_color;
+}				t_mini_map;
 
-typedef struct  s_cub
+typedef struct s_cub
 {
 	void		*mlx;
 	void		*win;
@@ -136,19 +135,19 @@ typedef struct  s_cub
 	t_image		img;
 	t_raycast	*ray;
 	t_camera	*cam;
-	t_mini_map mini_map;
+	t_mini_map	mini_map;
 	t_texture	texture;
-	int		win_y;
-	int		win_x;
-	char	init_view;
-	int		view_ennemy;
-	int		flag_die;
-	long	fps_statue;
-	float		posX_ennemy;
-	float		posY_ennemy;
+	int			win_y;
+	int			win_x;
+	char		init_view;
+	int			view_ennemy;
+	int			flag_die;
+	long		fps_statue;
+	float		posx_ennemy;
+	float		posy_ennemy;
 	bool		door_m;
 	t_pos		door_p;
-}		t_cub;
+}				t_cub;
 
 int		mouse_control(int button, int x, int y, t_cub *cub);
 int		mouse_turn(int x, int y, t_cub *cub);
@@ -159,7 +158,7 @@ int		init_function(t_cub *cub, char *av);
 int		ft_read(t_cub *cub, char *av);
 int		attribute_init_map(int i, int max, t_map *map, t_cub *cub);
 int		check_parcing(t_map *map, t_cub *cube);
-void    ft_free_strarr(char **str);
+void	ft_free_strarr(char **str);
 int		raycast(t_cub *cub);
 int		render(t_cub *cub);
 int		convert_tab_char_to_int(t_cub *cub);
@@ -178,8 +177,8 @@ float	set_angle(t_cub *cub);
 int		texture_init(t_cub *cub);
 int		check_texture(t_map *map);
 int		check_valid_color(char *str);
-void    ft_free_init_all(t_cub *cub);
-void    ft_free_text(t_map *map);
+void	ft_free_init_all(t_cub *cub);
+void	ft_free_text(t_map *map);
 void	ft_add_ennemy(t_cub *cub);
 void	ft_sonar(t_cub *cub, int **map);
 int		texture_init(t_cub *cub);

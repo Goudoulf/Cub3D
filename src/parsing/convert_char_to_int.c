@@ -6,7 +6,7 @@
 /*   By: cassie <cassie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 16:41:03 by dvo               #+#    #+#             */
-/*   Updated: 2024/05/29 14:09:40 by cassie           ###   ########.fr       */
+/*   Updated: 2024/05/30 06:42:22 by cassie           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int	convert_tab_char_to_int(t_cub *cub)
 	x = 0;
 	y = 0;
 	max = max_len_table(cub->map->map);
-	cub->map->max_X = max;
+	cub->map->max_x = max;
 	printf("%zu : max_X\n", max);
 	while (cub->map->map[y])
 	{

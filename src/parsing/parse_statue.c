@@ -21,16 +21,16 @@ void	ft_add_ennemy(t_cub *cub)
 
 	x = 1;
 	y = 1;
-	while (y < cub->map->max_Y)
+	while (y < cub->map->max_y)
 	{
-		while (x < cub->map->max_X)
+		while (x < cub->map->max_x)
 		{
 			if (cub->map->final_map[y][x] == 0
 				&& check_road(cub->map->final_map, y, x, cub))
 			{
 				cub->map->final_map[y][x] = 2;
-				cub->posX_ennemy = x;
-				cub->posY_ennemy = y;
+				cub->posx_ennemy = x;
+				cub->posy_ennemy = y;
 				return ;
 			}
 			x++;
@@ -50,12 +50,12 @@ static int	check_around(int **map, int y, int x, t_cub *cub)
 		map[y][x - 1] = 5;
 		nbr++;
 	}
-	if (x < cub->map->max_X && map[y][x + 1] == 0)
+	if (x < cub->map->max_x && map[y][x + 1] == 0)
 	{
 		map[y][x + 1] = 5;
 		nbr++;
 	}
-	if (y < cub->map->max_Y && map[y + 1][x] == 0)
+	if (y < cub->map->max_y && map[y + 1][x] == 0)
 	{
 		map[y + 1][x] = 5;
 		nbr++;
@@ -78,10 +78,10 @@ int	reset_five(int **map, t_cub *cub)
 	y = 0;
 	if (map[(int)cub->ray->pos.y][(int)cub->ray->pos.x] == 5)
 		res = 1;
-	while (y < cub->map->max_Y)
+	while (y < cub->map->max_y)
 	{
 		x = 0;
-		while (x < cub->map->max_X)
+		while (x < cub->map->max_x)
 		{
 			if (map[y][x] == 5)
 				map[y][x] = 0;
@@ -104,10 +104,10 @@ int	check_road(int **map, int posy, int posx, t_cub *cub)
 	while (nbr_five != 0)
 	{
 		nbr_five = 0;
-		while (y < cub->map->max_Y)
+		while (y < cub->map->max_y)
 		{
 			x = 0;
-			while (x < cub->map->max_X)
+			while (x < cub->map->max_x)
 			{
 				if (map[y][x] == 5)
 					nbr_five += check_around(map, y, x, cub);

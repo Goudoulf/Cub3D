@@ -6,7 +6,7 @@
 /*   By: cassie <cassie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 14:11:16 by dvo               #+#    #+#             */
-/*   Updated: 2024/05/29 19:21:02 by cassie           ###   ########.fr       */
+/*   Updated: 2024/05/30 06:43:10 by cassie           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@ int	ft_check_wall(t_cub *cub, int x, int y)
 	int	posx;
 	int	posy;
 
-	posx = (cub->map->max_X * x) / (cub->win_x / 5);
-	posy = (cub->map->max_Y * y) / (cub->win_y / 5);
+	posx = (cub->map->max_x * x) / (cub->win_x / 5);
+	posy = (cub->map->max_y * y) / (cub->win_y / 5);
 	if (cub->map->final_map[posy][posx] == 1)
 		return (1);
 	return (0);
@@ -108,8 +108,8 @@ void	put_position_minimap(t_cub *cub, int color)
 	{
 		while (x - init_x < cub->win_x / 5)
 		{
-			test_x = (cub->map->max_X * (x - init_x)) / (float)(cub->win_x / 5.0f);
-			test_y = (cub->map->max_Y * y) / (float)(cub->win_y / 5.0f);
+			test_x = (cub->map->max_x * (x - init_x)) / (float)(cub->win_x / 5.0f);
+			test_y = (cub->map->max_y * y) / (float)(cub->win_y / 5.0f);
 			if (cub->ray->pos.y + 0.3 > test_y && cub->ray->pos.y - 0.3 < test_y && \
 			cub->ray->pos.x + 0.3 > test_x && cub->ray->pos.x - 0.3 < test_x)
 				((unsigned int *)(cub->mini_map.img.buffer))[x + y * 1920 / 5] = color;

@@ -6,7 +6,7 @@
 /*   By: cassie <cassie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 13:29:37 by dvo               #+#    #+#             */
-/*   Updated: 2024/05/29 21:50:36 by cassie           ###   ########.fr       */
+/*   Updated: 2024/05/30 06:42:02 by cassie           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int	create_new_map(char **str, int i, t_map *map, t_cub *cub)
 		return (-1);
 	}
 	printf("%i\n", max - i + 1);
-	map->max_Y = max - i + 1;
+	map->max_y = max - i + 1;
 	map->map = ft_calloc(max - i + 2, sizeof(char *));
 	map->final_map = ft_calloc(max - i + 1, sizeof(int *));
 	if (attribute_init_map(i, max, map, cub) == -1)

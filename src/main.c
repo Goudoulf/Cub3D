@@ -6,7 +6,7 @@
 /*   By: cassie <cassie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 09:57:20 by cassie            #+#    #+#             */
-/*   Updated: 2024/05/29 21:00:51 by cassie           ###   ########.fr       */
+/*   Updated: 2024/05/30 06:41:42 by cassie           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@ void	print_map(t_cub *cub)
 
 	x = 0;
 	y = 0;
-	while (y < cub->map->max_Y)
+	while (y < cub->map->max_y)
 	{
-		while (x < cub->map->max_X)
+		while (x < cub->map->max_x)
 		{
 			printf("%d", cub->map->final_map[y][x]);
 			x++;

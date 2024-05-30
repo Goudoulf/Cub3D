@@ -6,7 +6,7 @@
 /*   By: cassie <cassie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 13:43:23 by dvo               #+#    #+#             */
-/*   Updated: 2024/05/29 20:43:05 by cassie           ###   ########.fr       */
+/*   Updated: 2024/05/30 06:42:35 by cassie           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,11 @@ void	update_cam(t_cub *cub, t_raycast *ray, t_map *map)
 		- sinf(cub->cam->angle) * cub->cam->move.y;
 	y = sinf(cub->cam->angle) * cub->cam->move.x
 		+ cosf(cub->cam->angle) * cub->cam->move.y;
-	if (ray->pos.x + x <= map->max_X - 1 && ray->pos.x + x >= 1
+	if (ray->pos.x + x <= map->max_x - 1 && ray->pos.x + x >= 1
 		&& (map->final_map[(int)ray->pos.y][(int)(ray->pos.x + x)] == 0
 		|| map->final_map[(int)ray->pos.y][(int)(ray->pos.x + x)] == -2))
 		ray->pos.x += x;
-	if (ray->pos.y + y <= map->max_Y - 1 && ray->pos.y + y >= 1
+	if (ray->pos.y + y <= map->max_y - 1 && ray->pos.y + y >= 1
 		&& (map->final_map[(int)(ray->pos.y + y)][(int)(ray->pos.x)] == 0
 		|| map->final_map[(int)(ray->pos.y + y)][(int)(ray->pos.x)] == -2))
 		ray->pos.y += y;
