@@ -3,55 +3,39 @@
 /*                                                        :::      ::::::::   */
 /*   init_text.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dvo <dvo@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: cassie <cassie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 15:37:14 by dvo               #+#    #+#             */
-/*   Updated: 2024/05/30 17:45:05 by cassie           ###   ########.fr       */
+/*   Updated: 2024/05/30 20:47:35 by cassie           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
-void    get_floor_minimap(t_cub *cub);
+void	get_floor_minimap(t_cub *cub);
 
-int init_text_map(t_cub *cub)
+int	init_text_map(t_cub *cub)
 {
 	get_floor_minimap(cub);
-	cub->mini_map.wall = ft_calloc(1, sizeof(t_tex));
-	cub->mini_map.wall->img_ptr = mlx_xpm_file_to_image(cub->mlx, cub->map->south, &cub->mini_map.wall->width, &cub->mini_map.wall->height); 
-	if (!cub->mini_map.wall->img_ptr)
-		return (-1);
-	if (resize_image(cub, cub->mini_map.wall, cub->mini_map.x_case, cub->mini_map.y_case) == -1)
-		return (-1);
-	cub->mini_map.wall->buffer = mlx_get_data_addr(cub->mini_map.wall->img_ptr,
-			&cub->mini_map.wall->bpp, &cub->mini_map.wall->line_len, &cub->mini_map.wall->endian);
 	return (0);
 }
 
-void    get_floor_minimap(t_cub *cub)
+void	get_floor_minimap(t_cub *cub)
 {
-	int y;
-	int x;
-	int offset;
+	int	y;
+	int	x;
+	int	offset;
 
 	y = 0;
-	cub->mini_map.floor = ft_calloc(1, sizeof(t_tex));
-	cub->mini_map.floor->img_ptr = mlx_new_image(cub->mlx, cub->mini_map.x_case, cub->mini_map.y_case);
-	if (cub->mini_map.floor->img_ptr == NULL)
-	{
-		mlx_destroy_window(cub->mlx, cub->win);
-		mlx_destroy_display(cub->mlx);
-		free(cub->mlx);
-	}
-	cub->mini_map.floor->buffer = mlx_get_data_addr(cub->mini_map.floor->img_ptr,
-			&cub->mini_map.floor->bpp, &cub->mini_map.floor->line_len, &cub->mini_map.floor->endian);
 	while (y < cub->mini_map.y_case)
 	{
 		x = 0;
-		while(x < cub->mini_map.x_case)
+		while (x < cub->mini_map.x_case)
 		{
-			offset = (cub->mini_map.floor->line_len * y) + (x * (cub->mini_map.floor->bpp / 8));
-			*((unsigned int *)(offset + cub->mini_map.floor->buffer)) = cub->map->floor;
+			offset = (cub->texture.floor.line_len * y)
+				+ (x * (cub->texture.floor.bpp / 8));
+			*((unsigned int *)(offset + cub->texture.floor.buffer))
+				= cub->map->floor;
 			x++;
 		}
 		y++;

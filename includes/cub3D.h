@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dvo <dvo@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: cassie <cassie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 10:15:38 by cassie            #+#    #+#             */
-/*   Updated: 2024/05/30 17:51:22 by cassie           ###   ########.fr       */
+/*   Updated: 2024/05/30 21:01:45 by cassie           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 # define WIDTH 1920
 # define HEIGHT 1080
 
-typedef struct	s_list t_list;
+typedef struct s_list	t_list;
 
 typedef struct s_tex
 {
@@ -93,7 +93,9 @@ typedef struct s_texture
 	t_tex	left1;
 	t_tex	left2;
 	t_tex	left3;
-	t_list 	*move;
+	t_tex	wall;
+	t_tex	floor;
+	t_list	*move;
 }			t_texture;
 
 typedef struct s_ray_en
@@ -127,23 +129,20 @@ typedef struct s_raycast
 
 }				t_raycast;
 
-typedef struct	s_list
+typedef struct s_list
 {
 	t_tex			*tex;
-	bool			is_last;
 	t_list			*next;
 }				t_list;
 
 typedef struct s_mini_map
 {
-	t_image		img;
+	t_tex		img;
 	t_image		img_pos;
 	t_pos		last_pos;
 	int			last_color;
 	int			x_case;
 	int			y_case;
-	t_tex		*wall;
-	t_tex		*floor;
 }				t_mini_map;
 
 typedef struct s_cub
@@ -193,14 +192,13 @@ void	ft_ennemy_move(t_cub *cub);
 void	ray_draw_statue(t_cub *cub, int x, int h);
 int		tex_color(t_tex *tex, int y, int x);
 float	set_angle(t_cub *cub);
-int		texture_init(t_cub *cub);
 int		check_texture(t_map *map);
 int		check_valid_color(char *str);
 void	ft_free_init_all(t_cub *cub);
 void	ft_free_text(t_map *map);
 void	ft_add_ennemy(t_cub *cub);
 void	ft_sonar(t_cub *cub, int **map);
-int		texture_init(t_cub *cub);
+int		texture_init(t_cub *cub, t_texture *texture);
 void	check_door(t_cub *cub, t_raycast *ray, t_map *map);
 void	update_cam(t_cub *cub, t_raycast *ray, t_map *map);
 int		close_window(t_cub *cub);

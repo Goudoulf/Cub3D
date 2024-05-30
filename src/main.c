@@ -6,7 +6,7 @@
 /*   By: cassie <cassie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 09:57:20 by cassie            #+#    #+#             */
-/*   Updated: 2024/05/30 13:19:00 by cassie           ###   ########.fr       */
+/*   Updated: 2024/05/30 20:21:11 by cassie           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ int	main(int argc, char **argv)
 	}
 	cub->mini_map.x_case = (cub->win_x / 8) / 12;
 	cub->mini_map.y_case = (cub->win_y / 5) / 12;
-	if (texture_init(cub) == -1)
+	if (texture_init(cub, &cub->texture) == -1)
 		return (free_texture_error(cub));
 	create_minimap(cub);
 	cub->cam->angle = set_angle(cub);
