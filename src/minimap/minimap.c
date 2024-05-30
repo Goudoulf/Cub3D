@@ -6,13 +6,16 @@
 /*   By: dvo <dvo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 14:11:16 by dvo               #+#    #+#             */
-/*   Updated: 2024/05/30 09:39:28 by cassie           ###   ########.fr       */
+/*   Updated: 2024/05/30 11:30:32 by cassie           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
-
+t_tex *find_way(t_cub *cub)
+{
+	return (cub->mini_map.e_bot);
+}
 
 void	put_minimap(t_cub *cub, int y, int x, t_tex *src)
 {
@@ -60,7 +63,7 @@ void	ft_set_minimap(t_cub *cub)
 		while(x < 12)
 		{
 			if (y == 5 && x == 5)
-				put_minimap(cub, y, x, cub->mini_map.n_bot);
+				put_minimap(cub, y, x, cub->mini_map.e_bot);
 			else if ((x + pos_x < cub->map->max_x) && (y + pos_y < cub->map->max_y)
 					&& (x + pos_x >= 0) && (y + pos_y >= 0) && cub->map->final_map[y + pos_y][x + pos_x] == 1)
 				put_minimap(cub, y, x, cub->mini_map.wall);
