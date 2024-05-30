@@ -25,6 +25,8 @@ static void	event_init(t_cub *cub)
 	mlx_hook(cub->win, KeyRelease, KeyReleaseMask, key_release, cub);
 	mlx_hook(cub->win, MotionNotify, PointerMotionMask, mouse_turn, cub);
 	mlx_hook(cub->win, DestroyNotify, StructureNotifyMask, close_window, cub);
+	mlx_hook(cub->win, FocusIn, FocusChangeMask, focus_in, cub);
+	mlx_hook(cub->win, FocusOut, FocusChangeMask, focus_out, cub);
 	mlx_loop_hook(cub->mlx, event_loop, cub);
 }
 
@@ -46,6 +48,7 @@ float	set_angle(t_cub *cub)
 
 static void	cub_init(t_cub *cub)
 {
+	cub->texture.move = NULL;
 	cub->door_m = false;
 	cub->ray = ft_calloc(1, sizeof(t_raycast));
 	cub->cam = ft_calloc(1, sizeof(t_camera));

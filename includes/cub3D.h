@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cassie <cassie@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: dvo <dvo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 10:15:38 by cassie            #+#    #+#             */
-/*   Updated: 2024/05/30 09:27:21 by cassie           ###   ########.fr       */
+/*   Updated: 2024/05/30 14:38:20 by cassie           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@
 # include <stdbool.h>
 # define WIDTH 1920
 # define HEIGHT 1080
+
+typedef struct	s_list t_list;
 
 typedef struct s_tex
 {
@@ -87,6 +89,11 @@ typedef struct s_texture
 	t_tex	statue;
 	t_tex	scream;
 	t_tex	door;
+	t_list	*hero;
+	t_tex	left1;
+	t_tex	left2;
+	t_tex	left3;
+	t_list 	*move;
 }			t_texture;
 
 typedef struct s_ray_en
@@ -120,20 +127,22 @@ typedef struct s_raycast
 
 }				t_raycast;
 
+typedef struct	s_list
+{
+	t_tex			tex;
+	t_list			*next;
+}				t_list;
+
 typedef struct s_mini_map
 {
 	t_image		img;
 	t_image		img_pos;
 	t_pos		last_pos;
 	int			last_color;
-	t_tex		*n_bot;
-	t_tex		*s_bot;
-	t_tex		*e_bot;
-	t_tex		*w_bot;
-	t_tex		*floor;
-	t_tex		*wall;
 	int			x_case;
 	int			y_case;
+	t_tex		*wall;
+	t_tex		*floor;
 }				t_mini_map;
 
 typedef struct s_cub
@@ -156,6 +165,7 @@ typedef struct s_cub
 	float		posy_ennemy;
 	bool		door_m;
 	t_pos		door_p;
+	bool		focus;
 }				t_cub;
 
 int		mouse_control(int button, int x, int y, t_cub *cub);
@@ -198,8 +208,8 @@ int		tex_color(t_tex *tex, int y, int x);
 int		print_error(char *err, int ret);
 int		print_error_pos(char *err, int ret, int x, int y);
 int		init_text_map(t_cub *cub);
-int		init_text_characters(t_cub *cub);
 int		resize_image(t_cub *cub, t_tex *old, int new_width, int new_height);
-int		alpha_channel(t_cub *cub, t_tex *old);
+int		focus_out(t_cub *cub);
+int		focus_in(t_cub *cub);
 
 #endif

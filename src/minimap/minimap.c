@@ -6,21 +6,25 @@
 /*   By: dvo <dvo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 14:11:16 by dvo               #+#    #+#             */
-/*   Updated: 2024/05/30 11:30:32 by cassie           ###   ########.fr       */
+/*   Updated: 2024/05/30 14:08:19 by cassie           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
+#include <strings.h>
 
-t_tex *find_way(t_cub *cub)
+t_tex *find_hero(t_cub *cub)
 {
-	return (cub->mini_map.e_bot);
+	if (!cub->texture.move)
+		cub->texture.move = cub->texture.hero;
+	cub->texture.move = cub->texture.move->next;
+	return (&cub->texture.move->tex);
 }
 
 void	put_minimap(t_cub *cub, int y, int x, t_tex *src)
 {
-	int	offset1;
-	int	offset2;
+	int		offset1;
+	int		offset2;
 	t_pos	tmp;
 	t_pos	index;
 
@@ -63,7 +67,7 @@ void	ft_set_minimap(t_cub *cub)
 		while(x < 12)
 		{
 			if (y == 5 && x == 5)
-				put_minimap(cub, y, x, cub->mini_map.e_bot);
+				put_minimap(cub, y, x, find_hero(cub));
 			else if ((x + pos_x < cub->map->max_x) && (y + pos_y < cub->map->max_y)
 					&& (x + pos_x >= 0) && (y + pos_y >= 0) && cub->map->final_map[y + pos_y][x + pos_x] == 1)
 				put_minimap(cub, y, x, cub->mini_map.wall);
@@ -89,10 +93,7 @@ int create_minimap(t_cub *cub)
 	}
 	cub->mini_map.img.buffer = mlx_get_data_addr(cub->mini_map.img.img_ptr,
 			&cub->mini_map.img.bpp, &cub->mini_map.img.line_len, &cub->mini_map.img.endian);
-	cub->mini_map.x_case = (cub->win_x / 8) / 12;
-	cub->mini_map.y_case = (cub->win_y / 5) / 12;
 	init_text_map(cub);
-	init_text_characters(cub);
 	ft_set_minimap(cub);
 	return (0);
 }

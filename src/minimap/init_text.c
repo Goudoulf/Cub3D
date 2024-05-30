@@ -6,26 +6,13 @@
 /*   By: dvo <dvo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 15:37:14 by dvo               #+#    #+#             */
-/*   Updated: 2024/05/30 11:32:18 by cassie           ###   ########.fr       */
+/*   Updated: 2024/05/30 12:50:52 by cassie           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
 void    get_floor_minimap(t_cub *cub);
-
-int init_text_characters(t_cub *cub)
-{
-	cub->mini_map.e_bot = ft_calloc(1, sizeof(t_tex));
-	cub->mini_map.e_bot->img_ptr = mlx_xpm_file_to_image(cub->mlx, "./textures/hero/neutral_l.xpm", &cub->mini_map.e_bot->width, &cub->mini_map.e_bot->height);	
-	if (!cub->mini_map.e_bot->img_ptr)
-		return (-1);
-	if (resize_image(cub, cub->mini_map.e_bot, cub->mini_map.x_case, cub->mini_map.y_case) == -1)
-		return (-1);
-	cub->mini_map.e_bot->buffer = mlx_get_data_addr(cub->mini_map.e_bot->img_ptr,
-			&cub->mini_map.e_bot->bpp, &cub->mini_map.e_bot->line_len, &cub->mini_map.e_bot->endian);
-	return (0);
-}
 
 int init_text_map(t_cub *cub)
 {
