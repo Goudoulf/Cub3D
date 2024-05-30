@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cassie <cassie@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: dvo <dvo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 10:15:38 by cassie            #+#    #+#             */
-/*   Updated: 2024/05/30 09:27:21 by cassie           ###   ########.fr       */
+/*   Updated: 2024/05/30 11:03:13 by dvo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,12 +120,23 @@ typedef struct s_raycast
 
 }				t_raycast;
 
+typedef struct	s_hero_sprite
+{
+	t_tex			move;
+	int				type_move;
+	t_hero_sprite	*next;
+}				t_hero_sprite;
+
 typedef struct s_mini_map
 {
 	t_image		img;
 	t_image		img_pos;
 	t_pos		last_pos;
 	int			last_color;
+	t_hero_sprite	*bot;
+	t_hero_sprite	*top;
+	t_hero_sprite	*left;
+	t_hero_sprite	*right;
 	t_tex		*n_bot;
 	t_tex		*s_bot;
 	t_tex		*e_bot;
