@@ -14,8 +14,18 @@
 #include <X11/X.h>
 #include <stdio.h>
 
-static void	malloc_error(void)
+static void	malloc_error(t_cub *cub)
 {
+	if (cub->win)
+		mlx_destroy_window(cub->mlx, cub->win);
+	if (cub->img.img_ptr)
+		mlx_destroy_image(cub->mlx, cub->img.img_ptr);
+	if (cub->mlx)
+	{
+		mlx_destroy_display(cub->mlx);
+		free(cub->mlx);
+	}
+	free(cub);
 	exit(EXIT_FAILURE);
 }
 
@@ -44,11 +54,18 @@ float	set_angle(t_cub *cub)
 	return (ret);
 }
 
-static void	cub_init(t_cub *cub)
+static int	cub_init(t_cub *cub)
 {
 	cub->door_m = false;
 	cub->ray = ft_calloc(1, sizeof(t_raycast));
+	if (!cub->ray)
+		return (-1);
 	cub->cam = ft_calloc(1, sizeof(t_camera));
+	if (!cub->cam)
+	{
+		free (cub->ray);
+		return (-1);
+	}
 	cub->cam->width = WIDTH;
 	cub->cam->height = HEIGHT;
 	cub->cam->oldx = cub->cam->width / 2;
@@ -63,30 +80,23 @@ static void	cub_init(t_cub *cub)
 	cub->win_y = HEIGHT;
 	cub->mini_map.last_pos.x = cub->ray->pos.x;
 	cub->mini_map.last_pos.y = cub->ray->pos.y;
+	return (0);
 }
 
 void	init_all(t_cub *cub)
 {
 	cub->mlx = mlx_init();
 	if (cub->mlx == NULL)
-		malloc_error();
+		malloc_error(cub);
 	cub->win = mlx_new_window(cub->mlx, 1920, 1080, "cub3D");
 	if (cub->win == NULL)
-	{
-		mlx_destroy_display(cub->mlx);
-		free(cub->mlx);
-		malloc_error();
-	}
+		malloc_error(cub);
 	cub->img.img_ptr = mlx_new_image(cub->mlx, 1920, 1080);
 	if (cub->img.img_ptr == NULL)
-	{
-		mlx_destroy_window(cub->mlx, cub->win);
-		mlx_destroy_display(cub->mlx);
-		free(cub->mlx);
-		malloc_error();
-	}
+		malloc_error(cub);
 	cub->img.buffer = mlx_get_data_addr(cub->img.img_ptr,
 			&cub->img.bpp, &cub->img.line_len, &cub->img.endian);
 	event_init(cub);
-	cub_init(cub);
+	if (cub_init(cub) == -1)
+		malloc_error(cub);
 }
