@@ -6,7 +6,7 @@
 /*   By: cassie <cassie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 14:11:16 by dvo               #+#    #+#             */
-/*   Updated: 2024/05/30 20:32:02 by cassie           ###   ########.fr       */
+/*   Updated: 2024/05/31 12:45:44 by cassie           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ int	create_minimap(t_cub *cub)
 {
 	init_text_map(cub);
 	ft_set_minimap(cub);
-	return (0);
+	return (1);
 }
 
 void	put_position_minimap(t_cub *cub, int color)

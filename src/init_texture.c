@@ -6,7 +6,7 @@
 /*   By: dvo <dvo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 19:43:28 by cassie            #+#    #+#             */
-/*   Updated: 2024/05/31 10:35:37 by dvo              ###   ########.fr       */
+/*   Updated: 2024/05/31 13:06:53 by cassie           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,10 +97,6 @@ int	texture_init(t_cub *cub, t_texture *texture)
 	if (!texture_init_mlx(cub, &texture->east, cub->map->east))
 		return (-1);
 	if (!texture_init_mlx(cub, &texture->west, cub->map->west))
-		return (-1);
-	if (!texture_init_mlx(cub, &texture->statue, "./textures/statue.xpm"))
-		return (-1);
-	if (!texture_init_mlx(cub, &texture->scream, "./textures/scream.xpm"))
 		return (-1);
 	if (!texture_init_mlx(cub, &texture->door, "./textures/door.xpm"))
 		return (-1);

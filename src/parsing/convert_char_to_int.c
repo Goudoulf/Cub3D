@@ -6,7 +6,7 @@
 /*   By: dvo <dvo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 16:41:03 by dvo               #+#    #+#             */
-/*   Updated: 2024/05/31 09:29:40 by dvo              ###   ########.fr       */
+/*   Updated: 2024/05/31 12:48:28 by cassie           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,15 +44,13 @@ int	attribute_init_map(int i, int max, t_map *map, t_cub *cub)
 	{
 		map->map[index_f] = ft_strdup(map->buffer[i]);
 		if (!map->map[index_f])
-		{
-			return (-1);
-		}
+			malloc_error(cub, true);
 		i++;
 		index_f++;
 	}
 	cub->map->max_x = max_len_table(cub->map->map);
 	if (check_parcing(map, cub) == -1)
-		return (-1);
+		malloc_error(cub, true);
 	return (0);
 }
 
@@ -71,10 +69,7 @@ int	convert_tab_char_to_int(t_cub *cub)
 	{
 		cub->map->final_map[y] = ft_calloc(max, sizeof(int));
 		if (!cub->map->final_map[y])
-		{
-			ft_free_strarr(cub->map->final_map);
-			return (-1);
-		}
+			malloc_error(cub, true);
 		while (cub->map->map[y][x] != '\0')
 		{
 			if (cub->map->map[y][x] != '0')

@@ -1,33 +1,18 @@
 /* ************************************************************************** */
-/*									      */
-/*							  :::	   ::::::::   */
-/*   init.c						:+:	 :+:	:+:   */
-/*						      +:+ +:+	      +:+     */
-/*   By: cassie <cassie@student.42lyon.fr>	    +#+  +:+	   +#+	      */
-/*						  +#+#+#+#+#+	+#+	      */
-/*   Created: 2024/05/21 12:41:08 by cassie	       #+#    #+#	      */
-/*   Updated: 2024/05/28 11:40:02 by cassie	      ###   ########.fr       */
-/*									      */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   init.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cassie <cassie@student.42lyon.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/05/31 11:12:06 by cassie            #+#    #+#             */
+/*   Updated: 2024/05/31 11:26:48 by cassie           ###   ########.fr       */
+/*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 #include <X11/X.h>
 #include <stdio.h>
-
-static void	malloc_error(t_cub *cub)
-{
-	if (cub->win)
-		mlx_destroy_window(cub->mlx, cub->win);
-	if (cub->img.img_ptr)
-		mlx_destroy_image(cub->mlx, cub->img.img_ptr);
-	if (cub->mlx)
-	{
-		mlx_destroy_display(cub->mlx);
-		free(cub->mlx);
-	}
-	free(cub);
-	exit(EXIT_FAILURE);
-}
 
 static void	event_init(t_cub *cub)
 {
@@ -90,16 +75,16 @@ void	init_all(t_cub *cub)
 {
 	cub->mlx = mlx_init();
 	if (cub->mlx == NULL)
-		malloc_error(cub);
+		malloc_error(cub, true);
 	cub->win = mlx_new_window(cub->mlx, 1920, 1080, "cub3D");
 	if (cub->win == NULL)
-		malloc_error(cub);
+		malloc_error(cub, true);
 	cub->img.img_ptr = mlx_new_image(cub->mlx, 1920, 1080);
 	if (cub->img.img_ptr == NULL)
-		malloc_error(cub);
+		malloc_error(cub, true);
 	cub->img.buffer = mlx_get_data_addr(cub->img.img_ptr,
 			&cub->img.bpp, &cub->img.line_len, &cub->img.endian);
 	event_init(cub);
 	if (cub_init(cub) == -1)
-		malloc_error(cub);
+		malloc_error(cub, true);
 }

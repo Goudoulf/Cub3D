@@ -6,78 +6,64 @@
 /*   By: cassie <cassie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 20:23:15 by cassie            #+#    #+#             */
-/*   Updated: 2024/05/30 20:59:14 by cassie           ###   ########.fr       */
+/*   Updated: 2024/05/31 13:01:27 by cassie           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
-void	destroy_mlx(t_cub *cub)
+void	destroy_texture(t_cub *cub)
 {
-	mlx_destroy_image(cub->mlx, cub->texture.north.img_ptr);
-	mlx_destroy_image(cub->mlx, cub->texture.south.img_ptr);
-	mlx_destroy_image(cub->mlx, cub->texture.east.img_ptr);
-	mlx_destroy_image(cub->mlx, cub->texture.west.img_ptr);
-	mlx_destroy_image(cub->mlx, cub->texture.door.img_ptr);
-	mlx_destroy_image(cub->mlx, cub->texture.statue.img_ptr);
-	mlx_destroy_image(cub->mlx, cub->texture.scream.img_ptr);
-	mlx_destroy_image(cub->mlx, cub->texture.left1.img_ptr);
-	mlx_destroy_image(cub->mlx, cub->texture.left2.img_ptr);
-	mlx_destroy_image(cub->mlx, cub->texture.left3.img_ptr);
-	mlx_destroy_image(cub->mlx, cub->mini_map.img.img_ptr);
-	mlx_destroy_image(cub->mlx, cub->texture.floor.img_ptr);
-	mlx_destroy_image(cub->mlx, cub->texture.wall.img_ptr);
-	mlx_destroy_image(cub->mlx, cub->img.img_ptr);
+	if (cub->texture.north.img_ptr)
+		mlx_destroy_image(cub->mlx, cub->texture.north.img_ptr);
+	if (cub->texture.south.img_ptr)
+		mlx_destroy_image(cub->mlx, cub->texture.south.img_ptr);
+	if (cub->texture.east.img_ptr)
+		mlx_destroy_image(cub->mlx, cub->texture.east.img_ptr);
+	if (cub->texture.west.img_ptr)
+		mlx_destroy_image(cub->mlx, cub->texture.west.img_ptr);
+	if (cub->texture.door.img_ptr)
+		mlx_destroy_image(cub->mlx, cub->texture.door.img_ptr);
+	if (cub->texture.floor.img_ptr)
+		mlx_destroy_image(cub->mlx, cub->texture.floor.img_ptr);
+	if (cub->texture.wall.img_ptr)
+		mlx_destroy_image(cub->mlx, cub->texture.wall.img_ptr);
+	if (cub->texture.left1.img_ptr)
+		mlx_destroy_image(cub->mlx, cub->texture.left1.img_ptr);
+	if (cub->texture.left2.img_ptr)
+		mlx_destroy_image(cub->mlx, cub->texture.left2.img_ptr);
+	if (cub->texture.left3.img_ptr)
+		mlx_destroy_image(cub->mlx, cub->texture.left3.img_ptr);
+	if (cub->mini_map.img.img_ptr)
+		mlx_destroy_image(cub->mlx, cub->mini_map.img.img_ptr);
+	if (cub->img.img_ptr)
+		mlx_destroy_image(cub->mlx, cub->img.img_ptr);
 }
 
-void	free_circular_list(t_list **list)
+void	malloc_error(t_cub *cub, bool error)
 {
-	t_list	*head;
-	t_list	*temp;
-
-	head = *list;
-	temp = *list;
-	while (temp->next != head)
-		temp = temp->next;
-	temp->next = NULL;
-	temp = head;
-	while (temp != NULL)
+	free_all_parse(cub);
+	destroy_texture(cub);
+	free_circular_list(&cub->texture.hero);
+	if (cub->win)
+		mlx_destroy_window(cub->mlx, cub->win);
+	if (cub->mlx)
 	{
-		head = temp->next;
-		free(temp);
-		temp = head;
+		mlx_destroy_display(cub->mlx);
+		free(cub->mlx);
 	}
-	*list = temp;
+	if (cub->ray)
+		free(cub->ray);
+	if (cub->cam)
+		free(cub->cam);
+	free(cub);
+	if (error == true)
+		exit(EXIT_FAILURE);
+	exit(EXIT_SUCCESS);
 }
 
 int	close_window(t_cub *cub)
 {
-	int	i;
-
-	destroy_mlx(cub);
-	i = -1;
-	while (cub->map->map[++i])
-		free(cub->map->map[i]);
-	free(cub->map->map);
-	i = -1;
-	while (++i < cub->map->max_y)
-		free(cub->map->final_map[i]);
-	free(cub->map->final_map);
-	i = -1;
-	while (cub->map->buffer[++i])
-		free(cub->map->buffer[i]);
-	free_circular_list(&cub->texture.hero);
-	free(cub->map->buffer);
-	free(cub->map->north);
-	free(cub->map->south);
-	free(cub->map->east);
-	free(cub->map->west);
-	free(cub->map);
-	mlx_destroy_window(cub->mlx, cub->win);
-	mlx_destroy_display(cub->mlx);
-	free(cub->mlx);
-	free(cub->ray);
-	free(cub->cam);
-	free(cub);
-	exit(EXIT_SUCCESS);
+	malloc_error(cub, false);
+	return (0);
 }

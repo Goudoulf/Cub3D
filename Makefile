@@ -19,7 +19,7 @@ SRCS_FILE = main.c init.c event.c ./parsing/init_parsing.c \
 			./minimap/minimap.c movement_ennemy.c parsing/check_texture.c parsing/parse_statue.c \
 			next_move_ennemy.c init_texture.c close_window.c ./render/tex_color.c \
 			print_error.c ./minimap/init_text.c ./minimap/resize_image.c ./minimap/alpha_channel.c \
-			ft_free_tex.c
+			list_free.c
 
 INC = includes
 
@@ -38,7 +38,7 @@ LIBFT = ./lib/libft/libft.a
 
 CC = cc
 MD := mkdir -p
-CFLAGS = -Wall -Wextra -Werror -I/usr/include -Imlx_linux -I${INC} -g -O3 -fsanitize=address
+CFLAGS = -Wall -Wextra -Werror -I/usr/include -Imlx_linux -I${INC} -g -O3
 NFLAGS = -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz
 
 RM = rm -rf
@@ -46,7 +46,7 @@ RM = rm -rf
 all: libft ft_printf ${NAME}
 
 ${NAME}: ${OBJS} ${FT_PRINTF} ${LIBFT} ${MLX}
-	${CC} ${OBJS} ${NFLAGS} ${FT_PRINTF} ${LIBFT} -o $(NAME) -fsanitize=address
+	${CC} ${OBJS} ${NFLAGS} ${FT_PRINTF} ${LIBFT} -o $(NAME)
 
 mlx: ${MLX_DIR}
 	${MAKE} -C ./mlx_linux

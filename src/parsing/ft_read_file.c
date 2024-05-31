@@ -6,7 +6,7 @@
 /*   By: dvo <dvo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 19:03:05 by dvo               #+#    #+#             */
-/*   Updated: 2024/05/31 09:31:33 by dvo              ###   ########.fr       */
+/*   Updated: 2024/05/31 12:53:31 by cassie           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int	ft_read(t_cub *cub, char *av)
 		return (ft_printf(2, "File not valid\n"), -1);
 	cub->map->buffer = ft_calloc(2001, sizeof(char *));
 	if (!cub->map->buffer)
-		return (-1);
+		malloc_error(cub, true);
 	while (1)
 	{
 		cub->map->buffer[i] = get_next_line(fd);

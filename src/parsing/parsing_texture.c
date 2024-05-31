@@ -6,20 +6,20 @@
 /*   By: cassie <cassie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 17:41:42 by dvo               #+#    #+#             */
-/*   Updated: 2024/05/30 06:54:27 by cassie           ###   ########.fr       */
+/*   Updated: 2024/05/31 11:50:00 by cassie           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
-int	convert_char_color(char *str)
+int	convert_char_color(t_cub *cub, char *str)
 {
 	int	i;
 	int	first;
 	int	second;
 	int	third;
 
-	if (check_valid_color(str) == -1)
+	if (check_valid_color(cub, str) == -1)
 	{
 		free (str);
 		return (-1);
@@ -38,70 +38,70 @@ int	convert_char_color(char *str)
 	return (i);
 }
 
-int	direc1(int direc, char *str, t_map *map, int i)
+int	direc1(int direc, char *str, t_cub *cub, int i)
 {
 	if (direc == 1)
 	{
-		if (map->north)
+		if (cub->map->north)
 			return (-1);
-		map->north = ft_strdup(str + i);
-		if (!map->north)
+		cub->map->north = ft_strdup(str + i);
+		if (!cub->map->north)
 			return (-1);
 	}
 	if (direc == 2)
 	{
-		if (map->south)
+		if (cub->map->south)
 			return (-1);
-		map->south = ft_strdup(str + i);
-		if (!map->south)
+		cub->map->south = ft_strdup(str + i);
+		if (!cub->map->south)
 			return (-1);
 	}
 	return (0);
 }
 
-int	direc2(int direc, char *str, t_map *map, int i)
+int	direc2(int direc, char *str, t_cub *cub, int i)
 {
 	if (direc == 3)
 	{
-		if (map->west)
+		if (cub->map->west)
 			return (-1);
-		map->west = ft_strdup(str + i);
-		if (!map->west)
+		cub->map->west = ft_strdup(str + i);
+		if (!cub->map->west)
 			return (-1);
 	}
 	if (direc == 4)
 	{
-		if (map->east)
+		if (cub->map->east)
 			return (-1);
-		map->east = ft_strdup(str + i);
-		if (!map->east)
+		cub->map->east = ft_strdup(str + i);
+		if (!cub->map->east)
 			return (-1);
 	}
 	return (0);
 }
 
-int	direc3(int direc, char *str, t_map *map, int i)
+int	direc3(int direc, char *str, t_cub *cub, int i)
 {
 	if (direc == 5)
 	{
-		if (map->floor != -1)
+		if (cub->map->floor != -1)
 			return (-1);
-		map->floor = convert_char_color(ft_strdup(str + i));
-		if (map->floor == -1)
+		cub->map->floor = convert_char_color(cub, ft_strdup(str + i));
+		if (cub->map->floor == -1)
 			return (-1);
 	}
 	if (direc == 6)
 	{
-		if (map->ceiling != -1)
+		if (cub->map->ceiling != -1)
 			return (-1);
-		map->ceiling = convert_char_color(ft_strdup(str + i));
-		if (map->ceiling == -1)
+		cub->map->ceiling = convert_char_color(cub, ft_strdup(str + i));
+		if (cub->map->ceiling == -1)
 			return (-1);
 	}
 	return (0);
 }
 
-int	ft_texture(int direc, char *str, t_map *map)
+int	ft_texture(int direc, char *str, t_cub *cub)
 {
 	int	i;
 
@@ -110,11 +110,11 @@ int	ft_texture(int direc, char *str, t_map *map)
 		i++;
 	while (str[i] == ' ')
 		i++;
-	if (direc1(direc, str, map, i) == -1)
+	if (direc1(direc, str, cub, i) == -1)
 		return (-1);
-	if (direc2(direc, str, map, i) == -1)
+	if (direc2(direc, str, cub, i) == -1)
 		return (-1);
-	if (direc3(direc, str, map, i) == -1)
+	if (direc3(direc, str, cub, i) == -1)
 		return (-1);
 	return (0);
 }

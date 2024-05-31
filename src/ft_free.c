@@ -12,53 +12,31 @@
 
 #include "cub3D.h"
 
-void	ft_free_strarr(void *s)
+void	free_str_array(char **str)
 {
-	char **str;
-
-	str = (char **)s;
 	size_t	i;
 
 	i = 0;
-	if (!str || !str[0])
-	{
-		free(str);
+	if (!str)
 		return ;
-	}
 	while (str[i])
-		i++;
-	i--;
-	while (i > 0)
 	{
 		free(str[i]);
-		i--;
+		i++;
 	}
-	free(str[i]);
 	free(str);
 }
 
-void	ft_free_intarr(int **map, t_cub *cub)
+void	free_int_array(int **map, t_cub *cub)
 {
 	int	y;
 
-	y = 0;
-	while (y < cub->map->max_y)
-	{
+	y = -1;
+	if (!map)
+		return ;
+	while (*map && ++y < cub->map->max_y)
 		free (map[y]);
-		y++;
-	}
 	free (map);
-}
-
-void	ft_free_init_all(t_cub *cub)
-{
-	free (cub->ray);
-	free (cub->cam);
-	mlx_destroy_image(cub->mlx, cub->img.img_ptr);
-	mlx_destroy_window(cub->mlx, cub->win);
-	mlx_destroy_display(cub->mlx);
-	free(cub->mlx);
-	free (cub);
 }
 
 void	ft_free_map_tex(t_map *map)
@@ -83,9 +61,10 @@ void	ft_free_map_tex(t_map *map)
 
 void	free_all_parse(t_cub *cub)
 {
-	ft_free_intarr(cub->map->final_map, cub);
-	ft_free_strarr(cub->map->buffer);
-	ft_free_strarr(cub->map->map);
+	free_int_array(cub->map->final_map, cub);
+	free_str_array(cub->map->buffer);
+	free_str_array(cub->map->map);
 	ft_free_map_tex(cub->map);
-	free(cub->map);
+	if (cub->map)
+		free(cub->map);
 }

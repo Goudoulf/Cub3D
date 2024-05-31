@@ -25,7 +25,7 @@ int	check_texture(t_map *map)
 	return (1);
 }
 
-int	check_valid_color(char *str)
+int	check_valid_color(t_cub *cub, char *str)
 {
 	char	**check_rgb;
 
@@ -35,17 +35,17 @@ int	check_valid_color(char *str)
 	if (!check_rgb[0] || !check_rgb[1] || !check_rgb[2] || check_rgb[3])
 	{
 		ft_printf(2, "Syntax for RGB is incorrect for %s\n", str);
-		ft_free_strarr(check_rgb);
-		return (-1);
+		free_str_array(check_rgb);
+		malloc_error(cub, true);
 	}
 	if (ft_isdigit_str(check_rgb[0]) || ft_isdigit_str(check_rgb[1])
 		|| ft_isdigit_str(check_rgb[2]))
 	{
 		ft_printf(2, "color RGB is not a number on %s\n", str);
-		ft_free_strarr(check_rgb);
-		return (-1);
+		free_str_array(check_rgb);
+		malloc_error(cub, true);
 	}
-	ft_free_strarr(check_rgb);
+	free_str_array(check_rgb);
 	return (0);
 }
 
