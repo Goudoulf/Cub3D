@@ -6,7 +6,7 @@
 /*   By: dvo <dvo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 09:57:20 by cassie            #+#    #+#             */
-/*   Updated: 2024/05/31 12:42:55 by cassie           ###   ########.fr       */
+/*   Updated: 2024/05/31 14:38:31 by dvo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,10 @@ int	main(int argc, char **argv)
 	t_cub	*cub;
 
 	if (argc != 2)
+	{
+		ft_printf(2, "Error\nInvalid number of arguments\n");
 		return (1);
+	}
 	cub = ft_calloc(1, sizeof(t_cub));
 	if (!cub)
 		return (1);

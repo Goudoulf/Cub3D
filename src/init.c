@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cassie <cassie@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: dvo <dvo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 11:12:06 by cassie            #+#    #+#             */
-/*   Updated: 2024/05/31 11:26:48 by cassie           ###   ########.fr       */
+/*   Updated: 2024/05/31 13:30:05 by dvo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,10 +50,7 @@ static int	cub_init(t_cub *cub)
 		return (-1);
 	cub->cam = ft_calloc(1, sizeof(t_camera));
 	if (!cub->cam)
-	{
-		free (cub->ray);
 		return (-1);
-	}
 	cub->cam->width = WIDTH;
 	cub->cam->height = HEIGHT;
 	cub->cam->oldx = cub->cam->width / 2;

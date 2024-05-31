@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   resize_image.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cassie <cassie@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: dvo <dvo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 16:44:21 by dvo               #+#    #+#             */
-/*   Updated: 2024/05/31 13:04:14 by cassie           ###   ########.fr       */
+/*   Updated: 2024/05/31 13:27:56 by dvo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,11 +46,18 @@ int	resize_image(t_cub *cub, t_tex *old, int new_width, int new_height)
 	void	*new_img;
 
 	new = ft_calloc(1, sizeof(t_tex));
+	if (!new)
+		return (-1);
 	new->width = new_width;
 	new->height = new_height;
 	old->buffer = mlx_get_data_addr(old->img_ptr, &(old->bpp), \
 	&(old->line_len), &(old->endian));
 	new_img = mlx_new_image(cub->mlx, new_width, new_height);
+	if (!new_img)
+	{
+		free (new);
+		return (-1);
+	}
 	new->buffer = mlx_get_data_addr(new_img, &(new->bpp), \
 	&(new->line_len), &(new->endian));
 	nxt_ft_size(new, old, 0);

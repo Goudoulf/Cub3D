@@ -6,7 +6,7 @@
 /*   By: dvo <dvo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 19:43:28 by cassie            #+#    #+#             */
-/*   Updated: 2024/05/31 13:06:53 by cassie           ###   ########.fr       */
+/*   Updated: 2024/05/31 14:14:19 by dvo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,10 @@ static int	texture_init_mlx(t_cub *cub, t_tex *tex, char *path)
 	tex->img_ptr
 		= mlx_xpm_file_to_image(cub->mlx, path, &tex->width, &tex->height);
 	if (!tex->img_ptr)
+	{
+		ft_printf(2, "Error\nInvalid file on %s\n", path);
 		return (0);
+	}
 	tex->buffer = mlx_get_data_addr(tex->img_ptr, &tex->bpp, &tex->line_len,
 			&tex->endian);
 	return (1);
@@ -116,6 +119,9 @@ int	texture_init(t_cub *cub, t_texture *texture)
 		return (-1);
 	init_texture_lookup(cub);
 	if (init_hero_list(cub) == -1)
+	{
+		cub->texture.hero = NULL;
 		return (-1);
+	}
 	return (1);
 }

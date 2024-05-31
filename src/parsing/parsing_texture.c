@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_texture.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cassie <cassie@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: dvo <dvo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 17:41:42 by dvo               #+#    #+#             */
-/*   Updated: 2024/05/31 11:50:00 by cassie           ###   ########.fr       */
+/*   Updated: 2024/05/31 13:16:40 by dvo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ int	convert_char_color(t_cub *cub, char *str)
 	int	second;
 	int	third;
 
+	if (!str)
+		return (-1);
 	if (check_valid_color(cub, str) == -1)
 	{
 		free (str);

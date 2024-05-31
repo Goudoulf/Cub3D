@@ -19,7 +19,7 @@ int	check_texture(t_map *map)
 	if (!map->north || !map->east || !map->west || !map->south
 		|| map->ceiling == -1 || map->floor == -1)
 	{
-		ft_printf(2, "Information from texture is missing\n");
+		ft_printf(2, "Error\nInformation from texture is missing\n");
 		return (0);
 	}
 	return (1);
@@ -34,14 +34,14 @@ int	check_valid_color(t_cub *cub, char *str)
 		return (1);
 	if (!check_rgb[0] || !check_rgb[1] || !check_rgb[2] || check_rgb[3])
 	{
-		ft_printf(2, "Syntax for RGB is incorrect for %s\n", str);
+		ft_printf(2, "Error\nSyntax for RGB is incorrect for %s\n", str);
 		free_str_array(check_rgb);
 		malloc_error(cub, true);
 	}
 	if (ft_isdigit_str(check_rgb[0]) || ft_isdigit_str(check_rgb[1])
 		|| ft_isdigit_str(check_rgb[2]))
 	{
-		ft_printf(2, "color RGB is not a number on %s\n", str);
+		ft_printf(2, "Error\ncolor RGB is not a number on %s\n", str);
 		free_str_array(check_rgb);
 		malloc_error(cub, true);
 	}

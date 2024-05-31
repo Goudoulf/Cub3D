@@ -6,7 +6,7 @@
 /*   By: dvo <dvo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 10:15:38 by cassie            #+#    #+#             */
-/*   Updated: 2024/05/31 11:50:39 by cassie           ###   ########.fr       */
+/*   Updated: 2024/05/31 13:45:00 by dvo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -216,5 +216,6 @@ int		free_lst_hero(t_list *hero);
 void	free_circular_list(t_list **list);
 void	malloc_error(t_cub *cub, bool error);
 void	free_str_array(char **str);
+int		print_error_parse(char *str);
 
 #endif
