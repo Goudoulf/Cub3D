@@ -6,7 +6,7 @@
 /*   By: dvo <dvo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 10:15:38 by cassie            #+#    #+#             */
-/*   Updated: 2024/05/31 11:50:39 by cassie           ###   ########.fr       */
+/*   Updated: 2024/05/31 15:53:54 by cassie           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -180,14 +180,13 @@ int		check_parcing(t_map *map, t_cub *cube);
 void	ft_free_strarr(void *s);
 int		raycast(t_cub *cub);
 int		render(t_cub *cub);
-int		convert_tab_char_to_int(t_cub *cub);
+int		convert_tab_char_to_int(t_cub *cub, int x, int y);
 void	my_mlx_pixel_put(t_image *img, int x, int y, int color);
 int		event_loop(t_cub *cub);
 int		key_release(int keysym, t_cub *cub);
-void	ft_set_minimap(t_cub *cub);
+void	ft_set_minimap(t_cub *cub, t_pos i, t_pos pos);
 int		ft_texture(int direc, char *str, t_cub *cub);
 int		create_minimap(t_cub *cub);
-void	put_position_minimap(t_cub *cub, int color);
 void	ft_ennemy_move(t_cub *cub);
 void	ray_draw_statue(t_cub *cub, int x, int h);
 int		tex_color(t_tex *tex, int y, int x);
@@ -216,5 +215,8 @@ int		free_lst_hero(t_list *hero);
 void	free_circular_list(t_list **list);
 void	malloc_error(t_cub *cub, bool error);
 void	free_str_array(char **str);
+int		image_init_mlx(t_cub *cub, t_tex *tex, int sizex, int sizey);
+int		texture_init_mlx(t_cub *cub, t_tex *tex, char *path);
+void	init_texture_lookup(t_cub *cub);
 
 #endif

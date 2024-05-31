@@ -6,7 +6,7 @@
 /*   By: dvo <dvo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 16:41:03 by dvo               #+#    #+#             */
-/*   Updated: 2024/05/31 12:48:28 by cassie           ###   ########.fr       */
+/*   Updated: 2024/05/31 13:24:51 by cassie           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,14 +54,10 @@ int	attribute_init_map(int i, int max, t_map *map, t_cub *cub)
 	return (0);
 }
 
-int	convert_tab_char_to_int(t_cub *cub)
+int	convert_tab_char_to_int(t_cub *cub, int x, int y)
 {
 	size_t	max;
-	size_t	x;
-	size_t	y;
 
-	x = 0;
-	y = 0;
 	max = max_len_table(cub->map->map);
 	cub->map->max_x = max;
 	printf("%zu : max_X\n", max);

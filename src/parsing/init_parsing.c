@@ -6,7 +6,7 @@
 /*   By: dvo <dvo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 13:29:37 by dvo               #+#    #+#             */
-/*   Updated: 2024/05/31 11:51:13 by cassie           ###   ########.fr       */
+/*   Updated: 2024/05/31 13:25:23 by cassie           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ int	init_function(t_cub *cub, char *av)
 		return (free(cub->map), -1);
 	if (attribute_text_wall(cub->map, cub) == -1)
 		malloc_error(cub, true);
-	if (convert_tab_char_to_int(cub) == -1)
+	if (convert_tab_char_to_int(cub, 0, 0) == -1)
 		malloc_error(cub, true);
 	return (0);
 }

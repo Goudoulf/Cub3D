@@ -17,7 +17,7 @@ SRCS_FILE = main.c init.c event.c ./parsing/init_parsing.c \
 			./parsing/check_parsing.c ft_free.c ./parsing/convert_char_to_int.c \
 			./render/raycasting.c ./render/render.c event_utils.c ./parsing/parsing_texture.c \
 			./minimap/minimap.c movement_ennemy.c parsing/check_texture.c parsing/parse_statue.c \
-			next_move_ennemy.c init_texture.c close_window.c ./render/tex_color.c \
+			next_move_ennemy.c init_texture.c init_texture_utils.c close_window.c ./render/tex_color.c \
 			print_error.c ./minimap/init_text.c ./minimap/resize_image.c ./minimap/alpha_channel.c \
 			list_free.c
 

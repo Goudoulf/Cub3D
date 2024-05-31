@@ -77,19 +77,3 @@ int	focus_out(t_cub *cub)
 	cub->focus = false;
 	return (0);
 }
-
-int	event_loop(t_cub *cub)
-{
-	key_move(cub->cam);
-	mlx_mouse_hide(cub->mlx, cub->win);
-	if (cub->cam->no_change == true)
-		return (0);
-	cub->cam->oldx = 1920 / 2;
-	if (cub->focus == true)
-		mlx_mouse_move(cub->mlx, cub->win, 1920 / 2, 1080 / 2);
-	update_cam(cub, cub->ray, cub->map);
-	check_door(cub, cub->ray, cub->map);
-	render(cub);
-	cub->cam->no_change = true;
-	return (0);
-}

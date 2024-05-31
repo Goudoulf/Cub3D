@@ -6,7 +6,7 @@
 /*   By: cassie <cassie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 13:43:23 by dvo               #+#    #+#             */
-/*   Updated: 2024/05/30 10:58:10 by cassie           ###   ########.fr       */
+/*   Updated: 2024/05/31 13:10:45 by cassie           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,4 +72,20 @@ void	key_move(t_camera *cam)
 	if (cam->cam_r == true)
 		cam->angle += 0.02;
 	cam->no_change = false;
+}
+
+int	event_loop(t_cub *cub)
+{
+	key_move(cub->cam);
+	mlx_mouse_hide(cub->mlx, cub->win);
+	if (cub->cam->no_change == true)
+		return (0);
+	cub->cam->oldx = 1920 / 2;
+	if (cub->focus == true)
+		mlx_mouse_move(cub->mlx, cub->win, 1920 / 2, 1080 / 2);
+	update_cam(cub, cub->ray, cub->map);
+	check_door(cub, cub->ray, cub->map);
+	render(cub);
+	cub->cam->no_change = true;
+	return (0);
 }
