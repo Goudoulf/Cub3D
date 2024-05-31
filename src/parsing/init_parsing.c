@@ -6,12 +6,11 @@
 /*   By: dvo <dvo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 13:29:37 by dvo               #+#    #+#             */
-/*   Updated: 2024/05/31 13:25:23 by cassie           ###   ########.fr       */
+/*   Updated: 2024/05/31 16:19:11 by cassie           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
-#include "stdio.h"
 
 int	check_start_map(char *str)
 {
@@ -39,10 +38,9 @@ int	create_new_map(char **str, int i, t_map *map, t_cub *cub)
 		max --;
 	if (max == i)
 	{
-		ft_printf(2, "Problem with map\n");
+		ft_printf(2, "Error\nProblem with the map\n");
 		malloc_error(cub, true);
 	}
-	printf("%i\n", max - i + 1);
 	map->max_y = max - i + 1;
 	map->map = ft_calloc(max - i + 2, sizeof(char *));
 	map->final_map = ft_calloc(max - i + 1, sizeof(int *));
@@ -69,7 +67,7 @@ int	check_content(t_cub *cub, t_map *map, int i)
 		return (ft_texture(6, map->buffer[i], cub) == -1);
 	else if (map->buffer[i][0] != '\0')
 	{
-		ft_printf(2, "|%i| didn't exist\n", map->buffer[i][0]);
+		ft_printf(2, "Error\n%i didn't exist\n", map->buffer[i][0]);
 		malloc_error(cub, true);
 	}
 	return (0);
@@ -88,11 +86,13 @@ int	attribute_text_wall(t_map *map, t_cub *cub)
 			malloc_error(cub, true);
 		i++;
 	}
-	if (!map->buffer[i] || !check_texture(map))
+	if (!map->buffer[i])
 	{
-		ft_printf(2, "Invalid map\n");
+		ft_printf(2, "Error\nInvalid map\n");
 		malloc_error(cub, true);
 	}
+	if (!check_texture(map))
+		malloc_error(cub, true);
 	create_new_map(map->buffer, i, map, cub);
 	return (0);
 }
@@ -101,9 +101,9 @@ int	init_function(t_cub *cub, char *av)
 {
 	cub->map = ft_calloc(1, sizeof(t_map));
 	if (!cub->map)
-		return (-1);
-	if (ft_read(cub, av) == -1)
-		return (free(cub->map), -1);
+		malloc_error(cub, true);
+	if (ft_read(cub, av, 0) == -1)
+		malloc_error(cub, true);
 	if (attribute_text_wall(cub->map, cub) == -1)
 		malloc_error(cub, true);
 	if (convert_tab_char_to_int(cub, 0, 0) == -1)

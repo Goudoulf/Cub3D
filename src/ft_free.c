@@ -65,6 +65,12 @@ void	free_all_parse(t_cub *cub)
 	free_str_array(cub->map->buffer);
 	free_str_array(cub->map->map);
 	ft_free_map_tex(cub->map);
-	if (cub->map)
-		free(cub->map);
+	free(cub->map);
+}
+
+int	print_error_parse(char *str)
+{
+	ft_printf(2, "Error\n");
+	ft_printf(2, "%s\n", str);
+	return (-1);
 }

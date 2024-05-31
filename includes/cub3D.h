@@ -6,7 +6,7 @@
 /*   By: dvo <dvo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 10:15:38 by cassie            #+#    #+#             */
-/*   Updated: 2024/05/31 15:53:54 by cassie           ###   ########.fr       */
+/*   Updated: 2024/05/31 16:42:32 by cassie           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,8 +86,6 @@ typedef struct s_texture
 	t_tex	south;
 	t_tex	east;
 	t_tex	west;
-	t_tex	statue;
-	t_tex	scream;
 	t_tex	door;
 	t_list	*hero;
 	t_tex	left1;
@@ -122,8 +120,6 @@ typedef struct s_raycast
 	int			start;
 	int			end;
 	int			color;
-	t_ray_en	statue;
-	int			flag_statue;
 	t_pos		tex_pos;
 	float		wall_pos;
 
@@ -158,11 +154,6 @@ typedef struct s_cub
 	int			win_y;
 	int			win_x;
 	char		init_view;
-	int			view_ennemy;
-	int			flag_die;
-	long		fps_statue;
-	float		posx_ennemy;
-	float		posy_ennemy;
 	bool		door_m;
 	t_pos		door_p;
 	bool		focus;
@@ -174,28 +165,23 @@ int		key_control(int keycode, t_cub *cub);
 int		close_window(t_cub *cub);
 void	init_all(t_cub *cub);
 int		init_function(t_cub *cub, char *av);
-int		ft_read(t_cub *cub, char *av);
+int		ft_read(t_cub *cub, char *av, int i);
 int		attribute_init_map(int i, int max, t_map *map, t_cub *cub);
 int		check_parcing(t_map *map, t_cub *cube);
 void	ft_free_strarr(void *s);
 int		raycast(t_cub *cub);
 int		render(t_cub *cub);
 int		convert_tab_char_to_int(t_cub *cub, int x, int y);
-void	my_mlx_pixel_put(t_image *img, int x, int y, int color);
 int		event_loop(t_cub *cub);
 int		key_release(int keysym, t_cub *cub);
 void	ft_set_minimap(t_cub *cub, t_pos i, t_pos pos);
 int		ft_texture(int direc, char *str, t_cub *cub);
 int		create_minimap(t_cub *cub);
-void	ft_ennemy_move(t_cub *cub);
-void	ray_draw_statue(t_cub *cub, int x, int h);
 int		tex_color(t_tex *tex, int y, int x);
 float	set_angle(t_cub *cub);
 int		check_texture(t_map *map);
 int		check_valid_color(t_cub *cub, char *str);
 void	ft_free_init_all(t_cub *cub);
-void	ft_add_ennemy(t_cub *cub);
-void	ft_sonar(t_cub *cub, int **map);
 int		texture_init(t_cub *cub, t_texture *texture);
 void	check_door(t_cub *cub, t_raycast *ray, t_map *map);
 void	update_cam(t_cub *cub, t_raycast *ray, t_map *map);
@@ -218,5 +204,6 @@ void	free_str_array(char **str);
 int		image_init_mlx(t_cub *cub, t_tex *tex, int sizex, int sizey);
 int		texture_init_mlx(t_cub *cub, t_tex *tex, char *path);
 void	init_texture_lookup(t_cub *cub);
+int		print_error_parse(char *str);
 
 #endif

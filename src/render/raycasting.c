@@ -6,7 +6,7 @@
 /*   By: cassie <cassie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 16:13:02 by cassie            #+#    #+#             */
-/*   Updated: 2024/05/30 10:14:40 by cassie           ###   ########.fr       */
+/*   Updated: 2024/05/31 16:36:02 by cassie           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,17 +42,6 @@ void	ray_draw(t_cub *cub, t_raycast *ray, int x, int h)
 	}
 }
 
-	/*	if (cub->map->final_map[cub->ray->map.y][cub->ray->map.x] == 2)
-		{
-			cub->view_ennemy = 1;
-			ray->flag_statue = 1;
-			ray->statue.drawStart = ray->start;
-			ray->statue.drawEnd = ray->end;
-			ray->statue.pvector = (ray->side == 0)
-				* (ray->next.x - ray->delta.x) + (ray->side == 1)
-					* * (ray->next.y - ray->delta.y);
-		}*/
-
 void	ray_w_hit(t_cub *cub, t_raycast *ray)
 {
 	while (ray->w_hit == 0)
@@ -83,7 +72,6 @@ void	ray_direction(t_raycast *ray)
 	ray->delta.x = fabsf(1 / ray->vector.x);
 	ray->delta.y = fabsf(1 / ray->vector.y);
 	ray->w_hit = 0;
-	ray->flag_statue = 0;
 	ray->step.x = ((ray->vector.x < 0) * -1) + ((ray->vector.x > 0) * 1);
 	ray->step.y = ((ray->vector.y < 0) * -1) + ((ray->vector.y > 0) * 1);
 	ray->next.x = (ray->vector.x < 0) * (ray->pos.x - ray->map.x) * ray->delta.x
@@ -117,8 +105,6 @@ void	ray_init(t_cub *cub, uint16_t nb_ray)
 	};
 }
 
-	/*if (cub->ray->flag_statue == 1)
-			ray_draw_statue(cub, x, cub->cam->height);*/
 int	raycast(t_cub *cub)
 {
 	int	x;

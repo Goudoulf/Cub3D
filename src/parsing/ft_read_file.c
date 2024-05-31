@@ -6,11 +6,36 @@
 /*   By: dvo <dvo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 19:03:05 by dvo               #+#    #+#             */
-/*   Updated: 2024/05/31 12:53:31 by cassie           ###   ########.fr       */
+/*   Updated: 2024/05/31 16:19:17 by cassie           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
+
+static int	ft_check_file_name(char *av, char *str)
+{
+	int		i;
+	int		j;
+
+	i = strlen(av) - 1;
+	j = 3;
+	if (i < 4)
+	{
+		ft_printf(2, "Error\nThe file is not a .cub\n");
+		return (-1);
+	}
+	while (j >= 0)
+	{
+		if (str[j] != av[i])
+		{
+			ft_printf(2, "Error\nThe file is not a .cub\n");
+			return (-1);
+		}
+		j--;
+		i--;
+	}
+	return (0);
+}
 
 static void	ft_transform_nl_to_end(char *str)
 {
@@ -28,15 +53,18 @@ static void	ft_transform_nl_to_end(char *str)
 	}
 }
 
-int	ft_read(t_cub *cub, char *av)
+int	ft_read(t_cub *cub, char *av, int i)
 {
 	int	fd;
-	int	i;
 
-	i = 0;
+	if (ft_check_file_name(av, ".cub") == -1)
+		return (-1);
 	fd = open(av, O_RDONLY);
 	if (fd == -1)
-		return (ft_printf(2, "File not valid\n"), -1);
+	{
+		ft_printf(2, "Error\nFile not valid\n");
+		return (-1);
+	}
 	cub->map->buffer = ft_calloc(2001, sizeof(char *));
 	if (!cub->map->buffer)
 		malloc_error(cub, true);

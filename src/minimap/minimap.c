@@ -6,12 +6,11 @@
 /*   By: cassie <cassie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 14:11:16 by dvo               #+#    #+#             */
-/*   Updated: 2024/05/31 15:54:57 by cassie           ###   ########.fr       */
+/*   Updated: 2024/05/31 16:41:19 by cassie           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
-#include <strings.h>
 
 t_tex	*find_hero(t_cub *cub)
 {

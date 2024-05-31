@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_parsing.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cassie <cassie@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: dvo <dvo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 13:41:39 by dvo               #+#    #+#             */
-/*   Updated: 2024/05/30 20:54:25 by cassie           ###   ########.fr       */
+/*   Updated: 2024/05/31 16:16:29 by cassie           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,21 +28,23 @@ int	loop_check(t_map *map, int y, int x, t_cub *cub)
 	map->map[y][x] == 'W' || map->map[y][x] == 'E')
 	{
 		if (cub->ray->pos.x != 0 || cub->ray->pos.y != 0)
-			return (print_error("too much initial position\n", -1));
-		cub->ray->pos.x = x;
-		cub->ray->pos.y = y;
+			return (print_error_parse("too much initial position"));
+		cub->ray->pos.x = x + 0.5;
+		cub->ray->pos.y = y + 0.5;
 		cub->init_view = map->map[y][x];
 		map->map[y][x] = '0';
 	}
 	else if (map->map[y][x] == '0')
 	{
 		if (check_wall_limit(map->map, y, x) == -1)
-			return (print_error_pos("map is not limited by wall at", -1, x, y));
+			return (print_error_pos("Error\nmap is not limited by wall at",
+					-1, x, y));
 	}
 	else if (map->map[y][x] != '1' && map->map[y][x] != '3'
 		&& map->map[y][x] != ' ')
 	{
-		ft_printf(2, "%c not define on [%i][%i]\n", map->map[y][x], y, x);
+		ft_printf(2, "Error\n%c not define on [%i][%i]\n",
+			map->map[y][x], y, x);
 		return (-1);
 	}
 	return (0);

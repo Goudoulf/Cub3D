@@ -3,16 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cassie <cassie@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: dvo <dvo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 11:12:06 by cassie            #+#    #+#             */
-/*   Updated: 2024/05/31 13:12:15 by cassie           ###   ########.fr       */
+/*   Updated: 2024/05/31 16:38:14 by cassie           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
-#include <X11/X.h>
-#include <stdio.h>
 
 static void	event_init(t_cub *cub)
 {

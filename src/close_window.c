@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   close_window.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cassie <cassie@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: dvo <dvo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 20:23:15 by cassie            #+#    #+#             */
-/*   Updated: 2024/05/31 13:01:27 by cassie           ###   ########.fr       */
+/*   Updated: 2024/05/31 16:29:47 by cassie           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,11 @@ void	destroy_texture(t_cub *cub)
 
 void	malloc_error(t_cub *cub, bool error)
 {
-	free_all_parse(cub);
+	if (cub->map)
+		free_all_parse(cub);
 	destroy_texture(cub);
-	free_circular_list(&cub->texture.hero);
+	if (cub->texture.hero)
+		free_circular_list(&cub->texture.hero);
 	if (cub->win)
 		mlx_destroy_window(cub->mlx, cub->win);
 	if (cub->mlx)

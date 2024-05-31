@@ -6,16 +6,11 @@
 /*   By: cassie <cassie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 12:54:23 by cassie            #+#    #+#             */
-/*   Updated: 2024/05/31 15:56:12 by cassie           ###   ########.fr       */
+/*   Updated: 2024/05/31 16:40:40 by cassie           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
-
-void	my_mlx_pixel_put(t_image *img, int x, int y, int color)
-{
-	((unsigned int *)(img->buffer))[x + y * 1920] = color;
-}
 
 void	ft_set_floor_ceiling(t_cub *cub)
 {
@@ -54,6 +49,5 @@ int	render(t_cub *cub)
 		(cub->win_x / 8) * 7, 0);
 	mlx_put_image_to_window(cub->mlx,
 		cub->win, cub->texture.floor.img_ptr, 0, 0);
-	cub->view_ennemy = 0;
 	return (0);
 }
