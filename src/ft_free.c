@@ -37,6 +37,19 @@ void	ft_free_strarr(void *s)
 	free(str);
 }
 
+void	ft_free_intarr(int **map, t_cub *cub)
+{
+	int	y;
+
+	y = 0;
+	while (y < cub->map->max_y)
+	{
+		free (map[y]);
+		y++;
+	}
+	free (map);
+}
+
 void	ft_free_init_all(t_cub *cub)
 {
 	free (cub->ray);
@@ -48,7 +61,7 @@ void	ft_free_init_all(t_cub *cub)
 	free (cub);
 }
 
-void	ft_free_text(t_map *map)
+void	ft_free_map_tex(t_map *map)
 {
 	if (map->north)
 	{
@@ -66,4 +79,13 @@ void	ft_free_text(t_map *map)
 	{
 		free (map->west);
 	}
+}
+
+void	free_all_parse(t_cub *cub)
+{
+	ft_free_intarr(cub->map->final_map, cub);
+	ft_free_strarr(cub->map->buffer);
+	ft_free_strarr(cub->map->map);
+	ft_free_map_tex(cub->map);
+	free(cub->map);
 }

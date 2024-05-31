@@ -6,7 +6,7 @@
 /*   By: dvo <dvo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 10:15:38 by cassie            #+#    #+#             */
-/*   Updated: 2024/05/31 09:31:12 by dvo              ###   ########.fr       */
+/*   Updated: 2024/05/31 10:34:11 by dvo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -195,7 +195,6 @@ float	set_angle(t_cub *cub);
 int		check_texture(t_map *map);
 int		check_valid_color(char *str);
 void	ft_free_init_all(t_cub *cub);
-void	ft_free_text(t_map *map);
 void	ft_add_ennemy(t_cub *cub);
 void	ft_sonar(t_cub *cub, int **map);
 int		texture_init(t_cub *cub, t_texture *texture);
@@ -210,5 +209,9 @@ int		init_text_map(t_cub *cub);
 int		resize_image(t_cub *cub, t_tex *old, int new_width, int new_height);
 int		focus_out(t_cub *cub);
 int		focus_in(t_cub *cub);
+void	free_all_parse(t_cub *cub);
+void	free_text(t_cub *cub);
+void	ft_free_map_tex(t_map *map);
+int		free_lst_hero(t_list *hero);
 
 #endif

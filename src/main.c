@@ -6,7 +6,7 @@
 /*   By: dvo <dvo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 09:57:20 by cassie            #+#    #+#             */
-/*   Updated: 2024/05/31 09:31:21 by dvo              ###   ########.fr       */
+/*   Updated: 2024/05/31 10:18:55 by dvo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,8 @@ void	print_map(t_cub *cub)
 
 int	free_texture_error(t_cub *cub)
 {
-	ft_free_text(cub->map);
-	ft_free_strarr(cub->map->map);
-	free(cub->map->final_map);
-	free(cub->map);
+	free_text(cub);
+	free_all_parse(cub);
 	ft_free_init_all(cub);
 	return (1);
 }

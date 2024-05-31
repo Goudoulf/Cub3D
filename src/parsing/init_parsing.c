@@ -6,7 +6,7 @@
 /*   By: dvo <dvo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 13:29:37 by dvo               #+#    #+#             */
-/*   Updated: 2024/05/31 09:29:11 by dvo              ###   ########.fr       */
+/*   Updated: 2024/05/31 10:38:03 by dvo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,7 @@ int	init_function(t_cub *cub, char *av)
 	if (attribute_text_wall(cub->map, cub) == -1)
 	{
 		ft_free_strarr(cub->map->buffer);
-		ft_free_text(cub->map);
+		ft_free_map_tex(cub->map);
 		free(cub->map);
 		return (-1);
 	}
@@ -122,7 +122,7 @@ int	init_function(t_cub *cub, char *av)
 	{
 		ft_free_strarr(cub->map->buffer);
 		ft_free_strarr(cub->map->map);
-		ft_free_text(cub->map);
+		ft_free_map_tex(cub->map);
 		free(cub->map);
 		return (-1);
 	}

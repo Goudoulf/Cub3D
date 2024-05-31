@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_texture.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cassie <cassie@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: dvo <dvo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 19:43:28 by cassie            #+#    #+#             */
-/*   Updated: 2024/05/30 20:58:26 by cassie           ###   ########.fr       */
+/*   Updated: 2024/05/31 10:35:37 by dvo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,15 +64,23 @@ int	init_hero_list(t_cub *cub)
 	t_list	*temp;
 
 	cub->texture.hero = ft_calloc(1, sizeof(t_list));
-	cub->texture.hero->tex = &cub->texture.left1;
 	temp = cub->texture.hero;
+	if (!cub->texture.hero)
+		return (free_lst_hero(temp));
+	cub->texture.hero->tex = &cub->texture.left1;
 	cub->texture.hero->next = ft_calloc(1, sizeof(t_list));
+	if (!cub->texture.hero->next)
+		return (free_lst_hero(temp));
 	cub->texture.hero = cub->texture.hero->next;
 	cub->texture.hero->tex = &cub->texture.left2;
 	cub->texture.hero->next = ft_calloc(1, sizeof(t_list));
+	if (!cub->texture.hero->next)
+		return (free_lst_hero(temp));
 	cub->texture.hero = cub->texture.hero->next;
 	cub->texture.hero->tex = &cub->texture.left3;
 	cub->texture.hero->next = ft_calloc(1, sizeof(t_list));
+	if (!cub->texture.hero->next)
+		return (free_lst_hero(temp));
 	cub->texture.hero = cub->texture.hero->next;
 	cub->texture.hero->tex = &cub->texture.left2;
 	cub->texture.hero->next = temp;
@@ -81,6 +89,7 @@ int	init_hero_list(t_cub *cub)
 
 int	texture_init(t_cub *cub, t_texture *texture)
 {
+	ft_bzero(texture, 1);
 	if (!texture_init_mlx(cub, &texture->north, cub->map->north))
 		return (-1);
 	if (!texture_init_mlx(cub, &texture->south, cub->map->south))
@@ -110,6 +119,7 @@ int	texture_init(t_cub *cub, t_texture *texture)
 	if (!texture_mini(cub, &texture->wall, cub->map->south))
 		return (-1);
 	init_texture_lookup(cub);
-	init_hero_list(cub);
+	if (init_hero_list(cub) == -1)
+		return (-1);
 	return (1);
 }
