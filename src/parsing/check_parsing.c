@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_parsing.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dvo <dvo@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: cassie <cassie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 13:41:39 by dvo               #+#    #+#             */
-/*   Updated: 2024/05/30 06:53:18 by cassie           ###   ########.fr       */
+/*   Updated: 2024/05/30 20:54:25 by cassie           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ int	check_wall_limit(char **str, int y, int x)
 
 	max_x = 0;
 	while (str[y + 1] && str[y + 1][max_x])
-		max_x++; 
+		max_x++;
 	if ((!str[y][x + 1]) || compare_wall(str[y][x + 1]) == -1)
 		return (-1);
 	if (x == 0 || compare_wall(str[y][x - 1]) == -1)

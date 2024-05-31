@@ -61,8 +61,20 @@ int	mouse_turn(int x, int y, t_cub *cub)
 {
 	(void) y;
 	cub->cam->angle += (x - cub->cam->oldx) * 0.001;
+	cub->cam->no_change = (x != cub->cam->oldx);
 	cub->cam->oldx = x;
-	cub->cam->no_change = false;
+	return (0);
+}
+
+int	focus_in(t_cub *cub)
+{
+	cub->focus = true;
+	return (0);
+}
+
+int	focus_out(t_cub *cub)
+{
+	cub->focus = false;
 	return (0);
 }
 
@@ -73,10 +85,11 @@ int	event_loop(t_cub *cub)
 	if (cub->cam->no_change == true)
 		return (0);
 	cub->cam->oldx = 1920 / 2;
-	mlx_mouse_move(cub->mlx, cub->win, 1920 / 2, 1080 / 2);
+	if (cub->focus == true)
+		mlx_mouse_move(cub->mlx, cub->win, 1920 / 2, 1080 / 2);
 	update_cam(cub, cub->ray, cub->map);
 	check_door(cub, cub->ray, cub->map);
-	cub->cam->no_change = true;
 	render(cub);
+	cub->cam->no_change = true;
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: dvo <dvo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 09:57:20 by cassie            #+#    #+#             */
-/*   Updated: 2024/05/31 09:25:53 by dvo              ###   ########.fr       */
+/*   Updated: 2024/05/31 09:31:21 by dvo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,11 +57,13 @@ int	main(int argc, char **argv)
 		ft_free_init_all(cub);
 		return (1);
 	}
-	if (texture_init(cub) == -1)
+	cub->mini_map.x_case = (cub->win_x / 8) / 12;
+	cub->mini_map.y_case = (cub->win_y / 5) / 12;
+	if (texture_init(cub, &cub->texture) == -1)
 		return (free_texture_error(cub));
+	create_minimap(cub);
 	cub->cam->angle = set_angle(cub);
 	print_map(cub);
-	create_minimap(cub);
 	render(cub);
 	mlx_loop(cub->mlx);
 	return (0);
