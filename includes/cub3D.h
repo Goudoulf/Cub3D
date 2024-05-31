@@ -6,7 +6,7 @@
 /*   By: dvo <dvo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 10:15:38 by cassie            #+#    #+#             */
-/*   Updated: 2024/05/31 16:42:32 by cassie           ###   ########.fr       */
+/*   Updated: 2024/05/31 18:03:17 by dvo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -205,5 +205,6 @@ int		image_init_mlx(t_cub *cub, t_tex *tex, int sizex, int sizey);
 int		texture_init_mlx(t_cub *cub, t_tex *tex, char *path);
 void	init_texture_lookup(t_cub *cub);
 int		print_error_parse(char *str);
+void	check_overflow_rgb(t_cub *cub, int first, int second, int third);
 
 #endif

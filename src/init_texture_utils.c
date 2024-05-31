@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_texture_utils.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cassie <cassie@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: dvo <dvo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 13:15:53 by cassie            #+#    #+#             */
-/*   Updated: 2024/05/31 16:25:39 by cassie           ###   ########.fr       */
+/*   Updated: 2024/05/31 16:58:44 by dvo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,10 @@ int	texture_init_mlx(t_cub *cub, t_tex *tex, char *path)
 	tex->img_ptr
 		= mlx_xpm_file_to_image(cub->mlx, path, &tex->width, &tex->height);
 	if (!tex->img_ptr)
+	{
+		ft_printf(2, "Error\nPath not found on %s\n", path);
 		return (0);
+	}
 	tex->buffer = mlx_get_data_addr(tex->img_ptr, &tex->bpp, &tex->line_len,
 			&tex->endian);
 	return (1);

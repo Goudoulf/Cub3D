@@ -6,7 +6,7 @@
 /*   By: dvo <dvo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 13:29:37 by dvo               #+#    #+#             */
-/*   Updated: 2024/05/31 16:19:11 by cassie           ###   ########.fr       */
+/*   Updated: 2024/05/31 18:08:12 by dvo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	check_start_map(char *str)
 	i = 0;
 	if (!str)
 		return (0);
-	while (str[i] == ' ')
+	while (str[i] == ' ' || str[i] == '\t')
 		i++;
 	if (str[i] != '1' && str[i] != '0')
 		return (1);
@@ -54,20 +54,20 @@ int	create_new_map(char **str, int i, t_map *map, t_cub *cub)
 int	check_content(t_cub *cub, t_map *map, int i)
 {
 	if (ft_strncmp(map->buffer[i], "NO ", 3) == 0)
-		return (ft_texture(1, map->buffer[i], cub) == -1);
+		return (ft_texture(1, map->buffer[i], cub));
 	else if (ft_strncmp(map->buffer[i], "SO ", 3) == 0)
-		return (ft_texture(2, map->buffer[i], cub) == -1);
+		return (ft_texture(2, map->buffer[i], cub));
 	else if (ft_strncmp(map->buffer[i], "WE ", 3) == 0)
-		return (ft_texture(3, map->buffer[i], cub) == -1);
+		return (ft_texture(3, map->buffer[i], cub));
 	else if (ft_strncmp(map->buffer[i], "EA ", 3) == 0)
-		return (ft_texture(4, map->buffer[i], cub) == -1);
+		return (ft_texture(4, map->buffer[i], cub));
 	else if (ft_strncmp(map->buffer[i], "F ", 2) == 0)
-		return (ft_texture(5, map->buffer[i], cub) == -1);
+		return (ft_texture(5, map->buffer[i], cub));
 	else if (ft_strncmp(map->buffer[i], "C ", 2) == 0)
-		return (ft_texture(6, map->buffer[i], cub) == -1);
+		return (ft_texture(6, map->buffer[i], cub));
 	else if (map->buffer[i][0] != '\0')
 	{
-		ft_printf(2, "Error\n%i didn't exist\n", map->buffer[i][0]);
+		ft_printf(2, "Error\n%s didn't exist\n", map->buffer[i]);
 		malloc_error(cub, true);
 	}
 	return (0);

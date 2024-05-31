@@ -6,7 +6,7 @@
 /*   By: dvo <dvo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 17:41:42 by dvo               #+#    #+#             */
-/*   Updated: 2024/05/31 13:16:40 by dvo              ###   ########.fr       */
+/*   Updated: 2024/05/31 18:02:58 by dvo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ int	convert_char_color(t_cub *cub, char *str)
 		i++;
 	third = ft_atoi(str + i);
 	free (str);
+	check_overflow_rgb(cub, first, second, third);
 	i = (first << 16) | (second << 8) | third;
 	return (i);
 }
@@ -45,7 +46,10 @@ int	direc1(int direc, char *str, t_cub *cub, int i)
 	if (direc == 1)
 	{
 		if (cub->map->north)
+		{
+			ft_printf(2, "Error\nDuplicate data for texture North\n");
 			return (-1);
+		}
 		cub->map->north = ft_strdup(str + i);
 		if (!cub->map->north)
 			return (-1);
@@ -53,7 +57,10 @@ int	direc1(int direc, char *str, t_cub *cub, int i)
 	if (direc == 2)
 	{
 		if (cub->map->south)
+		{
+			ft_printf(2, "Error\nDuplicate data for texture South\n");
 			return (-1);
+		}
 		cub->map->south = ft_strdup(str + i);
 		if (!cub->map->south)
 			return (-1);
@@ -66,7 +73,10 @@ int	direc2(int direc, char *str, t_cub *cub, int i)
 	if (direc == 3)
 	{
 		if (cub->map->west)
+		{
+			ft_printf(2, "Error\nDuplicate data for texture West\n");
 			return (-1);
+		}
 		cub->map->west = ft_strdup(str + i);
 		if (!cub->map->west)
 			return (-1);
@@ -74,8 +84,11 @@ int	direc2(int direc, char *str, t_cub *cub, int i)
 	if (direc == 4)
 	{
 		if (cub->map->east)
+		{
+			ft_printf(2, "Error\nDuplicate data for texture East\n");
 			return (-1);
-		cub->map->east = ft_strdup(str + i);
+		}
+		cub->map->east = ft_strtrim(str + i, " ");
 		if (!cub->map->east)
 			return (-1);
 	}

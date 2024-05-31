@@ -6,7 +6,7 @@
 /*   By: dvo <dvo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 13:41:39 by dvo               #+#    #+#             */
-/*   Updated: 2024/05/31 16:16:29 by cassie           ###   ########.fr       */
+/*   Updated: 2024/05/31 17:35:37 by dvo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,9 @@ int	loop_check(t_map *map, int y, int x, t_cub *cub)
 		cub->ray->pos.y = y + 0.5;
 		cub->init_view = map->map[y][x];
 		map->map[y][x] = '0';
+		if (check_wall_limit(map->map, y, x) == -1)
+			return (print_error_pos("Error\nmap is not limited by wall at",
+					-1, x, y));
 	}
 	else if (map->map[y][x] == '0')
 	{

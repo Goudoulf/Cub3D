@@ -13,6 +13,7 @@
 #include "cub3D.h"
 
 int	ft_isdigit_str(char *str);
+static void	check_comma_rgb(t_cub *cub, char *str);
 
 int	check_texture(t_map *map)
 {
@@ -29,6 +30,7 @@ int	check_valid_color(t_cub *cub, char *str)
 {
 	char	**check_rgb;
 
+	check_comma_rgb(cub, str);
 	check_rgb = ft_split(str, ',');
 	if (!check_rgb)
 		return (1);
@@ -56,9 +58,38 @@ int	ft_isdigit_str(char *str)
 	i = 0;
 	while (str[i])
 	{
-		if (!ft_isdigit(str[i]))
+		if (!ft_isdigit(str[i]) && str[i] != ' ')
 			return (1);
 		i++;
 	}
 	return (0);
+}
+
+static void	check_comma_rgb(t_cub *cub, char *str)
+{
+	int	i;
+	int	nbr;
+
+	i = 0;
+	nbr = 0;
+	while (str[i])
+	{
+		if (str[i] == ',')
+			nbr++;
+		i++;
+	}
+	if (nbr != 2)
+	{
+		ft_printf(2, "Error\nSyntax for RGB is incorrect for %s\n", str);
+		malloc_error(cub, true);
+	}
+}
+
+void	check_overflow_rgb(t_cub *cub, int first, int second, int third)
+{
+	if (first > 255 || second > 255 || third > 255)
+	{
+		ft_printf(2, "Error\nOverflow on color %i,%i,%i\n", first, second, third);
+		malloc_error(cub, true);
+	}
 }

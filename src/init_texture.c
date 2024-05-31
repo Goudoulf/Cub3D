@@ -6,7 +6,7 @@
 /*   By: dvo <dvo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 19:43:28 by cassie            #+#    #+#             */
-/*   Updated: 2024/05/31 16:46:01 by cassie           ###   ########.fr       */
+/*   Updated: 2024/05/31 16:57:59 by dvo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,10 @@ int	texture_mini(t_cub *cub, t_tex *tex, char *path)
 	tex->img_ptr
 		= mlx_xpm_file_to_image(cub->mlx, path, &tex->width, &tex->height);
 	if (!tex->img_ptr)
+	{
+		ft_printf(2, "Error\nPath not found on %s\n", path);
 		return (0);
+	}
 	if (resize_image(cub, tex, cub->mini_map.x_case, cub->mini_map.y_case)
 		== -1)
 		return (0);
