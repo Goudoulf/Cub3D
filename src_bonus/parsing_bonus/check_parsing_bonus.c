@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_parsing.c                                    :+:      :+:    :+:   */
+/*   check_parsing_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dvo <dvo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 13:41:39 by dvo               #+#    #+#             */
-/*   Updated: 2024/05/31 17:35:37 by dvo              ###   ########.fr       */
+/*   Updated: 2024/06/01 20:00:59 by dvo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,14 +37,13 @@ int	loop_check(t_map *map, int y, int x, t_cub *cub)
 			return (print_error_pos("Error\nmap is not limited by wall at",
 					-1, x, y));
 	}
-	else if (map->map[y][x] == '0')
+	else if (map->map[y][x] == '0' || map->map[y][x] == '3')
 	{
 		if (check_wall_limit(map->map, y, x) == -1)
 			return (print_error_pos("Error\nmap is not limited by wall at",
 					-1, x, y));
 	}
-	else if (map->map[y][x] != '1' && map->map[y][x] != '3'
-		&& map->map[y][x] != ' ')
+	else if (map->map[y][x] != '1' && map->map[y][x] != ' ')
 	{
 		ft_printf(2, "Error\n%c not define on [%i][%i]\n",
 			map->map[y][x], y, x);
