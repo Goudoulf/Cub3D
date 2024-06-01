@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   my_struct.h                                        :+:      :+:    :+:   */
+/*   my_struct_bonus.h                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cassie <cassie@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: dvo <dvo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 09:11:24 by cassie            #+#    #+#             */
-/*   Updated: 2024/05/31 16:42:00 by cassie           ###   ########.fr       */
+/*   Updated: 2024/06/01 20:24:01 by dvo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MY_STRUCT_H
-# define MY_STRUCT_H
+#ifndef MY_STRUCT_BONUS_H
+# define MY_STRUCT_BONUS_H
 
 typedef struct s_vec
 {

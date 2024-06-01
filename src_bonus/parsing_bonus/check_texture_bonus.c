@@ -10,7 +10,7 @@
 /*																			  */
 /* ************************************************************************** */
 
-#include "cub3D.h"
+#include "cub3D_bonus.h"
 
 int	ft_isdigit_str(char *str);
 static void	check_comma_rgb(t_cub *cub, char *str);

@@ -6,11 +6,11 @@
 /*   By: dvo <dvo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 13:41:39 by dvo               #+#    #+#             */
-/*   Updated: 2024/06/01 20:00:59 by dvo              ###   ########.fr       */
+/*   Updated: 2024/06/01 20:13:29 by dvo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3D.h"
+#include "cub3D_bonus.h"
 
 int	check_nbr_valid(t_map *map, t_cub *cub);
 int	check_wall_limit(char **str, int y, int x);

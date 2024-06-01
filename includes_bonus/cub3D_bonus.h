@@ -1,24 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub3D.h                                            :+:      :+:    :+:   */
+/*   cub3D_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dvo <dvo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 10:15:38 by cassie            #+#    #+#             */
-/*   Updated: 2024/05/31 18:03:17 by dvo              ###   ########.fr       */
+/*   Updated: 2024/06/01 20:24:18 by dvo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CUB3D_H
-# define CUB3D_H
+#ifndef CUB3D_BONUS_H
+# define CUB3D_BONUS_H
 
 # include "../lib/libft/includes/libft.h"
 # include "../lib/libft/includes/get_next_line.h"
 # include "../lib/ft_printf/includes/ft_printf.h"
 # include "../mlx_linux/mlx.h"
 # include "../mlx_linux/mlx_int.h"
-# include "my_struct.h"
+# include "my_struct_bonus.h"
 # include <math.h>
 # include <stdbool.h>
 # define WIDTH 1920
