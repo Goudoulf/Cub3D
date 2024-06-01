@@ -6,7 +6,7 @@
 /*   By: cassie <cassie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 13:41:39 by dvo               #+#    #+#             */
-/*   Updated: 2024/06/01 09:57:06 by cassie           ###   ########.fr       */
+/*   Updated: 2024/06/01 15:16:53 by cassie           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,7 @@ int	loop_check(t_map *map, int y, int x, t_cub *cub)
 			return (print_error_pos("Error\nmap is not limited by wall at",
 					-1, x, y));
 	}
-	else if (map->map[y][x] != '1' && map->map[y][x] != '3'
-		&& map->map[y][x] != ' ')
+	else if (map->map[y][x] != '1' && map->map[y][x] != ' ')
 	{
 		ft_printf(2, "Error\n%c not define on [%i][%i]\n",
 			map->map[y][x], y, x);

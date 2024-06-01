@@ -30,13 +30,6 @@ int	key_control(int keycode, t_cub *cub)
 		cub->cam->cam_l = true;
 	if (keycode == XK_Right)
 		cub->cam->cam_r = true;
-	if (keycode == XK_f && cub->door_m == true)
-	{
-		if (cub->map->final_map[cub->door_p.y][cub->door_p.x] == -2)
-			cub->map->final_map[cub->door_p.y][cub->door_p.x] = -1;
-		else if (cub->map->final_map[cub->door_p.y][cub->door_p.x] == -1)
-			cub->map->final_map[cub->door_p.y][cub->door_p.x] = -2;
-	}
 	return (0);
 }
 
@@ -54,15 +47,6 @@ int	key_release(int keycode, t_cub *cub)
 		cub->cam->cam_l = false;
 	if (keycode == XK_Right)
 		cub->cam->cam_r = false;
-	return (0);
-}
-
-int	mouse_turn(int x, int y, t_cub *cub)
-{
-	(void) y;
-	cub->cam->angle += (x - cub->cam->oldx) * 0.001;
-	cub->cam->no_change = (x != cub->cam->oldx);
-	cub->cam->oldx = x;
 	return (0);
 }
 

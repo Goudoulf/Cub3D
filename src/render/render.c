@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dvo <dvo@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: cassie <cassie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 12:54:23 by cassie            #+#    #+#             */
-/*   Updated: 2024/05/31 18:58:35 by dvo              ###   ########.fr       */
+/*   Updated: 2024/06/01 14:47:10 by cassie           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,10 +42,6 @@ int	render(t_cub *cub)
 	ft_bzero(cub->img.buffer, 1920 * 1080 * 4);
 	ft_set_floor_ceiling(cub);
 	raycast(cub);
-	ft_set_minimap(cub, (t_pos){0, 0}, (t_pos){(int) cub->ray->pos.x - 5,
-		(int)cub->ray->pos.y - 5});
 	mlx_put_image_to_window(cub->mlx, cub->win, cub->img.img_ptr, 0, 0);
-	mlx_put_image_to_window(cub->mlx, cub->win, cub->mini_map.img.img_ptr,
-		(cub->win_x / 8) * 7, 0);
 	return (0);
 }

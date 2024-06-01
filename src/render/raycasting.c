@@ -6,7 +6,7 @@
 /*   By: cassie <cassie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 16:13:02 by cassie            #+#    #+#             */
-/*   Updated: 2024/05/31 16:36:02 by cassie           ###   ########.fr       */
+/*   Updated: 2024/06/01 14:57:24 by cassie           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,15 +26,13 @@ void	ray_draw(t_cub *cub, t_raycast *ray, int x, int h)
 	ray->wall_pos = (!ray->side) * (ray->pos.y + ray->pvector * ray->vector.y)
 		+ (ray->side) * (ray->pos.x + ray->pvector * ray->vector.x);
 	ray->wall_pos -= floorf(ray->wall_pos);
-	ray->tex_pos.x = (int)(ray->wall_pos * 64);
-	if ((!ray->side && ray->vector.x > 0) || (ray->side && ray->vector.y < 0))
-		ray->tex_pos.x = ray->tex_pos.x & (64 - 1);
 	tex = cub->texture.tab[ray->side][(ray->vector.x > 0)][(ray->vector.y > 0)];
-	if (cub->map->final_map[cub->ray->map.y][cub->ray->map.x] == -1)
-		tex = &cub->texture.door;
+	ray->tex_pos.x = (int)(ray->wall_pos * tex->width);
+	if ((!ray->side && ray->vector.x > 0) || (ray->side && ray->vector.y < 0))
+		ray->tex_pos.x = ray->tex_pos.x & (tex->width - 1);
 	while (ray->start < ray->end)
 	{
-		ray->tex_pos.y = (ray->start * 2 - h + ray->line) * (64 >> 1)
+		ray->tex_pos.y = (ray->start * 2 - h + ray->line) * (tex->height >> 1)
 			/ ray->line;
 		((unsigned int *)(cub->img.buffer))[x + ray->start * 1920]
 			= tex_color(tex, ray->tex_pos.y, ray->tex_pos.x);
@@ -59,8 +57,6 @@ void	ray_w_hit(t_cub *cub, t_raycast *ray)
 			ray->side = 1;
 		}
 		if (cub->map->final_map[cub->ray->map.y][cub->ray->map.x] == 1)
-			cub->ray->w_hit = 1;
-		if (cub->map->final_map[cub->ray->map.y][cub->ray->map.x] == -1)
 			cub->ray->w_hit = 1;
 	}
 	ray->pvector = (ray->side == 0) * (ray->next.x - ray->delta.x)

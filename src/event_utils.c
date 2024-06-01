@@ -6,7 +6,7 @@
 /*   By: cassie <cassie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 13:43:23 by dvo               #+#    #+#             */
-/*   Updated: 2024/05/31 16:39:12 by cassie           ###   ########.fr       */
+/*   Updated: 2024/06/01 14:45:26 by cassie           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,30 +33,6 @@ void	update_cam(t_cub *cub, t_raycast *ray, t_map *map)
 	cub->cam->move.y = 0;
 }
 
-void	set_door(t_cub *cub, bool door, int x, int y)
-{
-	cub->door_m = door;
-	cub->door_p.y = y;
-	cub->door_p.x = x;
-}
-
-void	check_door(t_cub *cub, t_raycast *ray, t_map *map)
-{
-	if (map->final_map[(int)(ray->pos.y + 1)][(int)(ray->pos.x)] == -1
-		|| map->final_map[(int)(ray->pos.y + 1)][(int)(ray->pos.x)] == -2)
-		return (set_door(cub, true, ray->pos.x, ray->pos.y + 1));
-	if (map->final_map[(int)(ray->pos.y - 1)][(int)(ray->pos.x)] == -1
-		|| map->final_map[(int)(ray->pos.y - 1)][(int)(ray->pos.x)] == -2)
-		return (set_door(cub, true, ray->pos.x, ray->pos.y - 1));
-	if (map->final_map[(int)(ray->pos.y)][(int)(ray->pos.x) - 1] == -1
-		|| map->final_map[(int)(ray->pos.y)][(int)(ray->pos.x) - 1] == -2)
-		return (set_door(cub, true, ray->pos.x - 1, ray->pos.y));
-	if (map->final_map[(int)(ray->pos.y)][(int)(ray->pos.x) + 1] == -1
-		|| map->final_map[(int)(ray->pos.y)][(int)(ray->pos.x) + 1] == -2)
-		return (set_door(cub, true, ray->pos.x + 1, ray->pos.y));
-	set_door(cub, false, 0, 0);
-}
-
 void	key_move(t_camera *cam)
 {
 	if (cam->move_f == true)
@@ -80,11 +56,9 @@ int	event_loop(t_cub *cub)
 	mlx_mouse_hide(cub->mlx, cub->win);
 	if (cub->cam->no_change == true)
 		return (0);
-	cub->cam->oldx = 1920 / 2;
 	if (cub->focus == true)
 		mlx_mouse_move(cub->mlx, cub->win, 1920 / 2, 1080 / 2);
 	update_cam(cub, cub->ray, cub->map);
-	check_door(cub, cub->ray, cub->map);
 	render(cub);
 	cub->cam->no_change = true;
 	return (0);

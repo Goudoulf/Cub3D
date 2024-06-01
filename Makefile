@@ -17,10 +17,9 @@ SRCS_FILE = main.c init.c event.c ./parsing/init_parsing.c \
 			./parsing/ft_read_file.c \
 			./parsing/check_parsing.c ft_free.c ./parsing/convert_char_to_int.c \
 			./render/raycasting.c ./render/render.c event_utils.c ./parsing/parsing_texture.c \
-			./minimap/minimap.c parsing/check_texture.c \
+			parsing/check_texture.c \
 			init_texture.c init_texture_utils.c close_window.c ./render/tex_color.c \
-			print_error.c ./minimap/init_text.c ./minimap/resize_image.c \
-			list_free.c
+			print_error.c
 
 SRCS_FILE_BONUS = main_bonus.c init_bonus.c event_bonus.c ./parsing_bonus/init_parsing_bonus.c \
 			./parsing_bonus/ft_read_file_bonus.c \

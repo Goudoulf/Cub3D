@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dvo <dvo@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: cassie <cassie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 10:15:38 by cassie            #+#    #+#             */
-/*   Updated: 2024/05/31 18:03:17 by dvo              ###   ########.fr       */
+/*   Updated: 2024/06/01 14:50:22 by cassie           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,6 @@ typedef struct s_camera
 	float	fov_rad;
 	t_vec	move;
 	bool	no_change;
-	int		oldx;
 	bool	move_f;
 	bool	move_b;
 	bool	move_l;
@@ -86,23 +85,7 @@ typedef struct s_texture
 	t_tex	south;
 	t_tex	east;
 	t_tex	west;
-	t_tex	door;
-	t_list	*hero;
-	t_tex	left1;
-	t_tex	left2;
-	t_tex	left3;
-	t_tex	wall;
-	t_tex	floor;
-	t_list	*move;
 }			t_texture;
-
-typedef struct s_ray_en
-{
-	int		drawstart;
-	int		drawend;
-	int		side;
-	float	pvector;
-}			t_ray_en;
 
 typedef struct s_raycast
 {
@@ -131,16 +114,6 @@ typedef struct s_list
 	t_list			*next;
 }				t_list;
 
-typedef struct s_mini_map
-{
-	t_tex		img;
-	t_image		img_pos;
-	t_pos		last_pos;
-	int			last_color;
-	int			x_case;
-	int			y_case;
-}				t_mini_map;
-
 typedef struct s_cub
 {
 	void		*mlx;
@@ -149,13 +122,10 @@ typedef struct s_cub
 	t_image		img;
 	t_raycast	*ray;
 	t_camera	*cam;
-	t_mini_map	mini_map;
 	t_texture	texture;
 	int			win_y;
 	int			win_x;
 	char		init_view;
-	bool		door_m;
-	t_pos		door_p;
 	bool		focus;
 }				t_cub;
 
