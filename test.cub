@@ -2,8 +2,8 @@ NO ./textures/cata_north.xpm
 SO ./textures/cata_south.xpm
 WE ./textures/cata_west.xpm
 EA           ./textures/cata_east.xpm             
-F 105     ,66,52        
-C  105,105,105  
+F 61     ,45,40        
+C  67,67,67 
 
 1111111111111111111111111
 1000000000030030000000001
