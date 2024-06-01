@@ -1,12 +1,12 @@
-NO ./textures/wood.xpm
-SO ./textures/mossy.xpm
-WE ./textures/test/Texture_512x512_1.xpm
-EA           ./textures/greystone.xpm             
-F 105     ,105,105           
-C 4,      12,254  
+NO ./textures/cata_north.xpm
+SO ./textures/cata_south.xpm
+WE ./textures/cata_west.xpm
+EA           ./textures/cata_east.xpm             
+F 105     ,66,52        
+C  105,105,105  
 
-1131111111111111111111111
-1000000000000000000000001
+1111111111111111111111111
+1000000000030030000000001
 1111111000011110000000001
 100000000001  1000S000001
 1000000000011110000000001

@@ -56,6 +56,7 @@ LIBFT = ./lib/libft/libft.a
 CC = cc
 MD := mkdir -p
 CFLAGS = -Wall -Wextra -Werror -I/usr/include -Imlx_linux -I${INC}
+CFLAGS_BONUS = -Wall -Wextra -Werror -I/usr/include -Imlx_linux -I${INC_BONUS}
 NFLAGS = -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz
 
 RM = rm -rf
@@ -83,7 +84,7 @@ ${NAME_BONUS}: ${OBJS_BONUS} ${FT_PRINTF} ${LIBFT} ${MLX}
 
 ${DIR_OBJ_BONUS}%.o: %.c ${INC_BONUS} Makefile
 	mkdir -p $(shell dirname $@)
-	$(CC) ${CFLAGS} -c $< -o $@
+	$(CC) ${CFLAGS_BONUS} -c $< -o $@
 
 clean:
 	${MAKE} -C ./lib/ft_printf clean
