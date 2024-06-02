@@ -6,13 +6,13 @@
 /*   By: dvo <dvo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 13:29:37 by dvo               #+#    #+#             */
-/*   Updated: 2024/05/31 18:08:12 by dvo              ###   ########.fr       */
+/*   Updated: 2024/06/02 19:30:25 by dvo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
-int	check_start_map(char *str)
+int	check_start_map(char *str, t_cub *cub, int status)
 {
 	int	i;
 
@@ -21,8 +21,17 @@ int	check_start_map(char *str)
 		return (0);
 	while (str[i] == ' ' || str[i] == '\t')
 		i++;
-	if (str[i] != '1' && str[i] != '0')
+	if (str[i] != '0' && str[i] != '1' && status == 0)
 		return (1);
+	if (status == 0)
+		return (0);
+	if (str[i] == '\n' || str[i] == '\0')
+		return (1);
+	if (str[i] != '0' && str[i] != '1')
+	{
+		ft_printf(2, "Error\nProblem under the map\n");
+		malloc_error(cub, true);
+	}
 	return (0);
 }
 
@@ -34,7 +43,7 @@ int	create_new_map(char **str, int i, t_map *map, t_cub *cub)
 	while (str[max])
 		max++;
 	max--;
-	while ((check_start_map(str[max]) == 1) && max > i)
+	while ((check_start_map(str[max], cub, 1) == 1) && max > i)
 		max --;
 	if (max == i)
 	{
@@ -80,7 +89,7 @@ int	attribute_text_wall(t_map *map, t_cub *cub)
 	i = 0;
 	map->ceiling = -1;
 	map->floor = -1;
-	while (check_start_map(map->buffer[i]) == 1)
+	while (check_start_map(map->buffer[i], cub, 0) == 1)
 	{
 		if (check_content(cub, map, i) == -1)
 			malloc_error(cub, true);

@@ -12,7 +12,7 @@
 
 #include "cub3D_bonus.h"
 
-int	ft_isdigit_str(char *str);
+int			ft_isdigit_str(char *str);
 static void	check_comma_rgb(t_cub *cub, char *str);
 
 int	check_texture(t_map *map)
@@ -89,7 +89,8 @@ void	check_overflow_rgb(t_cub *cub, int first, int second, int third)
 {
 	if (first > 255 || second > 255 || third > 255)
 	{
-		ft_printf(2, "Error\nOverflow on color %i,%i,%i\n", first, second, third);
+		ft_printf(2, "Error\nOverflow on color %i,%i,%i\n", \
+		first, second, third);
 		malloc_error(cub, true);
 	}
 }
