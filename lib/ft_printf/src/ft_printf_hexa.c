@@ -6,7 +6,7 @@
 /*   By: cassie <cassie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/25 11:35:45 by cassie            #+#    #+#             */
-/*   Updated: 2024/03/09 14:57:33 by cassie           ###   ########.fr       */
+/*   Updated: 2024/06/03 06:58:32 by cassie           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static char	ft_dec_to_hex_upper(unsigned int nb)
 {
-	char	str[17];
+	char	str[18];
 
 	str[0] = '0';
 	str[1] = '1';
@@ -38,7 +38,7 @@ static char	ft_dec_to_hex_upper(unsigned int nb)
 
 static char	ft_dec_to_hex_lower(unsigned int nb)
 {
-	char	str[16];
+	char	str[18];
 
 	str[0] = '0';
 	str[1] = '1';

@@ -6,7 +6,7 @@
 /*   By: cassie <cassie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 16:13:02 by cassie            #+#    #+#             */
-/*   Updated: 2024/06/01 14:57:24 by cassie           ###   ########.fr       */
+/*   Updated: 2024/06/03 07:08:30 by cassie           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,12 @@ void	ray_draw(t_cub *cub, t_raycast *ray, int x, int h)
 		+ (ray->side) * (ray->pos.x + ray->pvector * ray->vector.x);
 	ray->wall_pos -= floorf(ray->wall_pos);
 	tex = cub->texture.tab[ray->side][(ray->vector.x > 0)][(ray->vector.y > 0)];
-	ray->tex_pos.x = (int)(ray->wall_pos * tex->width);
+	ray->tex_pos.x = (int)(ray->wall_pos * 64);
 	if ((!ray->side && ray->vector.x > 0) || (ray->side && ray->vector.y < 0))
-		ray->tex_pos.x = ray->tex_pos.x & (tex->width - 1);
+		ray->tex_pos.x = ray->tex_pos.x & (64 - 1);
 	while (ray->start < ray->end)
 	{
-		ray->tex_pos.y = (ray->start * 2 - h + ray->line) * (tex->height >> 1)
+		ray->tex_pos.y = (ray->start * 2 - h + ray->line) * (64 >> 1)
 			/ ray->line;
 		((unsigned int *)(cub->img.buffer))[x + ray->start * 1920]
 			= tex_color(tex, ray->tex_pos.y, ray->tex_pos.x);

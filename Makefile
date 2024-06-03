@@ -34,6 +34,12 @@ SRCS_FILE_BONUS = main_bonus.c init_bonus.c event_bonus.c ./parsing_bonus/init_p
 INC = includes
 INC_BONUS = includes_bonus
 
+INC_FILES = includes/cub3D.h \
+			includes/my_struct.h
+INC_BONUS_FILES = includes_bonus/cub3D_bonus.h \
+					includes_bonus/my_struct_bonus.h
+
+
 FT_PRINTF_DIR = ./lib/ft_printf/
 LIBFT_DIR = ./lib/libft/
 MLX_DIR = ./mlx_linux
@@ -75,14 +81,14 @@ libft: ${LIBFT_DIR}
 ft_printf: ${FT_PRINTF_DIR}
 	${MAKE} -C ./lib/ft_printf all
 
-${DIR_OBJ}%.o: %.c ${INC} Makefile
+${DIR_OBJ}%.o: %.c ${INC_FILES} Makefile
 	mkdir -p $(shell dirname $@)
 	$(CC) ${CFLAGS} -c $< -o $@
 
 ${NAME_BONUS}: ${OBJS_BONUS} ${FT_PRINTF} ${LIBFT} ${MLX}
 	${CC} ${OBJS_BONUS} ${NFLAGS} ${FT_PRINTF} ${LIBFT} -o $(NAME_BONUS)
 
-${DIR_OBJ_BONUS}%.o: %.c ${INC_BONUS} Makefile
+${DIR_OBJ_BONUS}%.o: %.c ${INC_BONUS_FILES} Makefile
 	mkdir -p $(shell dirname $@)
 	$(CC) ${CFLAGS_BONUS} -c $< -o $@
 

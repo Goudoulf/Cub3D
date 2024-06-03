@@ -6,7 +6,7 @@
 /*   By: cassie <cassie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 13:43:23 by dvo               #+#    #+#             */
-/*   Updated: 2024/06/01 14:45:26 by cassie           ###   ########.fr       */
+/*   Updated: 2024/06/03 07:03:35 by cassie           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,9 @@ void	key_move(t_camera *cam)
 	if (cam->move_r == true)
 		cam->move.y += 0.05;
 	if (cam->cam_l == true)
-		cam->angle -= 0.02;
+		cam->angle -= 0.04;
 	if (cam->cam_r == true)
-		cam->angle += 0.02;
+		cam->angle += 0.04;
 	cam->no_change = false;
 }
 
