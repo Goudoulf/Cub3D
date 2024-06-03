@@ -6,7 +6,7 @@
 /*   By: dvo <dvo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 13:15:53 by cassie            #+#    #+#             */
-/*   Updated: 2024/06/01 20:14:25 by dvo              ###   ########.fr       */
+/*   Updated: 2024/06/03 12:46:29 by cassie           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 void	init_texture_lookup(t_cub *cub)
 {
-	cub->texture.tab[0][0][0] = &cub->texture.west;
-	cub->texture.tab[0][1][0] = &cub->texture.east;
+	cub->texture.tab[0][0][0] = &cub->texture.east;
+	cub->texture.tab[0][1][0] = &cub->texture.west;
 	cub->texture.tab[1][0][0] = &cub->texture.south;
 	cub->texture.tab[1][0][1] = &cub->texture.north;
 	cub->texture.tab[0][0][1] = cub->texture.tab[0][0][0];
@@ -33,6 +33,8 @@ int	texture_init_mlx(t_cub *cub, t_tex *tex, char *path)
 		ft_printf(2, "Error\nPath not found on %s\n", path);
 		return (0);
 	}
+	if (resize_image(cub, tex, 64, 64) == -1)
+		return (0);
 	tex->buffer = mlx_get_data_addr(tex->img_ptr, &tex->bpp, &tex->line_len,
 			&tex->endian);
 	return (1);

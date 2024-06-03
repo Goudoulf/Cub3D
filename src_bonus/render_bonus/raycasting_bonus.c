@@ -6,7 +6,7 @@
 /*   By: dvo <dvo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 16:13:02 by cassie            #+#    #+#             */
-/*   Updated: 2024/06/01 20:14:03 by dvo              ###   ########.fr       */
+/*   Updated: 2024/06/03 13:28:51 by cassie           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@ void	ray_draw(t_cub *cub, t_raycast *ray, int x, int h)
 		+ (ray->side) * (ray->pos.x + ray->pvector * ray->vector.x);
 	ray->wall_pos -= floorf(ray->wall_pos);
 	ray->tex_pos.x = (int)(ray->wall_pos * 64);
-	if ((!ray->side && ray->vector.x > 0) || (ray->side && ray->vector.y < 0))
-		ray->tex_pos.x = ray->tex_pos.x & (64 - 1);
+	if ((!ray->side && ray->vector.x < 0) || (ray->side && ray->vector.y > 0))
+		ray->tex_pos.x = 64 - ray->tex_pos.x - 1;
 	tex = cub->texture.tab[ray->side][(ray->vector.x > 0)][(ray->vector.y > 0)];
 	if (cub->map->final_map[cub->ray->map.y][cub->ray->map.x] == -1)
 		tex = &cub->texture.door;

@@ -6,7 +6,7 @@
 /*   By: dvo <dvo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 11:12:06 by cassie            #+#    #+#             */
-/*   Updated: 2024/06/01 20:14:21 by dvo              ###   ########.fr       */
+/*   Updated: 2024/06/03 13:05:19 by cassie           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ float	set_angle(t_cub *cub)
 	if (cub->init_view == 'S')
 		ret = M_PI / 2;
 	if (cub->init_view == 'E')
-		ret = M_PI;
+		ret = 0;
 	if (cub->init_view == 'W')
 		ret = -M_PI;
 	return (ret);

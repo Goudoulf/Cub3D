@@ -6,7 +6,7 @@
 /*   By: cassie <cassie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 13:43:23 by dvo               #+#    #+#             */
-/*   Updated: 2024/06/03 07:03:35 by cassie           ###   ########.fr       */
+/*   Updated: 2024/06/03 11:53:59 by cassie           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,11 +53,8 @@ void	key_move(t_camera *cam)
 int	event_loop(t_cub *cub)
 {
 	key_move(cub->cam);
-	mlx_mouse_hide(cub->mlx, cub->win);
 	if (cub->cam->no_change == true)
 		return (0);
-	if (cub->focus == true)
-		mlx_mouse_move(cub->mlx, cub->win, 1920 / 2, 1080 / 2);
 	update_cam(cub, cub->ray, cub->map);
 	render(cub);
 	cub->cam->no_change = true;

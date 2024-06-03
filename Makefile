@@ -19,7 +19,7 @@ SRCS_FILE = main.c init.c event.c ./parsing/init_parsing.c \
 			./render/raycasting.c ./render/render.c event_utils.c ./parsing/parsing_texture.c \
 			parsing/check_texture.c \
 			init_texture.c init_texture_utils.c close_window.c ./render/tex_color.c \
-			print_error.c
+			print_error.c resize_image.c
 
 SRCS_FILE_BONUS = main_bonus.c init_bonus.c event_bonus.c ./parsing_bonus/init_parsing_bonus.c \
 			./parsing_bonus/ft_read_file_bonus.c \

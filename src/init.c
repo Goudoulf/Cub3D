@@ -6,7 +6,7 @@
 /*   By: cassie <cassie@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 11:12:06 by cassie            #+#    #+#             */
-/*   Updated: 2024/06/01 14:50:43 by cassie           ###   ########.fr       */
+/*   Updated: 2024/06/03 11:54:11 by cassie           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,6 @@ static void	event_init(t_cub *cub)
 	mlx_hook(cub->win, KeyPress, KeyPressMask, key_control, cub);
 	mlx_hook(cub->win, KeyRelease, KeyReleaseMask, key_release, cub);
 	mlx_hook(cub->win, DestroyNotify, StructureNotifyMask, close_window, cub);
-	mlx_hook(cub->win, FocusIn, FocusChangeMask, focus_in, cub);
-	mlx_hook(cub->win, FocusOut, FocusChangeMask, focus_out, cub);
 	mlx_loop_hook(cub->mlx, event_loop, cub);
 }
 
@@ -54,7 +52,7 @@ float	set_angle(t_cub *cub)
 	if (cub->init_view == 'S')
 		ret = M_PI / 2;
 	if (cub->init_view == 'E')
-		ret = M_PI;
+		ret = 0;
 	if (cub->init_view == 'W')
 		ret = -M_PI;
 	return (ret);

@@ -6,7 +6,7 @@
 /*   By: dvo <dvo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 19:03:05 by dvo               #+#    #+#             */
-/*   Updated: 2024/06/01 20:13:44 by dvo              ###   ########.fr       */
+/*   Updated: 2024/06/03 12:58:35 by cassie           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,12 @@ static void	ft_transform_nl_to_end(char *str)
 	}
 }
 
+int	print_error_fd(char * err, int ret)
+{
+	ft_printf(2, err);
+	return (ret);
+}
+
 int	ft_read(t_cub *cub, char *av, int i)
 {
 	int	fd;
@@ -61,10 +67,7 @@ int	ft_read(t_cub *cub, char *av, int i)
 		return (-1);
 	fd = open(av, O_RDONLY);
 	if (fd == -1)
-	{
-		ft_printf(2, "Error\nFile not valid\n");
-		return (-1);
-	}
+		return (print_error_fd("Error\nFile not valid\n", -1));
 	cub->map->buffer = ft_calloc(2001, sizeof(char *));
 	if (!cub->map->buffer)
 		malloc_error(cub, true);
@@ -76,6 +79,7 @@ int	ft_read(t_cub *cub, char *av, int i)
 		ft_transform_nl_to_end(cub->map->buffer[i]);
 		i++;
 	}
+	close(fd);
 	if (i == 2000)
 		return (-1);
 	return (0);
