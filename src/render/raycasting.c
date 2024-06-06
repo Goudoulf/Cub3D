@@ -32,7 +32,7 @@ void	ray_draw(t_cub *cub, t_raycast *ray, int x, int h)
 		ray->tex_pos.x = 64 - ray->tex_pos.x - 1;
 	while (ray->start < ray->end)
 	{
-		ray->tex_pos.y = (ray->start * 2 - h + ray->line) * (64 >> 1) 
+		ray->tex_pos.y = (ray->start * 2 - h + ray->line) * (64 >> 1)
 			/ ray->line;
 		((unsigned int *)(cub->img.buffer))[x + ray->start * 1920]
 			= tex_color(tex, ray->tex_pos.y, ray->tex_pos.x);

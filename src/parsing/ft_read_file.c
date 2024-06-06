@@ -17,7 +17,7 @@ static int	ft_check_file_name(char *av, char *str)
 	int		i;
 	int		j;
 
-	i = strlen(av) - 1;
+	i = ft_strlen(av) - 1;
 	j = 3;
 	if (i < 4)
 	{
@@ -53,7 +53,7 @@ static void	ft_transform_nl_to_end(char *str)
 	}
 }
 
-int	print_error_fd(char * err, int ret)
+int	print_error_fd(char *err, int ret)
 {
 	ft_printf(2, err);
 	return (ret);
@@ -67,10 +67,10 @@ int	ft_read(t_cub *cub, char *av, int i)
 		return (-1);
 	fd = open(av, O_RDONLY);
 	if (fd == -1)
-		return(print_error_fd("Error\nFile not valid\n", -1));
+		return (print_error_fd("Error\nFile not valid\n", -1));
 	cub->map->buffer = ft_calloc(2001, sizeof(char *));
 	if (!cub->map->buffer)
-		malloc_error(cub, true);
+		return (close(fd), -1);
 	while (1)
 	{
 		cub->map->buffer[i] = get_next_line(fd);
